@@ -5,7 +5,7 @@ module.exports = {
 	},
 	"extends": [
 		"eslint:recommended",
-		"plugin:vue/vue3-strongly-recommended",
+		"plugin:vue/vue3-essential",
 	],
 	"parserOptions": {
 		"ecmaVersion": 12,
@@ -23,6 +23,14 @@ module.exports = {
 			"error",
 			"tab"
 		],
+		"vue/max-attributes-per-line": [
+			"off",
+		],
+		"vue/html-self-closing": [
+			"off",
+		],
+
+
 		"quotes": [
 			"error",
 			"double"
