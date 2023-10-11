@@ -17,5 +17,5 @@ use Inertia\Inertia;
 //Route::resource('/', [UserController::class, 'show']);
 
 Route::get('/', function () {
-    return Inertia::render('Main');
+    return Inertia::render('LoginPage');
 });

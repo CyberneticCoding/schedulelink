@@ -1,24 +1,17 @@
 <template>
-  <header>
-    <slot name="header">
-
-    </slot>
-  </header>
-  <main>
-    <slot name="main">
-
-    </slot>
-  </main>
-  <footer>
-    <slot name="footer">
-
-    </slot>
-  </footer>
-
+	<header>
+		<slot name="header"/>
+	</header>
+	<main>
+		<slot name="main"/>
+	</main>
+	<footer>
+		<slot name="footer"/>
+	</footer>
 </template>
 
 <script>
 export default {
-  name: "MainLayout"
+	name: "MainLayout"
 }
 </script>

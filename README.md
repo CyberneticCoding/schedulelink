@@ -5,7 +5,7 @@
 ScheduleLink is application that allows for calendar/scheduling functionality. It that allows users within a team or company to quickly find the available time of selected users and plan a meeting in record time.
 
 # Tech Stack
-This application uses Laravel, vue3, inertiajs and tailwindCSS. Together with fontawesome and postgreSQL
+This application uses Laravel, vue3, inertiajs and tailwindCSS. Together with fontawesome, ESLint and postgreSQL
 
 
 # Installation
