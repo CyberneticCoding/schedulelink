@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,7 +16,9 @@ use Inertia\Inertia;
 */
 
 //Route::resource('/', [UserController::class, 'show']);
+//Route::get('/', [LoginController::class, 'authenticate']);
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::get('/', function () {
-    return Inertia::render('LoginPage');
+    return Inertia::render('MainCalendar');
 });
