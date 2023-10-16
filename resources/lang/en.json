@@ -1,3 +1,24 @@
 {
-  "test": "Hello World!"
+  "layout": {
+	"close_sidebar": "Close sidebar",
+	"open_user_menu": "Open user menu",
+	"search": "Search",
+	"view_notifications": "View notifications",
+	"nav": {
+		"main_calendar": "Calendar",
+		"combined_calendar": "Combined Calendar",
+		"meetings": "Meetings",
+		"teams": "Teams",
+		"settings": "Settings",
+	  	"logout": "Log out"
+	}
+  },
+  "login": {
+	"log_in": "Log in to your account",
+	"email": "Email Adres",
+	"password": "Password",
+	"remember_me": "Remember me",
+	"forgot_password": "Forgot password?",
+	"sign_in": "Sign in"
+  }
 }

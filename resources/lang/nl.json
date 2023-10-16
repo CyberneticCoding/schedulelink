@@ -1,3 +1,15 @@
 {
-  "test": "Hall Wereld"
+  "layout": {
+	"close_sidebar": "Zijbalk sluiten",
+	"open_user_menu": "Gebruiker menu openen",
+	"search": "Zoeken",
+	"view_notifications": "Bekijk notificaties",
+	"nav": {
+	  "main_calendar": "Kalender",
+	  "combined_calendar": "Gecombineerde Kalender",
+	  "meetings": "Afspraken",
+	  "teams": "Groepen",
+	  "settings": "Instellingen"
+	}
+  }
 }

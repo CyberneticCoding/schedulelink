@@ -16,20 +16,29 @@ use Inertia\Inertia;
 */
 
 //Route::resource('/', [UserController::class, 'show']);
-//Route::get('/', [LoginController::class, 'authenticate']);
+
+Route::redirect('/', '/calendar');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/login', [LoginController::class, 'authenticate']);
 
-Route::get('/combined-calendar', function () {
+
+Route::group(['middleware' => ['auth']], function () {
+	Route::get('/calendar', function () {
+		return Inertia::render('MainCalendarPage');
+	})->name('calendar');
+	Route::get('/combined-calendar', function () {
 		return Inertia::render('CombinedCalendarPage');
 	});
-Route::get('/meetings', function () {
-	return Inertia::render('MeetingsPage');
-});
-Route::get('/teams', function () {
-	return Inertia::render('TeamsPage');
-});
+	Route::get('/meetings', function () {
+		return Inertia::render('MeetingsPage');
+	});
+	Route::get('/teams', function () {
+		return Inertia::render('TeamsPage');
+	});
 
 
-Route::get('/', function () {
-    return Inertia::render('MainCalendarPage');
+	//Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+	//Route::get('/logout', [LoginController::class, 'logout']);
 });
