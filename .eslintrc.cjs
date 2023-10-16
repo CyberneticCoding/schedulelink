@@ -29,7 +29,9 @@ module.exports = {
 		"vue/html-self-closing": [
 			"off",
 		],
-
+		"vue/no-reserved-component-names": [
+			"off"
+		],
 
 		"quotes": [
 			"error",

@@ -19,6 +19,17 @@ use Inertia\Inertia;
 //Route::get('/', [LoginController::class, 'authenticate']);
 Route::post('/login', [LoginController::class, 'authenticate']);
 
+Route::get('/combined-calendar', function () {
+		return Inertia::render('CombinedCalendarPage');
+	});
+Route::get('/meetings', function () {
+	return Inertia::render('MeetingsPage');
+});
+Route::get('/teams', function () {
+	return Inertia::render('TeamsPage');
+});
+
+
 Route::get('/', function () {
-    return Inertia::render('MainCalendar');
+    return Inertia::render('MainCalendarPage');
 });

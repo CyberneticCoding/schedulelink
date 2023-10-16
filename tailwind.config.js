@@ -11,7 +11,7 @@ export default {
 				"primary": "#4B5CF7",
 				"secondary": "#08048C",
 				"tint": "#F5F7FA",
-				"shadow": "#08048C",
+				"shadow": "#E8EAF6",
 				"attention": "#08048C",
 			},
 			fontFamily: {
