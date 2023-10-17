@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,7 +23,8 @@ Route::redirect('/', '/calendar');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/login', [LoginController::class, 'authenticate']);
-
+Route::get('/register',[RegistrationController::class, 'index'])->name('register');
+//Route::post('/login', [RegistrationController::class, 'register']);
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/calendar', function () {

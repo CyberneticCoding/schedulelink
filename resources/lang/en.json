@@ -19,6 +19,7 @@
 	"password": "Password",
 	"remember_me": "Remember me",
 	"forgot_password": "Forgot password?",
-	"sign_in": "Sign in"
+	"sign_in": "Sign in",
+    "registration": "Register new account"
   }
 }
