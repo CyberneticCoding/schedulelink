@@ -20,15 +20,14 @@ npm install
 composer install  
 
 **Setup .env**   
-Copy the .env.example and rename it .env  
+Copy the .env.example and rename it .env
 Setup your PostgreSQL database and change the .env information.   
 
 **Run the application**  
+php artisan key:generate  
+Open 2 terminals and run these commands in each another terminal. Keep them running.  
 php artisan serve  
 npm run dev  
-
-
-
 
 
 # Definition of Done 
