@@ -32,7 +32,7 @@
 							<div>
 								<label for="password2" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.password2') }}</label>
 								<div class="mt-2">
-									<input v-model="form.password" id="password2" name="password2" type="password" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+									<input v-model="form.password2" id="password2" name="password2" type="password" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 									<div v-if="form.errors.password">{{ form.errors.email }}</div>
 									<p v-if="error" class="mt-2 text-sm text-red-600" id="email-error">{{ error }}</p>
 								</div>
@@ -71,14 +71,14 @@ export default {
 			form: useForm({
 				email: null,
 				password: null,
-				remember: false,
+				password2: null,
 			})
 		}
 	},
 	methods: {
 		submit() {
 			const form = this.form
-			this.$inertia.post("/login", form)
+			this.$inertia.post("/register", form)
 		}
 	},
 

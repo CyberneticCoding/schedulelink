@@ -24,7 +24,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/register',[RegistrationController::class, 'index'])->name('register');
-//Route::post('/login', [RegistrationController::class, 'register']);
+Route::post('/register', [RegistrationController::class, 'register']);
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/calendar', function () {
