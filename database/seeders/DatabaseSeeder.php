@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
          \App\Models\User::factory()->create([
              'first_name' => 'Admin',
              'last_name' => 'ScheduleLink',
-             'email' => 'admin@schedulelink.com',
+             'email' => 'admin2@schedulelink.com',
              'password' => 'test',
          ]);
     }

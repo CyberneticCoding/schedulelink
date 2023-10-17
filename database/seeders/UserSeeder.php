@@ -12,6 +12,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+		\App\Models\User::factory()->create([
+			'first_name' => 'Admin',
+			'last_name' => 'ScheduleLink',
+			'email' => 'admin2@schedulelink.com',
+			'password' => 'test',
+		]);
     }
 }

@@ -30,7 +30,8 @@
 								<label for="password" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('login.password') }}</label>
 								<div class="mt-2">
 									<input v-model="form.password" id="password" name="password" type="password" autocomplete="current-password" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-									<div v-if="form.errors.password">{{ form.errors.password }}</div>
+									<div v-if="form.errors.password">{{ form.errors.email }}</div>
+									<p v-if="error" class="mt-2 text-sm text-red-600" id="email-error">{{ error }}</p>
 								</div>
 							</div>
 
@@ -46,7 +47,7 @@
 							</div>
 
 							<div>
-								<button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $t('login.sign_in') }}</button>
+								<button type="submit" :disabled="form.processing" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $t('login.sign_in') }}</button>
 							</div>
 						</form>
 					</div>
@@ -66,8 +67,8 @@ import {useForm} from "@inertiajs/inertia-vue3";
 
 export default {
 	name: "LoginPage",
-	mounted() {
-
+	props: {
+		errors: Object,
 	},
 	setup() {
 		return {
@@ -85,7 +86,20 @@ export default {
 		}
 	},
 	computed: {
-
+//		error() {
+//			console.log(this.form)
+//			if (this.form) {
+//				if (this.form.errors.email) {
+//					return this.form.errors.email;
+//				}
+//				return null
+//			}
+//			console.log(this.$page.props.errors)
+//			if (this.$page.props.errors.email) {
+//				return this.$page.props.errors.email
+//			}
+//			return null
+//		}
 	},
 	watch: {
 
