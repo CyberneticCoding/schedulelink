@@ -21,20 +21,17 @@
 							<div>
 								<label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('login.email') }}</label>
 								<div class="mt-2">
-									<input v-model="form.email" id="email" name="email" type="email" autocomplete="email" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-									<div v-if="form.errors.email">{{ form.errors.email }}</div>
+									<input v-model="form.email" id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
 							</div>
 
 							<div>
 								<label for="password" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('login.password') }}</label>
 								<div class="mt-2">
-									<input v-model="form.password" id="password" name="password" type="password" autocomplete="current-password" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-									<div v-if="form.errors.password">{{ form.errors.email }}</div>
-									<p v-if="error" class="mt-2 text-sm text-red-600" id="email-error">{{ error }}</p>
+									<input v-model="form.password" id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
+								<div class="mt-2 text-sm text-red-600" v-if="form.errors.validation">{{ form.errors.validation }}</div>
 							</div>
-
 							<div class="flex items-center justify-between">
 								<div class="flex items-center">
 									<input v-model="form.remember" id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
@@ -82,13 +79,9 @@ export default {
 	methods: {
 		submit() {
 			const form = this.form
-			this.$inertia.post("/login", form)
+			form.post("/login")
 		}
 	},
-
-	watch: {
-
-	}
 
 }
 </script>
