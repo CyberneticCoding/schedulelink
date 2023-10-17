@@ -15,11 +15,18 @@
   },
   "login": {
 	"log_in": "Log in to your account",
-	"email": "Email Adres",
+	"email": "Email Adress",
 	"password": "Password",
 	"remember_me": "Remember me",
 	"forgot_password": "Forgot password?",
 	"sign_in": "Sign in",
     "registration": "Register new account"
+  },
+  "register": {
+	"register": "Create your account",
+	"email": "Email Adress",
+	"password": "Password",
+	"password2": "Repeat password",
+	"submit": "Register"
   }
 }
