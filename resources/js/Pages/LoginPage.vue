@@ -85,22 +85,7 @@ export default {
 			this.$inertia.post("/login", form)
 		}
 	},
-	computed: {
-//		error() {
-//			console.log(this.form)
-//			if (this.form) {
-//				if (this.form.errors.email) {
-//					return this.form.errors.email;
-//				}
-//				return null
-//			}
-//			console.log(this.$page.props.errors)
-//			if (this.$page.props.errors.email) {
-//				return this.$page.props.errors.email
-//			}
-//			return null
-//		}
-	},
+
 	watch: {
 
 	}
