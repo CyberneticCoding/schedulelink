@@ -5,27 +5,30 @@
 ScheduleLink is application that allows for calendar/scheduling functionality. It that allows users within a team or company to quickly find the available time of selected users and plan a meeting in record time.
 
 # Tech Stack
-This application uses Laravel, vue3, inertiajs and tailwindCSS. Together with fontawesome, ESLint and postgreSQL
+This application uses Laravel, vue3, inertiajs and tailwindCSS. Together with fontawesome, ESLint and postgreSQL  
 
 
 # Installation
 
-**Install PostgreSQL**
+**Install PostgreSQL**  
 Make sure you have have downloaded postgreSQL. https://www.postgresql.org/download/
 
-**Install the application**
-git clone https://github.com/CyberneticCoding/schedulelink.git
-cd schedulelink
-npm install
-composer install
+**Install the application**  
+git clone https://github.com/CyberneticCoding/schedulelink.git  
+cd schedulelink  
+npm install  
+composer install  
 
-**Setup .env**
-Copy the .env.example and rename it .env
-Setup your PostgreSQL database and change the .env information.
+**Setup .env**   
+Copy the .env.example and rename it .env  
+Setup your PostgreSQL database and change the .env information.   
 
-**Run the application**
-php artisan serve
-npm run dev
+**Run the application**  
+php artisan serve  
+npm run dev  
+
+
+
 
 
 # Definition of Done 
