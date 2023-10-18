@@ -14,6 +14,22 @@
 					<div>
 						<form @submit.prevent="submit" class="space-y-6">
 							<div>
+								<label for="firstn" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.firstn') }}</label>
+								<div class="mt-2">
+									<input v-model="form.firstn" id="firstn" name="firstn" type="text" autocomplete="given-name" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+									<div v-if="form.errors.email">{{ form.errors.email }}</div>
+								</div>
+							</div>
+
+							<div>
+								<label for="lastn" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.lastn') }}</label>
+								<div class="mt-2">
+									<input v-model="form.lastn" id="lastn" name="lastn" type="text" autocomplete="family-name" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+									<div v-if="form.errors.email">{{ form.errors.email }}</div>
+								</div>
+							</div>
+
+							<div>
 								<label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.email') }}</label>
 								<div class="mt-2">
 									<input v-model="form.email" id="email" name="email" type="email" autocomplete="email" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
@@ -69,6 +85,8 @@ export default {
 
 		return {
 			form: useForm({
+				firstn: null,
+				lastn: null,
 				email: null,
 				password: null,
 				password2: null,

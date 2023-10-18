@@ -23,8 +23,10 @@
     "registration": "Register new account"
   },
   "register": {
+	"firstn": "First name",
+	"lastn": "Last name",
 	"register": "Create your account",
-	"email": "Email Adress",
+	"email": "Email adress",
 	"password": "Password",
 	"password2": "Repeat password",
 	"submit": "Register"
