@@ -28,7 +28,7 @@ class LoginController extends Controller
 
 		return back()->withErrors([
 			'validation' => 'The provided credentials do not match our records.',
-		])->onlyInput('validation');
+		])->onlyInput('email');
 	}
 
 	public function logout()

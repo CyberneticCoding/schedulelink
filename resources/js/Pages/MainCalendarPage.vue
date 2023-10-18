@@ -84,9 +84,9 @@
 						</Menu>
 					</div>
 				</header>
-				<div ref="container" class="isolate flex flex-auto flex-col overflow-auto bg-white">
+				<div id="container" class="isolate flex flex-auto flex-col overflow-auto bg-white">
 					<div style="width: 165%" class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
-						<div ref="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
+						<div id="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
 							<div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
 								<button type="button" class="flex flex-col items-center pb-3 pt-2">
 									M
@@ -148,7 +148,7 @@
 							<div class="grid flex-auto grid-cols-1 grid-rows-1">
 								<!-- Horizontal lines -->
 								<div class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100" style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))">
-									<div ref="containerOffset" class="row-end-1 h-7" />
+									<div id="containerOffset" class="row-end-1 h-7" />
 									<div>
 										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">12AM</div>
 									</div>
@@ -308,7 +308,6 @@ export default {
 		MenuButton
 	},
 	mounted() {
-
 	}
 }
 </script>
