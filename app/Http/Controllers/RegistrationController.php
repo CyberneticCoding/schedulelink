@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegistrationRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,31 +13,21 @@ class RegistrationController extends Controller
     public function index (Request $request) {
         return Inertia::render('RegistrationPage');
     }
-    public function register(Request $request)
+
+    public function register(RegistrationRequest $request)
     {
+		$validated = $request->validated();
+
+
 		$newuser = new User();
-		//$newuser->first_name = $request->first_name;
-		//$newuser->last_name = $request->last_name;
-		$newuser->first_name = "jan";
-		$newuser->last_name = "jans";
+		$newuser->first_name = $validated['firstname'];
+		$newuser->last_name = $validated['lastname'];
 		$newuser->tutorial_done = false;
-		$newuser->email = $request->email;
-		$newuser->password = $request->password;
+		$newuser->email = $validated['email'];
+		$newuser->password = $validated['password'];
 		$newuser->save();
 
-		$credentials = $request->validate([
-			'email' => ['required', 'email'],
-			'password' => ['required'],
-		]);
+		return redirect('/');
 
-		if (Auth::attempt($credentials)) {
-			$request->session()->regenerate();
-			return redirect()->route('calendar');
-		}
-
-
-		return back()->withErrors([
-			'email' => 'The provided credentials do not match our records.',
-		])->onlyInput('email');
     }
 }
