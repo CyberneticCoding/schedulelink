@@ -36,16 +36,20 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
-      - name: Connect to PostgreSQL
-        # Runs a script that creates a PostgreSQL table, populates
-        # the table with data, and then retrieves the data
-        run: node client.js
-        # Environment variables used by the `client.js` script to create
-        # a new PostgreSQL table.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set up environment variables
         env:
-          # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
+          DB_HOST: postgres  # The hostname of the PostgreSQL service container
+          DB_PORT: 5432       # The default PostgreSQL port
+          DB_CONNECTION: pgsql
+          DB_DATABASE: postgres
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+      - name: Run Laravel database migrations
+        run: php artisan migrate --seed
 
       - name: Run database migrations
         run: php artisan migrate
