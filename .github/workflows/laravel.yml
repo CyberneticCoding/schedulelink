@@ -1,8 +1,7 @@
 name: Laravel Testing with PostgreSQL
 on:
   push:
-    branches:
-      - '*'
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 jobs:
@@ -14,8 +13,8 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_DB: your_database_name
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: ${{ secrets.DB_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_USERNAME }}
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
@@ -32,7 +31,5 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Build Assets (Vite)
       run: npm install && npm run build
-    - name: Check PostgreSQL Service Status
-      run: docker ps
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
