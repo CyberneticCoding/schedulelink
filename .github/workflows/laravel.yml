@@ -21,6 +21,16 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
+      - name: Start PostgreSQL
+        uses: docker://postgres:latest
+        with:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: schedulelink
+          
+      - name: Wait for PostgreSQL to start
+        run: sleep 7
+        
       - name: Create PostgreSQL database
         run: |
           psql -U postgres -c "CREATE DATABASE schedulelink;"
