@@ -47,7 +47,7 @@ jobs:
         run: npm ci
 
       - name: Start the application (use your actual start command)
-        run: npm run dev & php artisan serve
+        run: npm run build
 
       - name: Run PHPUnit Tests
         run: vendor/bin/phpunit
