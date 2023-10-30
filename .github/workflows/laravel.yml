@@ -24,8 +24,6 @@ jobs:
       - name: Start PostgreSQL
         uses: docker://postgres:latest
         with:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ""
           POSTGRES_DB: schedulelink
           POSTGRES_HOST_AUTH_METHOD: trust
 
