@@ -24,6 +24,13 @@ jobs:
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
+
+    env:
+      DB_HOST: localhost
+      DB_DATABASE: postgres
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
