@@ -72,9 +72,6 @@ export default {
 	},
 	setup() {
 
-
-
-
 		return {
 			form: useForm({
 				email: null,
@@ -91,9 +88,6 @@ export default {
 
 	},
 
-	watch: {
-
-	}
 
 }
 </script>

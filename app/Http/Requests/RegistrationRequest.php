@@ -33,8 +33,8 @@ class RegistrationRequest extends FormRequest
 		public function messages()
 	{
 		return [
-			'email.required' => 'An e-mail address is required',
-			'email.email' => 'The e-mail address invalid',
+			'email.required' => 'E-mail address is required',
+			'email.email' => 'E-mail address is invalid',
 			'password.confirmed'=>'Passwords don\'t match'
 		];
 
