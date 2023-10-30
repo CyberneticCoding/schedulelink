@@ -26,11 +26,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: NPM Install
         run: npm ci
-      - name: Debug Database Configuration
-        run: |
-          echo "DB_USERNAME: ${{ secrets.DB_USERNAME }}"
-          echo "DB_PASSWORD: ${{ secrets.DB_USERNAME }}"
-          pg_isready
       - name: Copy .env
         run: cp .env.example .env
       - name: Install Dependencies
@@ -41,5 +36,10 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
       - name: Build Assets (Vite)
         run: npm install && npm run build
+      - name: Debug Database Configuration
+        run: |
+          echo "DB_USERNAME: ${{ secrets.DB_USERNAME }}"
+          echo "DB_PASSWORD: ${{ secrets.DB_USERNAME }}"
+          pg_isready
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit
