@@ -24,15 +24,13 @@ jobs:
         with:
           php-version: '8.1'
       - uses: actions/checkout@v3
+      - name: NPM Install
       - run: npm ci
-        working-directory: ./postgres
-      - run: node client.js
-        working-directory: ./postgres
-        env:
-          # use postgres for the host here because we have specified a container for the job.
-          # If we were running the job on the VM this would be localhost
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+      - name: Debug Database Configuration
+        run: |
+          echo "DB_USERNAME: ${{ secrets.DB_USERNAME }}"
+          echo "DB_PASSWORD: ${{ secrets.DB_USERNAME }}"
+          pg_isready
       - name: Copy .env
         run: cp .env.example .env
       - name: Install Dependencies
