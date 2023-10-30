@@ -32,5 +32,7 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Build Assets (Vite)
       run: npm install && npm run build
+    - name: Check PostgreSQL Service Status
+      run: docker ps
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
