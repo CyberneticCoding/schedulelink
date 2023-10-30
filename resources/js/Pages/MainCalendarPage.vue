@@ -37,7 +37,7 @@
 									<span class="sr-only">Previous week</span>
 									<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
 								</button>
-								<button type="button" class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block">Oct 10 - Oct 17 <span class="text-gray-400">2023</span></button>
+								<button type="button" class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block">{{thisWeek}} <span class="text-gray-400"></span></button> <!-- todo - add year-->
 								<span class="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
 								<button type="button" class="flex h-9 w-12 items-center justify-center rounded-r-full border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50">
 									<span class="sr-only">Next week</span>
@@ -120,26 +120,8 @@
 
 							<div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
 								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">Time</div>
-								<div class="flex items-center justify-center py-3">
-									<span>Mon <span class="items-center justify-center font-semibold text-gray-900">10</span></span>
-								</div>
-								<div class="flex items-center justify-center py-3">
-									<span>Tue <span class="items-center justify-center font-semibold text-gray-900">11</span></span>
-								</div>
-								<div class="flex items-center justify-center py-3">
-									<span class="flex items-baseline">Wed <span class="ml-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">12</span></span>
-								</div>
-								<div class="flex items-center justify-center py-3">
-									<span>Thu <span class="items-center justify-center font-semibold text-gray-900">13</span></span>
-								</div>
-								<div class="flex items-center justify-center py-3">
-									<span>Fri <span class="items-center justify-center font-semibold text-gray-900">14</span></span>
-								</div>
-								<div class="flex items-center justify-center py-3">
-									<span>Sat <span class="items-center justify-center font-semibold text-gray-900">15</span></span>
-								</div>
-								<div class="flex items-center justify-center py-3">
-									<span>Sun <span class="items-center justify-center font-semibold text-gray-900">16</span></span>
+								<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center py-3">
+									<span>{{ day }}</span>
 								</div>
 							</div>
 						</div>
@@ -307,7 +289,62 @@ export default {
 		MenuItem,
 		MenuButton
 	},
-	mounted() {
+	methods: {
+		getWeekData() {
+			const currentDate = new Date();
+			const first = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
+			const last = first + 6; // last day is the first day + 6
+
+			const timezone = "Europe/Amsterdam";
+
+			const firstday = new Date(currentDate.setDate(first));
+			const lastday = new Date(currentDate.setDate(last));
+
+			return {
+				firstday: firstday,
+				lastday: lastday,
+				timezone: timezone,
+			}
+		}
+	},
+	computed: {
+		daysOfWeek() {
+			// Returns an array of the days in the current week (based on timezone). The days are formatted like: 15 Mon, 16 Tue
+			const week = this.getWeekData()
+
+			const formatOptions = {
+				timeZone: week.timezone,
+				weekday: "short",
+				day: "2-digit",
+			};
+
+			const formatDate = (date) => {
+				return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
+			};
+
+			const daysOfWeek = [];
+
+			for (let i = 0; i <= 6; i++) {
+				daysOfWeek.push(formatDate(new Date(week.firstday.getTime() + i * 24 * 60 * 60 * 1000)));
+			}
+			return daysOfWeek;
+		},
+
+		thisWeek() {
+			// Returns an string of the first date in the current week (based on timezone). The dates are formatted in a string like: "15 Oct - 21 Oct"
+			const week = this.getWeekData()
+
+			const formatOptions = {
+				timeZone: week.timezone,
+				day: "2-digit",
+				month: "short",
+			};
+			const formatDate = (date) => {
+				return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
+			};
+
+			return formatDate(week.firstday) + " - " + formatDate(week.lastday);
+		}
 	}
 }
 </script>
