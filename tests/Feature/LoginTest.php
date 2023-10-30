@@ -77,3 +77,4 @@ class LoginTest extends TestCase
 		]);
 	}
 }
+

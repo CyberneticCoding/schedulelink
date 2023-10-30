@@ -22,8 +22,9 @@ Create an empty database named schedulelink
 `composer install`  
 
 **Setup .env**   
-Copy the .env.example and rename it .env
-Setup your PostgreSQL database and change the .env information.   
+Copy the .env.example and rename it .env  
+Setup your PostgreSQL database and change the .env information.  
+In your .env, change DB_HOST to 127.0.0.1  
 
 **Run the application**  
 `php artisan key:generate` Do this one time at the beginning
