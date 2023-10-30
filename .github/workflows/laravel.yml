@@ -46,9 +46,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Laravel database migrations
-        run: php artisan migrate --seed
-
       - name: Start the application (use your actual start command)
         run: npm run dev & php artisan serve
 
