@@ -1,8 +1,7 @@
 name: Laravel Testing with PostgreSQL
 on:
   push:
-    branches:
-      - '*'
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 jobs:
