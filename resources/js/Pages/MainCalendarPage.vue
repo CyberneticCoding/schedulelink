@@ -87,41 +87,22 @@
 				<div id="container" class="isolate flex flex-auto flex-col overflow-auto bg-white">
 					<div style="width: 165%" class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 						<div id="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
-							<div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
-								<button type="button" class="flex flex-col items-center pb-3 pt-2">
-									M
-									<span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">10</span>
-								</button>
-								<button type="button" class="flex flex-col items-center pb-3 pt-2">
-									T
-									<span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">11</span>
-								</button>
-								<button type="button" class="flex flex-col items-center pb-3 pt-2">
-									W
-									<span class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">12</span>
-								</button>
-								<button type="button" class="flex flex-col items-center pb-3 pt-2">
-									T
-									<span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">13</span>
-								</button>
-								<button type="button" class="flex flex-col items-center pb-3 pt-2">
-									F
-									<span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">14</span>
-								</button>
-								<button type="button" class="flex flex-col items-center pb-3 pt-2">
-									S
-									<span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">15</span>
-								</button>
-								<button type="button" class="flex flex-col items-center pb-3 pt-2">
-									S
-									<span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">16</span>
+							<div class="grid grid-cols-7 text-xs leading-6 text-gray-500 sm:hidden">
+								<button
+									v-for="(day, index) in daysOfWeek"
+									:key="index"
+									type="button"
+									class="flex flex-col items-center pb-3 pt-2"
+								>
+									{{ day }}
 								</button>
 							</div>
 
 							<div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
 								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">Time</div>
+								<!--{{daysOfWeek}}-->
 								<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center py-3">
-									<span>{{ day }}</span>
+									<span :class="[day === currentDay ? 'bg-primary rounded-full p-2 text-white' :  '']">{{ day }}</span>
 								</div>
 							</div>
 						</div>
@@ -289,62 +270,73 @@ export default {
 		MenuItem,
 		MenuButton
 	},
+	data() {
+		return {
+			timezone: "Europe/Amsterdam",
+			week: this.getWeekData(),
+		}
+	},
 	methods: {
 		getWeekData() {
+			/* Returns something like:
+				"firstday": "2023-10-30T11:18:37.644Z",
+				"currentday": "2023-10-31T11:18:37.644Z",
+				"lastday": "2023-11-05T11:18:37.644Z"
+			 */
 			const currentDate = new Date();
 			const first = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
 			const last = first + 6; // last day is the first day + 6
 
-			const timezone = "Europe/Amsterdam";
-
+			const currentday = new Date(currentDate);
 			const firstday = new Date(currentDate.setDate(first));
 			const lastday = new Date(currentDate.setDate(last));
 
 			return {
 				firstday: firstday,
+				currentday: currentday,
 				lastday: lastday,
-				timezone: timezone,
 			}
+		},
+		formatDate(date, formatOptions) {
+			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
 		}
 	},
 	computed: {
 		daysOfWeek() {
-			// Returns an array of the days in the current week (based on timezone). The days are formatted like: 15 Mon, 16 Tue
-			const week = this.getWeekData()
-
+			/*  [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
+			// Returns an array of the days in the current week (based on timezone). The days are formatted like: ['15 Mon', '16 Tue']
 			const formatOptions = {
-				timeZone: week.timezone,
+				timeZone: this.timezone,
 				weekday: "short",
 				day: "2-digit",
-			};
-
-			const formatDate = (date) => {
-				return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
 			};
 
 			const daysOfWeek = [];
 
 			for (let i = 0; i <= 6; i++) {
-				daysOfWeek.push(formatDate(new Date(week.firstday.getTime() + i * 24 * 60 * 60 * 1000)));
+				// Calculate a new date by adding 'i' days to the 'firstday' date until a week is formed.
+				const day = new Date(this.week.firstday.getTime() + i * 24 * 60 * 60 * 1000)
+				// Make the array
+				daysOfWeek.push(this.formatDate(day, formatOptions));
 			}
 			return daysOfWeek;
 		},
-
+		currentDay() {
+			return this.formatDate(new Date(), {
+				timeZone: this.timezone,
+				weekday: "short",
+				day: "2-digit",
+			});
+		},
 		thisWeek() {
-			// Returns an string of the first date in the current week (based on timezone). The dates are formatted in a string like: "15 Oct - 21 Oct"
-			const week = this.getWeekData()
-
+			// Returns a string of the first date in the current week (based on timezone). The dates are formatted in a string like: "15 Oct - 21 Oct"
 			const formatOptions = {
-				timeZone: week.timezone,
+				timeZone: this.timezone,
 				day: "2-digit",
 				month: "short",
 			};
-			const formatDate = (date) => {
-				return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
-			};
-
-			return formatDate(week.firstday) + " - " + formatDate(week.lastday);
-		}
+			return this.formatDate(this.week.firstday, formatOptions) + " - " + this.formatDate(this.week.lastday, formatOptions);
+		},
 	}
 }
 </script>
