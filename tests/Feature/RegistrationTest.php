@@ -97,7 +97,7 @@ class RegistrationTest extends TestCase
 		]);
 
 		$response->assertSessionHasErrors([
-			'email' => 'E-mail address is required',
+			'email' => 'The email field is required.',
 		]);
 	}
 	public function test_register_not_legit_email()
@@ -154,7 +154,7 @@ class RegistrationTest extends TestCase
 		]);
 
 		$response->assertSessionHasErrors([
-			'password'=>'Passwords don\'t match',
+			'password_confirmation'=>'Password fields don\'t match',
 		]);
 	}
 	public function test_register_password_too_short()

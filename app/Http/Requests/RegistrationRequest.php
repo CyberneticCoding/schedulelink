@@ -26,16 +26,18 @@ class RegistrationRequest extends FormRequest
 			'firstname' => 'required',
 			'lastname' => 'required',
 			'email' => 'required|unique:users|email',
-			'password' => 'required|min:7|confirmed',
+			'password' => 'required|min:7',
+			'password_confirmation' => 'required|same:password',
 		];
 	}
 
 		public function messages()
 	{
 		return [
-			'email.required' => 'E-mail address is required',
+			'firstname.required' => 'The first name field is required.',
+			'lastname.required' => 'The last name field is required.',
 			'email.email' => 'E-mail address is invalid',
-			'password.confirmed'=>'Passwords don\'t match'
+			'password_confirmation.same' => 'Password fields don\'t match'
 		];
 
 	}

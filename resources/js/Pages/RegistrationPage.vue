@@ -18,54 +18,45 @@
 							<div>
 								<label for="firstname" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.firstn') }}</label>
 								<div class="mt-2">
-									<input v-model="form.firstname" id="firstname" name="firstname" type="text" autocomplete="given-name" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-									<ul v-if="errors.firstname">
-										<h v-for="error in errors.firstname" :key="error.id" style="color: red">{{error}}</h>
-									</ul>
+									<input v-model="form.firstname" id="firstname" name="firstname" type="text" required autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
+								<div v-if="form.errors.firstname" style="color: red">{{form.errors.firstname}}</div>
 							</div>
 
 							<div>
 								<label for="lastname" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.lastn') }}</label>
 								<div class="mt-2">
-									<input v-model="form.lastname" id="lastname" name="lastname" type="text" autocomplete="family-name" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-									<ul v-if="errors.lastname">
-										<h v-for="error in errors.lastname" :key="error.id" style="color: red">{{error}}</h>
-									</ul>
+									<input v-model="form.lastname" id="lastname" name="lastname" type="text" required autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
+								<div v-if="form.errors.lastname" style="color: red">{{form.errors.lastname}}</div>
 							</div>
 
 							<div>
 								<label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.email') }}</label>
 								<div class="mt-2">
-									<input v-model="form.email" id="email" name="email" type="email" autocomplete="email" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-									<ul v-if="errors.email">
-										<h v-for="error in errors.email" :key="error.id" style="color: red">{{error}}</h>
-									</ul>
+									<input v-model="form.email" id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
+								<div v-if="form.errors.email" style="color: red">{{form.errors.email}}</div>
 							</div>
 
 							<div>
 								<label for="password" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.password') }}</label>
 								<div class="mt-2">
-									<input v-model="form.password" id="password" name="password" type="password" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-									<ul v-if="errors.password">
-										<h v-for="error in errors.password" :key="error.id" style="color: red">{{error}}</h>
-									</ul>
+									<input v-model="form.password" id="password" name="password" type="password" required class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
+								<div v-if="form.errors.password" style="color: red">{{form.errors.password}} </div>
 							</div>
 							<div>
 								<label for="password2" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.password2') }}</label>
 								<div class="mt-2">
-									<input v-model="form.password_confirmation" id="password2" name="password2" type="password" required="" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-									<ul v-if="errors.password_confirmation">
-										<h v-for="error in errors.password_confirmation" :key="error.id" style="color: red">{{error}}</h>
-									</ul>
+									<input v-model="form.password_confirmation" id="password2" name="password2" required type="password" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
+								<div style="color: red">{{form.errors.password_confirmation}} </div>
 							</div>
 
+
 							<div>
-								<h class="block text-sm font-medium leading-6 text-gray-900">* Fields are required</h>
+								<span class="block text-sm font-medium leading-6 text-gray-900">* Fields are required</span>
 								<button type="submit" :disabled="form.processing" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $t('register.submit') }}</button>
 							</div>
 						</form>
@@ -85,17 +76,11 @@
 <script>
 
 import {useForm} from "@inertiajs/inertia-vue3";
+import has from "has";
 
 export default {
 	name: "LoginPage",
-	props: {
-		errors: Object,
-	},
 	setup() {
-
-
-
-
 		return {
 			form: useForm({
 				firstname: null,
@@ -107,9 +92,12 @@ export default {
 		}
 	},
 	methods: {
+		has() {
+			return has
+		},
 		submit() {
 			const form = this.form
-			this.$inertia.post("/register", form)
+			form.post("/register")
 		}
 	},
 
