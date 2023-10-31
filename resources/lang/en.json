@@ -29,6 +29,7 @@
 	"email": "Email adress *",
 	"password": "Password *",
 	"password2": "Repeat password *",
-	"submit": "Register"
+	"submit": "Register",
+	"login": "Log in"
   }
 }
