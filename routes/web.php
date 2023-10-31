@@ -21,7 +21,7 @@ use Inertia\Inertia;
 Route::redirect('/', '/calendar');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/register',[RegistrationController::class, 'index'])->name('register');
 Route::post('/register', [RegistrationController::class, 'register']);
