@@ -8,11 +8,11 @@
 				<div>
 					<img class="h-16 w-auto" src="../../img/schedulelink-logo.png" alt="Logo Schedulelink" />
 					<h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('login.log_in') }}</h2>
-					<!--<p class="mt-2 text-sm leading-6 text-gray-500">-->
-					<!--	Not a member?-->
-					<!--	{{ ' ' }}-->
-					<!--	<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>-->
-					<!--</p>-->
+					<p class="mt-2 text-sm leading-6 text-gray-500">
+						Not a member?
+
+						<a href="/register" class="font-semibold text-indigo-600 hover:text-indigo-500">{{ $t('login.registration') }}</a>
+					</p>
 				</div>
 
 				<div class="mt-10">
@@ -65,6 +65,7 @@ import {useForm} from "@inertiajs/inertia-vue3";
 export default {
 	name: "LoginPage",
 	setup() {
+
 		return {
 			form: useForm({
 				email: null,
@@ -79,6 +80,5 @@ export default {
 			form.post("/login")
 		}
 	},
-
 }
 </script>
