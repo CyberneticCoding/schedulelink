@@ -247,7 +247,7 @@
 											</p>
 										</a>
 									</li>
-									<TimeBlock name="Tester" :time_start="new Date('2023-11-03 12:00:0-00')" :time_stop="new Date('2023-11-03 16:00:0-00')"></TimeBlock>
+									<TimeBlock name="Tester" :time_start="new Date('2023-11-03 13:00:0-00')" :time_stop="new Date('2023-11-03 16:00:0-00')"></TimeBlock>
 								</ol>
 							</div>
 						</div>
