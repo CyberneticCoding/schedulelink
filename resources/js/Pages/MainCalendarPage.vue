@@ -223,7 +223,7 @@
 
 								<!-- Events -->
 								<ol class="col-start-1 col-end-2 row-start-1 grid grid-cols-7" style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto">
-									<li class="relative mt-px flex col-start-3" style="grid-row: 74 / span 12">
+									<li class="relative mt-px flex col-start-1" style="grid-row: 74 / span 12">
 										<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">
 											<p class="order-1 font-semibold text-blue-700">Breakfast</p>
 											<p class="hidden sm:inline text-blue-500 group-hover:text-blue-700">
@@ -239,7 +239,7 @@
 											</p>
 										</a>
 									</li>
-									<li class="relative mt-px flex col-start-6 " style="grid-row: 122 / span 24">
+									<li class="relative mt-px flex col-start-6" style="grid-row: 122 / span 24">
 										<a href="#" class="group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-gray-100 p-1 text-xs leading-5 hover:bg-gray-200">
 											<p class="order-1 font-semibold text-gray-700">Meeting with design team at Disney</p>
 											<p class="hidden sm:inline text-gray-500 group-hover:text-gray-700">
@@ -247,6 +247,7 @@
 											</p>
 										</a>
 									</li>
+									<TimeBlock name="Tester" :time_start="new Date('2023-11-03 12:00:0-00')" :time_stop="new Date('2023-11-03 16:00:0-00')"></TimeBlock>
 								</ol>
 							</div>
 						</div>
@@ -259,10 +260,12 @@
 <script>
 import MainLayout from "../Layouts/MainLayout.vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
+import TimeBlock from "@/Components/TimeBlock.vue";
 
 export default {
 	name: "MainCalendarPage",
 	components: {
+		TimeBlock,
 		MainLayout,
 		Menu,
 		MenuItems,
