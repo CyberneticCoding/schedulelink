@@ -8,6 +8,10 @@
 				<div>
 					<img class="h-16 w-auto" src="../../img/schedulelink-logo.png" alt="Logo Schedulelink" />
 					<h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('register.register') }}</h2>
+					<p class="mt-2 text-sm leading-6 text-gray-500">
+						Already have an account?
+						<a href="/login" class="font-semibold text-indigo-600 hover:text-indigo-500">{{ $t('register.login') }}</a>
+					</p>
 				</div>
 
 				<div class="mt-10">
