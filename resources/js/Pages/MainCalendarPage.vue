@@ -83,7 +83,7 @@
 						</Menu>
 					</div>
 				</header>
-				<div id="container" class="isolate flex flex-auto flex-col overflow-auto bg-white">
+				<div id="container" class="isolate flex flex-auto flex-col overflow-hidden bg-white">
 					<div style="width: 165%" class="flex flex-none flex-col max-w-full">
 						<div id="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5">
 							<!-- Mobile Calendar header -->
