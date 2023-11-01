@@ -32,14 +32,13 @@
 						</Menu>
 						<!--Scroll through week menu-->
 						<div class="ml-12 flex items-center">
-							<div class="relative flex items-center rounded-full bg-white shadow-sm md:items-stretch">
-								<button type="button" class="flex h-9 w-12 items-center justify-center rounded-l-full border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50">
+							<div class="relative flex rounded-full bg-white shadow-sm items-stretch">
+								<button type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
 									<span class="sr-only">Previous week</span>
 									<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
 								</button>
-								<button type="button" class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block">{{thisWeek}} <span class="text-gray-400"></span></button> <!-- todo - add year-->
-								<span class="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
-								<button type="button" class="flex h-9 w-12 items-center justify-center rounded-r-full border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50">
+								<button type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{thisWeek}} <span class="text-gray-400"></span></button> <!-- todo - add year-->
+								<button type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
 									<span class="sr-only">Next week</span>
 									<i class="fa-solid fa-chevron-right ml-2 h-5 w-5" aria-hidden="true" />
 								</button>
@@ -85,24 +84,25 @@
 					</div>
 				</header>
 				<div id="container" class="isolate flex flex-auto flex-col overflow-auto bg-white">
-					<div style="width: 165%" class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
-						<div id="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
+					<div style="width: 165%" class="flex flex-none flex-col  max-w-full">
+						<div id="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5">
+							<!-- Mobile Calendar header -->
 							<div class="grid grid-cols-7 text-xs leading-6 text-gray-500 sm:hidden">
+								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">Time</div>
 								<button
 									v-for="(day, index) in daysOfWeek"
 									:key="index"
 									type="button"
 									class="flex flex-col items-center pb-3 pt-2"
 								>
-									{{ day }}
+									<span :class="[day === currentDay ? 'bg-primary rounded-full p-[0.3em] text-white w-12' :  'w-7', 'break-words  leading-4']">{{ day }}</span>
 								</button>
 							</div>
-
+							<!-- Desktop Calendar header -->
 							<div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
 								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">Time</div>
-								<!--{{daysOfWeek}}-->
 								<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center py-3">
-									<span :class="[day === currentDay ? 'bg-primary rounded-full p-2 text-white' :  '']">{{ day }}</span>
+									<span :class="[day === currentDay ? 'bg-primary rounded-full p-2 text-white ' :  '']">{{ day }}</span>
 								</div>
 							</div>
 						</div>
@@ -209,9 +209,8 @@
 									</div>
 									<div />
 								</div>
-
 								<!-- Vertical lines -->
-								<div class="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 sm:grid sm:grid-cols-7">
+								<div class="col-start-1 col-end-2 row-start-1 grid-cols-7 grid-rows-1 divide-x divide-gray-100 grid sm:grid-cols-7">
 									<div class="col-start-1 row-span-full" />
 									<div class="col-start-2 row-span-full" />
 									<div class="col-start-3 row-span-full" />
@@ -219,7 +218,7 @@
 									<div class="col-start-5 row-span-full" />
 									<div class="col-start-6 row-span-full" />
 									<div class="col-start-7 row-span-full" />
-									<div class="col-start-8 row-span-full w-8" />
+									<!--<div class="col-start-8 row-span-full w-8" />-->
 								</div>
 
 								<!-- Events -->
