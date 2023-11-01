@@ -84,16 +84,16 @@
 					</div>
 				</header>
 				<div id="container" class="isolate flex flex-auto flex-col overflow-auto bg-white">
-					<div style="width: 165%" class="flex flex-none flex-col  max-w-full">
+					<div style="width: 165%" class="flex flex-none flex-col max-w-full">
 						<div id="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5">
 							<!-- Mobile Calendar header -->
 							<div class="grid grid-cols-7 text-xs leading-6 text-gray-500 sm:hidden">
-								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">Time</div>
+								<div class="col-end-1 w-10 sm:w-14 bg-primary text-white flex justify-center items-center">Time</div>
 								<button
 									v-for="(day, index) in daysOfWeek"
 									:key="index"
 									type="button"
-									class="flex flex-col items-center pb-3 pt-2"
+									class="flex flex-col items-center pb-1 pt-2"
 								>
 									<span :class="[day === currentDay ? 'bg-primary rounded-full p-[0.3em] text-white w-12' :  'w-7', 'break-words  leading-4']">{{ day }}</span>
 								</button>
@@ -107,105 +107,105 @@
 							</div>
 						</div>
 						<div class="flex flex-auto">
-							<div class="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />
+							<div class="sticky left-0 z-10 w-10 sm:w-14 flex-none bg-white ring-1 ring-gray-100" />
 							<div class="grid flex-auto grid-cols-1 grid-rows-1">
 								<!-- Horizontal lines -->
 								<div class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-rows-[repeat(24,minmax(3.5rem,1fr))] sm:grid-rows-[repeat(48,minmax(3.5rem,1fr))]">
 									<div id="containerOffset" class="row-end-1 h-7" />
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">12AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">12AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">1AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">1AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">2AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">2AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">3AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">3AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">4AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">4AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">5AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">5AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">6AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">6AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">7AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">7AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">8AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">8AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">9AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">9AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">10AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">10AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">11AM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">11AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">12PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">12PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">1PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">1PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">2PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">2PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">3PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">3PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">4PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">4PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">5PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">5PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">6PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">6PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">7PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">7PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">8PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">8PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">9PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">9PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">10PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">10PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">11PM</div>
+										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">11PM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 								</div>
