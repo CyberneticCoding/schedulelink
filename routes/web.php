@@ -40,6 +40,11 @@ Route::group(['middleware' => ['auth']], function () {
 		return Inertia::render('TeamsPage');
 	});
 
+	//	settings routes
+	Route::get('/accountsettings', function () {
+		return Inertia::render('AccountSettingsPage');
+	});
+
 
 	//Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 	//Route::get('/logout', [LoginController::class, 'logout']);

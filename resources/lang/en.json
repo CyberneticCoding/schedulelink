@@ -31,5 +31,31 @@
 	"password2": "Repeat password *",
 	"submit": "Register",
 	"login": "Log in"
+  },
+  "settings_account": {
+	"title": {
+	  "profile": "My profile",
+	  "account": "Account settings" },
+	"picture": "Change profile picture",
+	"name": "Display name",
+	"email": {
+	  "name": "Email",
+	  "change": "Change email" },
+	"password": {
+	  "name": "Password",
+	  "change": "Change password",
+	  "description": "Want to change your current password?" },
+	"company": {
+	  "name": "Default company",
+	  "change": "Change company",
+	  "description": "Your default calendar view when starting the app" },
+	"language": {
+	  "name": "Language",
+	  "change": "Change language",
+	  "description": "Select your preferred language" },
+	"view": {
+	  "name": "Default calendar view",
+	  "change": "Change view",
+	  "description": "Your default calendar view when starting the app" }
   }
 }
