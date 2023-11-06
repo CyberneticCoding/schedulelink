@@ -7,12 +7,21 @@
 					<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings_account.title.profile') }}</h3>
 					<div class="flex">
 						<div>
-							<img class="h-20 w-20 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-							<span>{{$t("settings_account.picture")}}</span>
+							<img class="h-32 w-32 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
 						</div>
-						<div>
-							<span>{{$t("settings_account.name")}}</span>
-
+						<div class="ml-8">
+							<div class="flex">
+								<span>{{$page.props.auth.user.first_name}}</span>
+								<span class="ml-2">{{$page.props.auth.user.last_name}}</span>
+							</div>
+							<div>
+								<div class="mt-8">
+									<a href="/" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.name")}}</a>
+								</div>
+								<div>
+									<a href="/" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.picture")}}</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -32,7 +41,7 @@
 											</ul>
 										</div>
 										<div >
-											<button type="button" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+											<button type="button" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 												{{ $t(item.change) }}</button>
 										</div>
 									</li>
