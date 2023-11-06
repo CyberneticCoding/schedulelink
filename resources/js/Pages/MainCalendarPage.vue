@@ -5,27 +5,27 @@
 				<header class="flex flex-none items-center justify-between border-b border-gray-200 pl-6 pb-4 sm:px-6 sm:py-4">
 					<div class="flex flex-col sm:flex-row text-xl font-bold leading-6 text-gray-900">
 						<div class="flex items-center">
-							<h1>Calendar:</h1>
+							<h1>{{ $t('calendar.calendar') }}:</h1>
 							<!--Select Month/year/day/week menu-->
 							<Menu as="div" class="relative">
 								<MenuButton type="button" class="flex items-center">
-									<span class="text-primary ml-2">Week</span>
+									<span class="text-primary ml-2">{{ $t('calendar.week') }}</span>
 									<i class="fa-solid fa-chevron-down fa-sm ml-2 h-5 w-5 mt-4" aria-hidden="true" />
 								</MenuButton>
 								<transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
 									<MenuItems class="absolute left:0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 										<div class="py-1">
 											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Day view</a>
+												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.day_view') }}</a>
 											</MenuItem>
 											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Week view</a>
+												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.week_view') }}</a>
 											</MenuItem>
 											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Month view</a>
+												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.month_view') }}</a>
 											</MenuItem>
 											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Year view</a>
+												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.year_view') }}</a>
 											</MenuItem>
 										</div>
 									</MenuItems>
@@ -36,12 +36,12 @@
 						<div class="sm:ml-12 flex items-center">
 							<div class="relative flex rounded-full bg-white shadow-sm items-stretch">
 								<button type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
-									<span class="sr-only">Previous week</span>
+									<span class="sr-only">{{ $t('calendar.previous_week') }}</span>
 									<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
 								</button>
 								<button type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{thisWeek}} <span class="text-gray-400"></span></button> <!-- todo - add year-->
 								<button type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
-									<span class="sr-only">Next week</span>
+									<span class="sr-only">{{ $t('calendar.next_week') }}</span>
 									<i class="fa-solid fa-chevron-right ml-2 h-5 w-5" aria-hidden="true" />
 								</button>
 							</div>
@@ -57,7 +57,7 @@
 						<!--Hidden mobile foldable menu-->
 						<Menu as="div" class="relative ml-6 md:hidden">
 							<MenuButton class="mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
-								<span class="sr-only">Open menu</span>
+								<span class="sr-only">{{ $t('calendar.open_menu') }}</span>
 								<i class="fa-solid fa-bars ml-2 h-5 w-5" aria-hidden="true" />
 							</MenuButton>
 
@@ -65,12 +65,12 @@
 								<MenuItems class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 									<div class="py-1">
 										<MenuItem v-slot="{ active }">
-											<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Create event</a>
+											<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.create_event') }}</a>
 										</MenuItem>
 									</div>
 									<div class="py-1">
 										<MenuItem v-slot="{ active }">
-											<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Change Availability</a>
+											<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.open_menu') }}</a>
 										</MenuItem>
 									</div>
 									<div class="py-1">
@@ -88,7 +88,7 @@
 						<div id="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5">
 							<!-- Mobile Calendar header -->
 							<div class="grid grid-cols-7 text-xs leading-6 text-gray-500 sm:hidden">
-								<div class="col-end-1 w-10 sm:w-14 bg-primary text-white flex justify-center items-center">Time</div>
+								<div class="col-end-1 w-10 sm:w-14 bg-primary text-white flex justify-center items-center">{{ $t('calendar.time') }}</div>
 								<button
 									v-for="(day, index) in daysOfWeek"
 									:key="index"
@@ -100,7 +100,7 @@
 							</div>
 							<!-- Desktop Calendar header -->
 							<div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
-								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">Time</div>
+								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">{{ $t('calendar.time') }}</div>
 								<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center py-3">
 									<span :class="[day === currentDay ? 'bg-primary rounded-full p-2 text-white ' :  '']">{{ day }}</span>
 								</div>
