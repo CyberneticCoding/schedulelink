@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('timeblock', function (Blueprint $table) {
             $table->id();
+			$table->dateTime('start_time');
+			$table->dateTime('stop_time');
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
         });
     }
