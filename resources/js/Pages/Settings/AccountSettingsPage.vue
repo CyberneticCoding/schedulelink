@@ -16,10 +16,10 @@
 							</div>
 							<div>
 								<div class="mt-8">
-									<a href="/" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.name")}}</a>
+									<a href="/public" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.name")}}</a>
 								</div>
 								<div>
-									<a href="/" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.picture")}}</a>
+									<a href="/public" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.picture")}}</a>
 								</div>
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 
 <script>
 
-import MainLayout from "../Layouts/MainLayout.vue";
+import MainLayout from "../../Layouts/MainLayout.vue";
 
 export default {
 	name: "SettingsPage",

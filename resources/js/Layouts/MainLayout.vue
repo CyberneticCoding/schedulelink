@@ -93,7 +93,7 @@
 						</ul>
 					</li>
 					<li class="mt-auto">
-						<Link href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+						<Link href="/settings" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
 							<i class="fa-solid fa-gear text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
 							{{ $t('layout.nav.settings') }}
 						</Link>
