@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('timeblock', function (Blueprint $table) {
+        Schema::create('time_blocks', function (Blueprint $table) {
             $table->id();
 			$table->dateTime('start_time');
 			$table->dateTime('stop_time');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('timeblock');
+        Schema::dropIfExists('time_blocks');
     }
 };

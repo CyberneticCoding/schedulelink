@@ -221,14 +221,14 @@
 								</div>
 								<!-- Events -->
 								<ol class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
-									<li class="relative mt-px flex col-start-1 row-[8_/_span_4]">
-										<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">
-											<p class="order-1 font-semibold text-blue-700">Breakfast</p>
-											<p class="hidden sm:inline text-blue-500 group-hover:text-blue-700">
-												<time datetime="2022-01-12T06:00">6:00 AM</time>
-											</p>
-										</a>
-									</li>
+									<!--<li class="relative mt-px flex col-start-1 row-[8_/_span_4]">-->
+									<!--	<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">-->
+									<!--		<p class="order-1 font-semibold text-blue-700">Breakfast</p>-->
+									<!--		<p class="hidden sm:inline text-blue-500 group-hover:text-blue-700">-->
+									<!--			<time datetime="2022-01-12T06:00">6:00 AM</time>-->
+									<!--		</p>-->
+									<!--	</a>-->
+									<!--</li>-->
 									<!--<li class="relative mt-px flex col-start-1 row-[74_/_span_12]">-->
 									<!--	<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">-->
 									<!--		<p class="order-1 font-semibold text-blue-700">Breakfast</p>-->
@@ -253,8 +253,8 @@
 									<!--		</p>-->
 									<!--	</a>-->
 									<!--</li>-->
-									<TimeBlock name="Tester" :time_start="new Date('2023-11-08 02:00:0-00')" :time_stop="new Date('2023-11-08 04:00:0-00')"></TimeBlock>
-									<TimeBlock name="Tester" :time_start="new Date('2023-11-09 00:00:0-00')" :time_stop="new Date('2023-11-09 08:00:0-00')"></TimeBlock>
+									<TimeBlock v-for="timeBlock in timeBlocks" :key="timeBlock.id" :start_time="new Date(timeBlock.start_time)" :stop_time="new Date(timeBlock.stop_time)"></TimeBlock>
+									<!--<TimeBlock name="Tester" :start_time="new Date('2023-11-08 02:00:0-00')" :stop_time="new Date('2023-11-08 04:00:0-00')"></TimeBlock>-->
 								</ol>
 							</div>
 						</div>
@@ -267,7 +267,7 @@
 <script>
 import MainLayout from "../Layouts/MainLayout.vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
-import TimeBlock from "@/Components/TimeBlock.vue";
+import TimeBlock from "../Components/TimeBlock.vue";
 
 export default {
 	name: "MainCalendarPage",
@@ -278,6 +278,9 @@ export default {
 		MenuItems,
 		MenuItem,
 		MenuButton
+	},
+	props: {
+		timeBlocks: Array, // Define the timeBlocks prop
 	},
 	data() {
 		return {

@@ -2,21 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\TimeBlock;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class TimeBlockSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-		\App\Models\User::factory()->create([
-			'first_name' => 'Admin',
-			'last_name' => 'ScheduleLink',
-			'email' => 'admin@schedulelink.com',
-			'password' => 'test',
-		]);
-    }
+		TimeBlock::factory()
+			->count(5)
+			->create();
+   }
 }
