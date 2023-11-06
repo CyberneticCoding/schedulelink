@@ -1,10 +1,9 @@
 <template>
-	<li :class="['relative mt-px flex', dayStyle, posStyle]">
+	<li :class="['relative mt-px flex', dayStyle, posStyle]" :style="posStyle">
 		<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">
 			<p class="order-1 font-semibold text-blue-700">{{ name }}</p>
 			<p class="hidden sm:inline text-blue-500 group-hover:text-blue-700">
-				{{formattedStartTime}}
-				<!--<time :datetime="time_start"></time>-->
+				<time :datetime="time_start">{{ formattedStartTime }}</time>
 			</p>
 		</a>
 	</li>
@@ -32,24 +31,10 @@ export default {
 		},
 	},
 	setup(props) {
-		const startTime = props.time_start
-		const hours = ((startTime.getUTCHours() * 60) + startTime.getUTCMinutes()) / 60 //returns something like 4,5 for 4 and a half hours
-		const dayOfWeek = startTime.getUTCDay();
+		const dayOfWeek = props.time_start.getUTCDay();
 		const dayStyle = `col-start-${dayOfWeek + 1}`;
-		const stopTime = new Date(props.time_stop);
-		const diffMinutes = (stopTime - startTime) / (1000 * 60);
-		const length = diffMinutes / 30;
-
-
-		const minTimeBlockRange = 6 // half hour
-		const timeStartRowPosition = Math.round(hours * 12) + 2 //add the + 2 because first 2 rows are weird. timeStartRowPosition is the placement of the timeblock on the vertical scale. Half hour is 6.
-
-		const posStyle = "row-[" + timeStartRowPosition + "_/_span_" + (minTimeBlockRange * length) + "]";
-
-
 
 		return {
-			posStyle,
 			dayStyle,
 		}
 	},
@@ -57,6 +42,17 @@ export default {
 		formattedStartTime() {
 			return this.formatTime(this.time_start);
 		},
+		posStyle() {
+			const startTime = this.time_start
+			const stopTime = new Date(this.time_stop);
+
+			const diffMinutes = (stopTime - startTime) / (1000 * 60); //difference between time_start and time_stop in minutes
+			let length = diffMinutes / 30;  // how many half hours length this timeblock has
+
+			const startTimeHour = (((startTime.getUTCHours() * 60) + startTime.getUTCMinutes()) / 60) + 0.5
+			return "grid-row: " + startTimeHour * 2 + " / span " + length; // the event is
+
+		}
 	}
 }
 </script>
