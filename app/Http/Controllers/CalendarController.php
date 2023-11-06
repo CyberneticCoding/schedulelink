@@ -15,4 +15,5 @@ class CalendarController extends Controller
 			'timeBlocks' => $timeBlocks, // Pass the time_blocks to the frontend
 		]);
 	}
+
 }

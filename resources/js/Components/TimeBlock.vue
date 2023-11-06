@@ -25,7 +25,9 @@ export default {
 			const hours = time.getHours();
 			const minutes = time.getMinutes();
 			const amPm = hours >= 12 ? "PM" : "AM";
-			return `${hours}:${minutes} ${amPm}`;
+			const formattedHours = (hours % 12) || 12;
+			const formattedMinutes = minutes.toString().padStart(2, "0");
+			return `${formattedHours}:${formattedMinutes} ${amPm}`;
 		},
 	},
 	setup(props) {
@@ -45,9 +47,8 @@ export default {
 			const stopTime = new Date(this.stop_time);
 			const diffMinutes = (stopTime - startTime) / (1000 * 60); //difference between time_start and time_stop in minutes
 			let length = Math.round(diffMinutes / 30);  // how many half hours length this timeblock has
-			let startTimeHour = Math.round((((startTime.getHours() * 60) + startTime.getMinutes()) / 60) + 0.5) // returns hour of the day 0 to 24.
-			return "grid-row: " + startTimeHour * 2 + " / span " + length;
-
+			let startTimeHour = (((startTime.getHours() * 60) + startTime.getMinutes()) / 60) + 0.5 // returns hour of the day 0 to 24.
+			return `grid-row: ${startTimeHour * 2} / span ${length}`;
 		}
 	}
 }

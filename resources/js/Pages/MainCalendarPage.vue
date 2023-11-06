@@ -221,40 +221,7 @@
 								</div>
 								<!-- Events -->
 								<ol class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
-									<!--<li class="relative mt-px flex col-start-1 row-[8_/_span_4]">-->
-									<!--	<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">-->
-									<!--		<p class="order-1 font-semibold text-blue-700">Breakfast</p>-->
-									<!--		<p class="hidden sm:inline text-blue-500 group-hover:text-blue-700">-->
-									<!--			<time datetime="2022-01-12T06:00">6:00 AM</time>-->
-									<!--		</p>-->
-									<!--	</a>-->
-									<!--</li>-->
-									<!--<li class="relative mt-px flex col-start-1 row-[74_/_span_12]">-->
-									<!--	<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">-->
-									<!--		<p class="order-1 font-semibold text-blue-700">Breakfast</p>-->
-									<!--		<p class="hidden sm:inline text-blue-500 group-hover:text-blue-700">-->
-									<!--			<time datetime="2022-01-12T06:00">6:00 AM</time>-->
-									<!--		</p>-->
-									<!--	</a>-->
-									<!--</li>-->
-									<!--<li class="relative mt-px flex col-start-3 row-[92_/_span_30]">-->
-									<!--	<a href="#" class="group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-pink-50 p-1 text-xs leading-5 hover:bg-pink-100">-->
-									<!--		<p class="order-1 font-semibold text-pink-700">Flight to Paris</p>-->
-									<!--		<p class="hidden sm:inline text-pink-500 group-hover:text-pink-700">-->
-									<!--			<time datetime="2022-01-12T07:30">7:30 AM</time>-->
-									<!--		</p>-->
-									<!--	</a>-->
-									<!--</li>-->
-									<!--<li class="relative mt-px flex col-start-6 " style="grid-row: 122 / span 24">-->
-									<!--	<a href="#" class="group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-gray-100 p-1 text-xs leading-5 hover:bg-gray-200">-->
-									<!--		<p class="order-1 font-semibold text-gray-700">Meeting with design team at Disney</p>-->
-									<!--		<p class="hidden sm:inline text-gray-500 group-hover:text-gray-700">-->
-									<!--			<time datetime="2022-01-15T10:00">10:00 AM</time>-->
-									<!--		</p>-->
-									<!--	</a>-->
-									<!--</li>-->
-									<TimeBlock v-for="timeBlock in timeBlocks" :key="timeBlock.id" :start_time="new Date(timeBlock.start_time)" :stop_time="new Date(timeBlock.stop_time)"></TimeBlock>
-									<!--<TimeBlock name="Tester" :start_time="new Date('2023-11-08 02:00:0-00')" :stop_time="new Date('2023-11-08 04:00:0-00')"></TimeBlock>-->
+									<TimeBlock v-for="timeBlock in timeBlocks" :key="timeBlock.id" :name="timeBlock.name" :start_time="new Date(timeBlock.start_time)" :stop_time="new Date(timeBlock.stop_time)"></TimeBlock>
 								</ol>
 							</div>
 						</div>
