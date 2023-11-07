@@ -220,9 +220,25 @@
 									<!--<div class="col-start-8 row-span-full w-8" />-->
 								</div>
 								<!-- Events -->
-								<ol class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
-									<TimeBlock v-for="timeBlock in timeBlocks" :key="timeBlock.id" :name="timeBlock.name" :start_time="new Date(timeBlock.start_time)" :stop_time="new Date(timeBlock.stop_time)"></TimeBlock>
+								<ol @click="handleOlClick" ref="calendar" class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
+									<TimeBlock
+										v-for="timeBlock in timeBlocks"
+										:key="timeBlock.id"
+										:name="timeBlock.name"
+										:start_time="new Date(timeBlock.start_time)"
+										:stop_time="new Date(timeBlock.stop_time)"
+									></TimeBlock>
 								</ol>
+								<!--<ol class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr)]">-->
+								<!--	<TimeBlock-->
+								<!--			v-for="timeBlock in timeBlocks"-->
+								<!--			:key="timeBlock.id"-->
+								<!--			:name="timeBlock.name"-->
+								<!--			:start_time="new Date(timeBlock.start_time)"-->
+								<!--			:stop_time="new Date(timeBlock.stop_time)"-->
+								<!--			@click="handleTimeBlockClick(timeBlock)"-->
+								<!--	></TimeBlock>-->
+								<!--</ol>-->
 							</div>
 						</div>
 					</div>
@@ -256,6 +272,54 @@ export default {
 		}
 	},
 	methods: {
+		handleOlClick(event) {
+			const isTimeBlock = event.target.getAttribute("data-time-block") === "true";
+
+			if (isTimeBlock) {
+				alert("timeblock")
+			} else {
+				const olElement = this.$refs.calendar;
+				const clickPositionY = event.clientY - olElement.getBoundingClientRect().top;
+				const clickPositionX = event.clientX - olElement.getBoundingClientRect().left;
+
+				// Calculate the time slot based on the vertical click position and your grid configuration
+				const halfHourHeight = olElement.clientHeight / 48; // Assuming 48 half-hour slots
+				const timeSlot = Math.floor(clickPositionY / halfHourHeight); // Calculate the time slot index
+
+				// Calculate the day (column) based on the horizontal click position and your grid configuration
+				const dayColumnCount = 7; // Assuming 7 columns
+				const dayColumnWidth = olElement.clientWidth / dayColumnCount; // Width of each day column
+				const dayIndex = Math.floor(clickPositionX / dayColumnWidth); // Calculate the day index
+
+				const currentDate = new Date();
+
+				// Calculate the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+				const currentDayOfWeek = currentDate.getDay();
+
+				// Calculate the difference between the current day and the desired day (dayIndex)
+				const dayDifference = dayIndex - currentDayOfWeek;
+
+				// Calculate the date for the desired day by adding the day difference
+				currentDate.setDate(currentDate.getDate() + dayDifference);
+
+				// Calculate the time in milliseconds based on the timeSlot (1 time slot = 30 minutes)
+				const timeMilliseconds = timeSlot * 30 * 60 * 1000;
+
+				// Set the time of the Date object to the desired time
+				currentDate.setHours(Math.floor(timeMilliseconds / 3600000));
+				currentDate.setMinutes(Math.floor((timeMilliseconds % 3600000) / 60000));
+
+				// Subtract 1 hour from the currentDate
+				currentDate.setHours(currentDate.getHours() + 1);
+				this.$inertia.post("/calendar", {
+					name: "New Event",
+					start_time: currentDate.toISOString(),
+					stop_time: null,
+				}, {
+					preserveScroll: true
+				})
+			}
+		},
 		getWeekData() {
 			/* Returns something like:
 				"firstday": "2023-10-30T11:18:37.644Z",
@@ -284,6 +348,7 @@ export default {
 		daysOfWeek() {
 			/*  [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
 			// Returns an array of the days in the current week (based on timezone). The days are formatted like: ['15 Mon', '16 Tue']
+
 			const formatOptions = {
 				timeZone: this.timezone,
 				weekday: "short",

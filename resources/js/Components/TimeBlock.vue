@@ -1,11 +1,11 @@
 <template>
 	<li :class="['relative mt-px flex', dayStyle]" :style="posStyle">
-		<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">
-			<p class="order-1 font-semibold text-blue-700">{{ name }}</p>
-			<p class="hidden sm:inline text-blue-500 group-hover:text-blue-700">
+		<button data-time-block="true" class="break-words group absolute inset-1 flex flex-col w-[96%] overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">
+			<span class="order-1 font-semibold text-blue-700">{{ name }}</span>
+			<span class="hidden sm:inline text-blue-500 group-hover:text-blue-700">
 				<time :datetime="start_time">{{ formattedStartTime }}</time>
-			</p>
-		</a>
+			</span>
+		</button>
 	</li>
 </template>
 

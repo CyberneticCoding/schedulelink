@@ -30,8 +30,8 @@ class TimeBlockFactory extends Factory
 		return [
 			'start_time' => $startTime,
 			'stop_time' => $stopTime,
-			'name' => fake()->unique()->name(),
-			'description' => fake()->unique()->sentence(),
+			'name' => fake()->name(),
+			'description' => fake()->sentence(),
 		];
 	}
 }

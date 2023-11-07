@@ -16,7 +16,7 @@ return new class extends Migration
 			$table->dateTime('start_time');
 			$table->dateTime('stop_time');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

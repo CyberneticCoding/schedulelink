@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TimeBlock extends Model
 {
     use HasFactory;
+
+	protected $fillable = [
+		'name',
+		'start_time',
+		'stop_time',
+		'description',
+	];
 }

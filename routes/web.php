@@ -29,6 +29,7 @@ Route::post('/register', [RegistrationController::class, 'register']);
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
+	Route::post('/calendar', [CalendarController::class, 'store'])->name('calendar.store');
 	Route::get('/combined-calendar', function () {
 		return Inertia::render('CombinedCalendarPage');
 	});
