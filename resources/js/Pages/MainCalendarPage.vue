@@ -220,7 +220,7 @@
 									<!--<div class="col-start-8 row-span-full w-8" />-->
 								</div>
 								<!-- Events -->
-								<ol @click="handleOlClick" ref="calendar" class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
+								<ol @click="handleGridClick" ref="calendar" class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
 									<TimeBlock
 										v-for="timeBlock in timeBlocks"
 										:key="timeBlock.id"
@@ -272,53 +272,57 @@ export default {
 		}
 	},
 	methods: {
-		handleOlClick(event) {
+		handleGridClick(event) {
 			const isTimeBlock = event.target.getAttribute("data-time-block") === "true";
 
 			if (isTimeBlock) {
 				alert("timeblock")
 			} else {
-				const olElement = this.$refs.calendar;
-				const clickPositionY = event.clientY - olElement.getBoundingClientRect().top;
-				const clickPositionX = event.clientX - olElement.getBoundingClientRect().left;
-
-				// Calculate the time slot based on the vertical click position and your grid configuration
-				const halfHourHeight = olElement.clientHeight / 48; // Assuming 48 half-hour slots
-				const timeSlot = Math.floor(clickPositionY / halfHourHeight); // Calculate the time slot index
-
-				// Calculate the day (column) based on the horizontal click position and your grid configuration
-				const dayColumnCount = 7; // Assuming 7 columns
-				const dayColumnWidth = olElement.clientWidth / dayColumnCount; // Width of each day column
-				const dayIndex = Math.floor(clickPositionX / dayColumnWidth); // Calculate the day index
-
-				const currentDate = new Date();
-
-				// Calculate the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-				const currentDayOfWeek = currentDate.getDay();
-
-				// Calculate the difference between the current day and the desired day (dayIndex)
-				const dayDifference = dayIndex - currentDayOfWeek;
-
-				// Calculate the date for the desired day by adding the day difference
-				currentDate.setDate(currentDate.getDate() + dayDifference);
-
-				// Calculate the time in milliseconds based on the timeSlot (1 time slot = 30 minutes)
-				const timeMilliseconds = timeSlot * 30 * 60 * 1000;
-
-				// Set the time of the Date object to the desired time
-				currentDate.setHours(Math.floor(timeMilliseconds / 3600000));
-				currentDate.setMinutes(Math.floor((timeMilliseconds % 3600000) / 60000));
-
-				// Subtract 1 hour from the currentDate
-				currentDate.setHours(currentDate.getHours() + 1);
-				this.$inertia.post("/calendar", {
-					name: "New Event",
-					start_time: currentDate.toISOString(),
-					stop_time: null,
-				}, {
-					preserveScroll: true
-				})
+				this.createNewTimeBlock()
 			}
+		},
+		createNewTimeBlock() {
+			const MIN_CALENDAR_SLOTS = 48;
+			const DAY_COLUMNS = 7;
+
+			function calculateTime(timeSlot) {
+				// Calculate time from a time slot index
+				const minutes = timeSlot * 30;
+				return {
+					hours: Math.floor(minutes / 60),
+					minutes: minutes % 60,
+				};
+			}
+			/* Get the position where was clicked */
+			const grid = this.$refs.calendar;
+			const clickPositionY = event.clientY - grid.getBoundingClientRect().top;
+			const clickPositionX = event.clientX - grid.getBoundingClientRect().left;
+			// Calculate the time slot based on the vertical click position on the grid and the size of the smallest calendar slot denomination
+			const halfHourHeight = grid.clientHeight / MIN_CALENDAR_SLOTS;
+			const timeSlot = Math.floor(clickPositionY / halfHourHeight);
+			// Calculate the day (column) based on the horizontal click position on the grid
+			const dayColumnWidth = grid.clientWidth / DAY_COLUMNS;
+			const dayIndex = Math.floor(clickPositionX / dayColumnWidth); //clicked date
+
+			const currentDate = new Date();
+			const currentDayOfWeek = currentDate.getDay(); //current week day 0 - 6
+
+			const dayDifference = dayIndex - currentDayOfWeek;
+
+			// Calculate the date for the desired day by adding the day difference
+			currentDate.setDate(currentDate.getDate() + dayDifference);
+
+			const { hours, minutes } = calculateTime(timeSlot);
+			currentDate.setHours(hours + 1);
+			currentDate.setMinutes(minutes);
+
+			this.$inertia.post("/calendar", {
+				name: "New Event",
+				start_time: currentDate.toISOString(),
+				stop_time: null,
+			}, {
+				preserveScroll: true
+			})
 		},
 		getWeekData() {
 			/* Returns something like:
@@ -328,16 +332,11 @@ export default {
 			 */
 			const currentDate = new Date();
 			const first = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
-			const last = first + 6; // last day is the first day + 6
-
-			const currentday = new Date(currentDate);
-			const firstday = new Date(currentDate.setDate(first));
-			const lastday = new Date(currentDate.setDate(last));
-
+			const last = first + 7; // last day is the first day + 6
 			return {
-				firstday: firstday,
-				currentday: currentday,
-				lastday: lastday,
+				firstday: new Date(currentDate),
+				currentday: new Date(currentDate.setDate(first)),
+				lastday: new Date(currentDate.setDate(last)),
 			}
 		},
 		formatDate(date, formatOptions) {
@@ -354,7 +353,6 @@ export default {
 				weekday: "short",
 				day: "2-digit",
 			};
-
 			const daysOfWeek = [];
 
 			for (let i = 0; i <= 6; i++) {
