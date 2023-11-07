@@ -45,10 +45,10 @@
 											</li>
 										</ul>
 									</li>
-									<li class="mt-auto">
-										<Link href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-											<i class="fa-solid fa-gear text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
-											{{ $t('layout.nav.settings') }}
+									<li class="mt-auto" v-for="item in navigationSettingsbutton" :key="item.name">
+										<Link :href="item.href" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+											<i :class="[item.icon,' text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5']" aria-hidden="true" />
+											{{ $t(item.translationKey) }}
 										</Link>
 									</li>
 								</ul>
@@ -92,10 +92,10 @@
 							</li>
 						</ul>
 					</li>
-					<li class="mt-auto">
-						<Link href="/settings" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-							<i class="fa-solid fa-gear text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
-							{{ $t('layout.nav.settings') }}
+					<li class="mt-auto" v-for="item in navigationSettingsbutton" :key="item.name">
+						<Link :href="item.href" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+							<i :class="[item.icon,' text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5']" aria-hidden="true" />
+							{{ $t(item.translationKey) }}
 						</Link>
 					</li>
 				</ul>
@@ -199,12 +199,28 @@ export default {
 		Link,
 	},
 	setup() {
-		const navigation = [
+		const defaultNavigation = [
 			{ name: "Calendar", href: "/", icon: "fa-regular fa-calendar-days", component: "MainCalendarPage",  translationKey: "layout.nav.main_calendar"},
 			{ name: "Combined Calendar", href: "/combined-calendar", icon: "fa-solid fa-calendar-week", component: "CombinedCalendarPage", translationKey: "layout.nav.combined_calendar" },
 			{ name: "Meetings", href: "/meetings", icon: "fa-regular fa-handshake", component: "MeetingsPage", translationKey: "layout.nav.meetings" },
 			{ name: "Teams", href: "/teams", icon: "fa-solid fa-people-group", component: "TeamsPage", translationKey: "layout.nav.teams" },
 		]
+		const defaultNavigationSettingsbutton =[
+			{name: "Settings", href: "/settings", icon: "fa-solid fa-gear",  translationKey: "layout.nav.settings"},
+		]
+		const settingsNavigationBackbutton =[
+			{name: "Back", href: "/", icon: "",  translationKey: "layout.nav.settingsmenu.back"},
+		]
+
+		const settingsNavigation =[
+			{ name: "Account", href: "/settings", icon: "", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
+			{ name: "Notifications", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.user.notifications" },
+			{ name: "Calendar preferences", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.user.preferences" },
+			{ name: "Import", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.user.import" },
+			{ name: "Details", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
+			{ name: "Members", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.company.members" },
+		]
+
 		const userNavigation = [
 			{ name: "Logout", href: "/logout", method:"POST", icon: "fa-solid fa-right-from-bracket", translationKey: "layout.nav.logout"},
 		]
@@ -212,12 +228,36 @@ export default {
 		const sidebarOpen = ref(false)
 		return {
 			sidebarOpen,
-			navigation,
-			userNavigation
+			defaultNavigation,
+			userNavigation,
+			defaultNavigationSettingsbutton,
+			settingsNavigationBackbutton,
+			settingsNavigation
 		}
 	},
 	methods: {
 
 	},
+	computed:{
+		inSettings(){
+			// const parts = window.location.href.split("/")
+			// return parts[1]
+			const match = window.location.pathname.match(/^\/([^/]+)/); // RegEx om het eerste pad te matchen
+			return match ? match[1] : null; // Geeft het overeenkomende deel terug, of anders null
+		},
+		navigation(){
+			if(this.inSettings==="settings"){
+				return this.settingsNavigation
+			}
+			else{return this.defaultNavigation}
+		},
+		navigationSettingsbutton(){
+			if(this.inSettings==="settings"){
+				return this.settingsNavigationBackbutton
+			}
+			else{return this.defaultNavigationSettingsbutton}
+
+		}
+	}
 }
 </script>

@@ -10,8 +10,22 @@
 		"meetings": "Meetings",
 		"teams": "Teams",
 		"settings": "Settings",
-	  	"logout": "Log out"
+	  	"logout": "Log out",
+	  	"settingsmenu":{
+		  "user": {
+			"account": "Account",
+			"notifications": "Notifications",
+			"preferences": "Calendar preferences",
+			"import": "Import"
+		  },
+		  "company": {
+			"details": "Details",
+			"members": "Members"
+		  },
+		  "back": "Back"
+		}
 	}
+	
   },
   "login": {
 	"log_in": "Log in to your account",
