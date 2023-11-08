@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTimeBlock;
 use App\Models\Color;
 use App\Models\TimeBlock;
 use Illuminate\Http\Request;
@@ -20,26 +21,22 @@ class CalendarController extends Controller
 	}
 
 
-	public function store(Request $request)
+	public function store(StoreTimeBlock $request)
 	{
-		$data = $request->validate([
-			'name' => 'required|string',
-			'start_time' => 'required|date',
-			'stop_time' => 'nullable|date|after:start_date',
-		]);
+		$validated = $request->validated();
 
 		$timeBlock = new TimeBlock([
-			'name' => $data['name'],
-			'start_time' => $data['start_time'],
+			'name' => $validated['name'],
+			'start_time' => $validated['start_time'],
 		]);
 
 
 		// Check if 'stop_time' is provided and set it
-		if ($data['stop_time']) {
-			$timeBlock->stop_time = $data['stop_time'];
+		if ($validated['stop_time']) {
+			$timeBlock->stop_time = $validated['stop_time'];
 		} else {
 			// If 'stop_time' is not provided, calculate it as needed
-			$start_time = Carbon::parse($data['start_time']);
+			$start_time = Carbon::parse($validated['start_time']);
 			$stop_time = $start_time->copy()->addHour(); // Add 1 default hour
 			$timeBlock->stop_time = $stop_time;
 		}

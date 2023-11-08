@@ -293,10 +293,10 @@ export default {
 			const timeSlot = Math.floor(clickPositionY / halfHourHeight);
 			// Calculate the day (column) based on the horizontal click position on the grid
 			const dayColumnWidth = grid.clientWidth / DAY_COLUMNS;
-			const dayIndex = Math.floor(clickPositionX / dayColumnWidth); //clicked date
+			const dayIndex = Math.floor(clickPositionX / dayColumnWidth); //clicked day
 
 			const currentDate = new Date();
-			const currentDayOfWeek = currentDate.getDay(); //current week day 0 - 6
+			const currentDayOfWeek = currentDate.getDay(); //current week day, 0 - 6
 
 			const dayDifference = dayIndex - currentDayOfWeek;
 
