@@ -230,16 +230,6 @@
 										:stop_time="new Date(timeBlock.stop_time)"
 									></TimeBlock>
 								</ol>
-								<!--<ol class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr)]">-->
-								<!--	<TimeBlock-->
-								<!--			v-for="timeBlock in timeBlocks"-->
-								<!--			:key="timeBlock.id"-->
-								<!--			:name="timeBlock.name"-->
-								<!--			:start_time="new Date(timeBlock.start_time)"-->
-								<!--			:stop_time="new Date(timeBlock.stop_time)"-->
-								<!--			@click="handleTimeBlockClick(timeBlock)"-->
-								<!--	></TimeBlock>-->
-								<!--</ol>-->
 							</div>
 						</div>
 					</div>
@@ -325,46 +315,55 @@ export default {
 				preserveScroll: true
 			})
 		},
-		getWeekData() {
-			/* Returns something like:
-				"firstday": "2023-10-30T11:18:37.644Z",
-				"currentday": "2023-10-31T11:18:37.644Z",
-				"lastday": "2023-11-05T11:18:37.644Z"
-			 */
-			const currentDate = new Date();
-			const first = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
-			const last = first + 7; // last day is the first day + 6
-			return {
-				firstday: new Date(currentDate),
-				currentday: new Date(currentDate.setDate(first)),
-				lastday: new Date(currentDate.setDate(last)),
-			}
-		},
 		formatDate(date, formatOptions) {
 			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
+		},
+		getWeekData() {
+			const currentDate = new Date();
+			const currentDay = currentDate.getDay();
+			const first = currentDate.getDate() - currentDay + (currentDay === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
+
+			// Calculate the first Monday
+			const firstMonday = new Date(currentDate);
+			firstMonday.setDate(first);
+			// Calculate the last day (Sunday) by adding 6 days to the first Monday
+			const lastSunday = new Date(firstMonday);
+			lastSunday.setDate(firstMonday.getDate() + 6);
+
+			return {
+				firstday: firstMonday,
+				currentday: currentDate,
+				lastday: lastSunday,
+			}
 		}
 	},
 	computed: {
 		daysOfWeek() {
-			/*  [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
-			// Returns an array of the days in the current week (based on timezone). The days are formatted like: ['15 Mon', '16 Tue']
+			/*  returns something like [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
+			const currentDate = new Date();
+			const currentDayOfWeek = currentDate.getUTCDay(); // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
+
+			const daysToSubtract = (currentDayOfWeek + 6) % 7; // Calculate the number of days to subtract to get to the previous Monday
+			const previousMonday = new Date(currentDate);
+			previousMonday.setUTCDate(currentDate.getUTCDate() - daysToSubtract); //first monday of the week
 
 			const formatOptions = {
 				timeZone: this.timezone,
 				weekday: "short",
 				day: "2-digit",
 			};
-			const daysOfWeek = [];
 
-			for (let i = 0; i <= 6; i++) {
-				// Calculate a new date by adding 'i' days to the 'firstday' date until a week is formed.
-				const day = new Date(this.week.firstday.getTime() + i * 24 * 60 * 60 * 1000)
-				// Make the array
-				daysOfWeek.push(this.formatDate(day, formatOptions));
+			const dateArray = [];
+			for (let i = 0; i < 7; i++) {  //add 7 days to the first monday to get a full week
+				const date = new Date(previousMonday);
+				date.setUTCDate(previousMonday.getUTCDate() + i);
+				dateArray.push(this.formatDate(date, formatOptions));
 			}
-			return daysOfWeek;
+
+			return dateArray;
 		},
 		currentDay() {
+			// Returns something like 08 Wed. Which is the current day
 			return this.formatDate(new Date(), {
 				timeZone: this.timezone,
 				weekday: "short",

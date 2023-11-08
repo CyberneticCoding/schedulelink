@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Color;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,14 +13,14 @@ class ColorSeeder extends Seeder
      */
     public function run(): void
     {
-		\App\Models\Color::create([
+		Color::create([
 			'name' => 'Blue',
 			'primary_color' => 'bg-blue-50',
 			'hover_color' => 'hover:bg-blue-100',
 			'text_color' => 'text-blue-700',
 		]);
 
-		\App\Models\Color::create([
+		Color::create([
 			'name' => 'Amber',
 			'primary_color' => 'bg-amber-50',
 			'hover_color' => 'hover:bg-amber-100',
