@@ -15,4 +15,9 @@ class TimeBlock extends Model
 		'stop_time',
 		'description',
 	];
+
+	public function color()
+	{
+		return $this->belongsTo(Color::class, 'color_id');
+	}
 }

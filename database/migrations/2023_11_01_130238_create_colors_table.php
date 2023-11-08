@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('time_blocks', function (Blueprint $table) {
+        Schema::create('colors', function (Blueprint $table) {
             $table->id();
-			$table->dateTime('start_time');
-			$table->dateTime('stop_time');
-            $table->string('name');
-            $table->string('description')->nullable();
-			$table->unsignedBigInteger('color_id');
-			$table->foreign('color_id')->references('id')->on('colors');
+			$table->string('name');
+            $table->string('primary_color');
+            $table->string('hover_color');
+			$table->string('text_color');
 			$table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('time_blocks');
+        Schema::dropIfExists('colors');
     }
 };

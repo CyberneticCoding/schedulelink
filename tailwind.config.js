@@ -5,6 +5,14 @@ export default {
 		"./resources/**/*.js",
 		"./resources/**/*.vue",
 	],
+	safelist: [
+		'bg-blue-50',
+		'hover:bg-blue-100',
+		'text-blue-700',
+		'bg-amber-50',
+		'hover:bg-amber-100',
+		'text-amber-700',
+	],
 	theme: {
 		extend: {
 			colors: {

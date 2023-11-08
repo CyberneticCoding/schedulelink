@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Color;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -30,6 +31,7 @@ class TimeBlockFactory extends Factory
 			'start_time' => $startTime,
 			'stop_time' => $stopTime,
 			'name' => fake()->name(),
+			'color_id' => Color::find(fake()->numberBetween(1, 2)),
 			'description' => fake()->sentence(),
 		];
 	}

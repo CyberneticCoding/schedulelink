@@ -225,6 +225,7 @@
 										v-for="timeBlock in timeBlocks"
 										:key="timeBlock.id"
 										:name="timeBlock.name"
+										:color="timeBlock.color"
 										:start_time="new Date(timeBlock.start_time)"
 										:stop_time="new Date(timeBlock.stop_time)"
 									></TimeBlock>
