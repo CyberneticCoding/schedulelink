@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Database\Seeders\ColorSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
@@ -16,6 +17,7 @@ class TimeBlockTest extends TestCase
      */
     public function test_user_can_create_timeblock_without_stop_time(): void
     {
+		$this->seed(ColorSeeder::class);
 		$user = User::factory()->create();
 
 		Auth::guard()->setUser($user);
@@ -28,6 +30,7 @@ class TimeBlockTest extends TestCase
 			'start_time' => $formatedStartTime,
 			'stop_time' => null,
 			'name' => $name,
+			'color_id' => '1',
 		])->assertSessionHasNoErrors()->assertRedirect();
 
 		$this->assertDatabaseHas('time_blocks', ['name' => $name]);
@@ -35,6 +38,7 @@ class TimeBlockTest extends TestCase
 
 	public function test_user_can_create_time_block_with_stop_time(): void
 	{
+		$this->seed(ColorSeeder::class);
 		$user = User::factory()->create();
 
 		Auth::guard()->setUser($user);
@@ -49,6 +53,7 @@ class TimeBlockTest extends TestCase
 			'start_time' => $formatedStartTime,
 			'stop_time' => $formatedStopTime,
 			'name' => $name,
+			'color_id' => '1',
 		])->assertSessionHasNoErrors()->assertRedirect();
 
 		$this->assertDatabaseHas('time_blocks', ['name' => $name]);
