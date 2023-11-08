@@ -16,10 +16,10 @@
 							</div>
 							<div>
 								<div class="mt-8">
-									<a href="/public" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.name")}}</a>
+									<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.name")}}</a>
 								</div>
 								<div>
-									<a href="/public" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.picture")}}</a>
+									<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.picture")}}</a>
 								</div>
 							</div>
 						</div>
@@ -29,7 +29,7 @@
 				<div >
 					<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings_account.title.account') }}</h3>
 					<ul role="list" class="-mx-2 space-y-1">
-						<li v-for="item in accountsettings" :key="item.name">
+						<li v-for="item in accountsettingsTranslations" :key="item.name">
 							<div class="mt-5">
 								<ul>
 									<li class="flex justify-between w-3/4">
@@ -63,7 +63,7 @@ export default {
 	name: "SettingsPage",
 	components: { MainLayout },
 	setup() {
-		const accountsettings = [
+		const accountsettingsTranslations = [
 			{ name: "settings_account.email.name",
 				value: "email",
 				change: "settings_account.email.change"},
@@ -81,7 +81,7 @@ export default {
 				change: "settings_account.view.change"},
 		]
 		return {
-			accountsettings
+			accountsettingsTranslations
 		}
 	}
 }
