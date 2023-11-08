@@ -5,27 +5,27 @@
 				<header class="flex flex-none items-center justify-between border-b border-gray-200 pl-6 pb-4 sm:px-6 sm:py-4">
 					<div class="flex flex-col sm:flex-row text-xl font-bold leading-6 text-gray-900">
 						<div class="flex items-center">
-							<h1>Calendar:</h1>
+							<h1>{{ $t('calendar.calendar') }}:</h1>
 							<!--Select Month/year/day/week menu-->
 							<Menu as="div" class="relative">
 								<MenuButton type="button" class="flex items-center">
-									<span class="text-primary ml-2">Week</span>
+									<span class="text-primary ml-2">{{ $t('calendar.week') }}</span>
 									<i class="fa-solid fa-chevron-down fa-sm ml-2 h-5 w-5 mt-4" aria-hidden="true" />
 								</MenuButton>
 								<transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
 									<MenuItems class="absolute left:0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 										<div class="py-1">
 											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Day view</a>
+												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.day_view') }}</a>
 											</MenuItem>
 											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Week view</a>
+												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.week_view') }}</a>
 											</MenuItem>
 											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Month view</a>
+												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.month_view') }}</a>
 											</MenuItem>
 											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Year view</a>
+												<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.year_view') }}</a>
 											</MenuItem>
 										</div>
 									</MenuItems>
@@ -36,12 +36,12 @@
 						<div class="sm:ml-12 flex items-center">
 							<div class="relative flex rounded-full bg-white shadow-sm items-stretch">
 								<button type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
-									<span class="sr-only">Previous week</span>
+									<span class="sr-only">{{ $t('calendar.previous_week') }}</span>
 									<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
 								</button>
 								<button type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{thisWeek}} <span class="text-gray-400"></span></button> <!-- todo - add year-->
 								<button type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
-									<span class="sr-only">Next week</span>
+									<span class="sr-only">{{ $t('calendar.next_week') }}</span>
 									<i class="fa-solid fa-chevron-right ml-2 h-5 w-5" aria-hidden="true" />
 								</button>
 							</div>
@@ -57,7 +57,7 @@
 						<!--Hidden mobile foldable menu-->
 						<Menu as="div" class="relative ml-6 md:hidden">
 							<MenuButton class="mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
-								<span class="sr-only">Open menu</span>
+								<span class="sr-only">{{ $t('calendar.open_menu') }}</span>
 								<i class="fa-solid fa-bars ml-2 h-5 w-5" aria-hidden="true" />
 							</MenuButton>
 
@@ -65,12 +65,12 @@
 								<MenuItems class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 									<div class="py-1">
 										<MenuItem v-slot="{ active }">
-											<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Create event</a>
+											<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.create_event') }}</a>
 										</MenuItem>
 									</div>
 									<div class="py-1">
 										<MenuItem v-slot="{ active }">
-											<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Change Availability</a>
+											<a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ $t('calendar.open_menu') }}</a>
 										</MenuItem>
 									</div>
 									<div class="py-1">
@@ -83,12 +83,12 @@
 						</Menu>
 					</div>
 				</header>
-				<div id="container" class="isolate flex flex-auto flex-col overflow-auto bg-white">
+				<div id="container" class="isolate flex flex-auto flex-col overflow-hidden bg-white">
 					<div style="width: 165%" class="flex flex-none flex-col max-w-full">
 						<div id="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5">
 							<!-- Mobile Calendar header -->
 							<div class="grid grid-cols-7 text-xs leading-6 text-gray-500 sm:hidden">
-								<div class="col-end-1 w-10 sm:w-14 bg-primary text-white flex justify-center items-center">Time</div>
+								<div class="col-end-1 w-10 sm:w-14 bg-primary text-white flex justify-center items-center">{{ $t('calendar.time') }}</div>
 								<button
 									v-for="(day, index) in daysOfWeek"
 									:key="index"
@@ -100,7 +100,7 @@
 							</div>
 							<!-- Desktop Calendar header -->
 							<div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
-								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">Time</div>
+								<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">{{ $t('calendar.time') }}</div>
 								<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center py-3">
 									<span :class="[day === currentDay ? 'bg-primary rounded-full p-2 text-white ' :  '']">{{ day }}</span>
 								</div>
@@ -110,10 +110,9 @@
 							<div class="sticky left-0 z-10 w-10 sm:w-14 flex-none bg-white ring-1 ring-gray-100" />
 							<div class="grid flex-auto grid-cols-1 grid-rows-1">
 								<!-- Horizontal lines -->
-								<div class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-rows-[repeat(24,minmax(3.5rem,1fr))] sm:grid-rows-[repeat(48,minmax(3.5rem,1fr))]">
-									<div id="containerOffset" class="row-end-1 h-7" />
+								<div class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
 									<div>
-										<div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">12AM</div>
+										<div class="sticky left-0 z-20 -ml-14 mt-0.5 w-10 sm:w-14 pr-2 text-right text-xs leading-5 text-gray-400">12AM</div>
 									</div>
 									<div class="hidden sm:inline"/>
 									<div>
@@ -210,7 +209,7 @@
 									<div class="hidden sm:inline"/>
 								</div>
 								<!-- Vertical lines -->
-								<div class="col-start-1 col-end-2 row-start-1 grid-cols-7 grid-rows-1 divide-x divide-gray-100 grid sm:grid-cols-7">
+								<div class="col-start-0 col-end-2 row-start-1 grid-cols-7 grid-rows-1 divide-x divide-gray-100 grid sm:grid-cols-7">
 									<div class="col-start-1 row-span-full" />
 									<div class="col-start-2 row-span-full" />
 									<div class="col-start-3 row-span-full" />
@@ -220,33 +219,16 @@
 									<div class="col-start-7 row-span-full" />
 									<!--<div class="col-start-8 row-span-full w-8" />-->
 								</div>
-
 								<!-- Events -->
-								<ol class="col-start-1 col-end-2 row-start-1 grid grid-cols-7" style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto">
-									<li class="relative mt-px flex col-start-3" style="grid-row: 74 / span 12">
-										<a href="#" class="break-words group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-blue-50 p-1 text-xs leading-5 hover:bg-blue-100">
-											<p class="order-1 font-semibold text-blue-700">Breakfast</p>
-											<p class="hidden sm:inline text-blue-500 group-hover:text-blue-700">
-												<time datetime="2022-01-12T06:00">6:00 AM</time>
-											</p>
-										</a>
-									</li>
-									<li class="relative mt-px flex col-start-3" style="grid-row: 92 / span 30">
-										<a href="#" class="group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-pink-50 p-1 text-xs leading-5 hover:bg-pink-100">
-											<p class="order-1 font-semibold text-pink-700">Flight to Paris</p>
-											<p class="hidden sm:inline text-pink-500 group-hover:text-pink-700">
-												<time datetime="2022-01-12T07:30">7:30 AM</time>
-											</p>
-										</a>
-									</li>
-									<li class="relative mt-px flex col-start-6 " style="grid-row: 122 / span 24">
-										<a href="#" class="group absolute inset-1 flex flex-col overflow-hidden rounded-lg bg-gray-100 p-1 text-xs leading-5 hover:bg-gray-200">
-											<p class="order-1 font-semibold text-gray-700">Meeting with design team at Disney</p>
-											<p class="hidden sm:inline text-gray-500 group-hover:text-gray-700">
-												<time datetime="2022-01-15T10:00">10:00 AM</time>
-											</p>
-										</a>
-									</li>
+								<ol @click="handleGridClick" ref="calendar" class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
+									<TimeBlock
+										v-for="timeBlock in timeBlocks"
+										:key="timeBlock.id"
+										:name="timeBlock.name"
+										:color="timeBlock.color"
+										:start_time="new Date(timeBlock.start_time)"
+										:stop_time="new Date(timeBlock.stop_time)"
+									></TimeBlock>
 								</ol>
 							</div>
 						</div>
@@ -259,15 +241,20 @@
 <script>
 import MainLayout from "../Layouts/MainLayout.vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
+import TimeBlock from "../Components/TimeBlock.vue";
 
 export default {
 	name: "MainCalendarPage",
 	components: {
+		TimeBlock,
 		MainLayout,
 		Menu,
 		MenuItems,
 		MenuItem,
 		MenuButton
+	},
+	props: {
+		timeBlocks: Array, // Define the timeBlocks prop
 	},
 	data() {
 		return {
@@ -276,51 +263,107 @@ export default {
 		}
 	},
 	methods: {
-		getWeekData() {
-			/* Returns something like:
-				"firstday": "2023-10-30T11:18:37.644Z",
-				"currentday": "2023-10-31T11:18:37.644Z",
-				"lastday": "2023-11-05T11:18:37.644Z"
-			 */
-			const currentDate = new Date();
-			const first = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
-			const last = first + 6; // last day is the first day + 6
+		handleGridClick(event) {
+			const isTimeBlock = event.target.getAttribute("data-time-block") === "true";
 
-			const currentday = new Date(currentDate);
-			const firstday = new Date(currentDate.setDate(first));
-			const lastday = new Date(currentDate.setDate(last));
-
-			return {
-				firstday: firstday,
-				currentday: currentday,
-				lastday: lastday,
+			if (isTimeBlock) {
+				alert("timeblock")
+			} else {
+				this.createNewTimeBlock()
 			}
+		},
+		createNewTimeBlock() {
+			const MIN_CALENDAR_SLOTS = 48;
+			const DAY_COLUMNS = 7;
+
+			function calculateTime(timeSlot) {
+				// Calculate time from a time slot index
+				const minutes = timeSlot * 30;
+				return {
+					hours: Math.floor(minutes / 60),
+					minutes: minutes % 60,
+				};
+			}
+			/* Get the position where was clicked */
+			const grid = this.$refs.calendar;
+			const clickPositionY = event.clientY - grid.getBoundingClientRect().top;
+			const clickPositionX = event.clientX - grid.getBoundingClientRect().left;
+			// Calculate the time slot based on the vertical click position on the grid and the size of the smallest calendar slot denomination
+			const halfHourHeight = grid.clientHeight / MIN_CALENDAR_SLOTS;
+			const timeSlot = Math.floor(clickPositionY / halfHourHeight);
+			// Calculate the day (column) based on the horizontal click position on the grid
+			const dayColumnWidth = grid.clientWidth / DAY_COLUMNS;
+			const dayIndex = Math.floor(clickPositionX / dayColumnWidth); //clicked day
+
+			const currentDate = new Date();
+			const currentDayOfWeek = currentDate.getDay(); //current week day, 0 - 6
+
+			const dayDifference = dayIndex - currentDayOfWeek;
+
+			// Calculate the date for the desired day by adding the day difference
+			currentDate.setDate(currentDate.getDate() + dayDifference);
+
+			const { hours, minutes } = calculateTime(timeSlot);
+			currentDate.setHours(hours + 1);
+			currentDate.setMinutes(minutes);
+
+			this.$inertia.post("/calendar", {
+				name: "New Event",
+				start_time: currentDate.toISOString(),
+				stop_time: null,
+			}, {
+				preserveScroll: true
+			})
 		},
 		formatDate(date, formatOptions) {
 			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
+		},
+		getWeekData() {
+			const currentDate = new Date();
+			const currentDay = currentDate.getDay();
+			const first = currentDate.getDate() - currentDay + (currentDay === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
+
+			// Calculate the first Monday
+			const firstMonday = new Date(currentDate);
+			firstMonday.setDate(first);
+			// Calculate the last day (Sunday) by adding 6 days to the first Monday
+			const lastSunday = new Date(firstMonday);
+			lastSunday.setDate(firstMonday.getDate() + 6);
+
+			return {
+				firstday: firstMonday,
+				currentday: currentDate,
+				lastday: lastSunday,
+			}
 		}
 	},
 	computed: {
 		daysOfWeek() {
-			/*  [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
-			// Returns an array of the days in the current week (based on timezone). The days are formatted like: ['15 Mon', '16 Tue']
+			/*  returns something like [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
+			const currentDate = new Date();
+			const currentDayOfWeek = currentDate.getUTCDay(); // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
+
+			const daysToSubtract = (currentDayOfWeek + 6) % 7; // Calculate the number of days to subtract to get to the previous Monday
+			const previousMonday = new Date(currentDate);
+			previousMonday.setUTCDate(currentDate.getUTCDate() - daysToSubtract); //first monday of the week
+
 			const formatOptions = {
 				timeZone: this.timezone,
 				weekday: "short",
 				day: "2-digit",
 			};
 
-			const daysOfWeek = [];
-
-			for (let i = 0; i <= 6; i++) {
-				// Calculate a new date by adding 'i' days to the 'firstday' date until a week is formed.
-				const day = new Date(this.week.firstday.getTime() + i * 24 * 60 * 60 * 1000)
-				// Make the array
-				daysOfWeek.push(this.formatDate(day, formatOptions));
+			const dateArray = [];
+			for (let i = 0; i < 7; i++) {  //add 7 days to the first monday to get a full week
+				const date = new Date(previousMonday);
+				date.setUTCDate(previousMonday.getUTCDate() + i);
+				dateArray.push(this.formatDate(date, formatOptions));
 			}
-			return daysOfWeek;
+
+			return dateArray;
 		},
 		currentDay() {
+			// Returns something like 08 Wed. Which is the current day
 			return this.formatDate(new Date(), {
 				timeZone: this.timezone,
 				weekday: "short",

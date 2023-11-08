@@ -12,13 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         //\App\Models\User::factory(10)->create();
+		$this->call([
+			UserSeeder::class,
+			ColorSeeder::class,
+			TimeBlockSeeder::class,
+		]);
 
-         \App\Models\User::factory()->create([
-             'first_name' => 'Admin',
-             'last_name' => 'ScheduleLink',
-             'email' => 'admin@schedulelink.com',
-             'password' => 'test',
-         ]);
     }
 }

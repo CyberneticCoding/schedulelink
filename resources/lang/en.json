@@ -20,7 +20,8 @@
 	"remember_me": "Remember me",
 	"forgot_password": "Forgot password?",
 	"sign_in": "Sign in",
-    "registration": "Register new account"
+    "registration": "Register new account",
+	"no_a_member": "Not a member?"
   },
   "register": {
 	"firstn": "First name *",
@@ -31,5 +32,20 @@
 	"password2": "Repeat password *",
 	"submit": "Register",
 	"login": "Log in"
+  },
+
+  "calendar": {
+	"calendar": "Calendar",
+	"week": "Week",
+	"day_view": "Day view",
+	"week_view": "Week view",
+	"month_view": "Month view",
+	"year_view": "Year view",
+	"previous_week": "Previous week",
+	"next_week": "Next week",
+	"open_menu": "Open menu",
+	"create_event": "Create event",
+	"change availability": "Change Availability",
+	"time": "Time"
   }
 }

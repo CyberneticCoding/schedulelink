@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
@@ -27,9 +28,8 @@ Route::get('/register',[RegistrationController::class, 'index'])->name('register
 Route::post('/register', [RegistrationController::class, 'register']);
 
 Route::group(['middleware' => ['auth']], function () {
-	Route::get('/calendar', function () {
-		return Inertia::render('MainCalendarPage');
-	})->name('calendar');
+	Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
+	Route::post('/calendar', [CalendarController::class, 'store'])->name('calendar.store');
 	Route::get('/combined-calendar', function () {
 		return Inertia::render('CombinedCalendarPage');
 	});
