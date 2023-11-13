@@ -14,6 +14,10 @@ class SettingController extends Controller
     {
 		return Inertia::render('Settings/AccountSettingsPage');
     }
+	public function Settings2()
+	{
+		return Inertia::render('Settings/Settings2');
+	}
 	public function CompanyView()
 	{
 		return Inertia::render('Settings/CompanyDetailsPage');

@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 	//	settings routes
 	Route::get('/settings', [SettingController::class, 'AccountView']);
+	Route::get('/settings/settings2', [SettingController::class, 'Settings2']);
 	Route::get('/company', [SettingController::class, 'CompanyView']);
 
 

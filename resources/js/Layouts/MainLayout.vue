@@ -214,7 +214,7 @@ export default {
 
 		const settingsNavigation =[
 			{ name: "Account", href: "/settings", icon: "", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
-			{ name: "Notifications", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.user.notifications" },
+			{ name: "Notifications", href: "/settings/settings2", icon: "", component: "Settings/Settings2", translationKey: "layout.nav.settingsmenu.user.notifications" },
 			{ name: "Calendar preferences", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.user.preferences" },
 			{ name: "Import", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.user.import" },
 			{ name: "Details", href: "/settings", icon: "", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
@@ -236,7 +236,6 @@ export default {
 		}
 	},
 	methods: {
-
 	},
 	computed:{
 		inSettings(){
