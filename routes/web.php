@@ -3,6 +3,7 @@
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
+use App\Models\TimeBlock;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,6 +36,13 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 	Route::get('/meetings', function () {
 		return Inertia::render('MeetingsPage');
+	});
+	Route::get('/availability', function () {
+		//$timeBlocks = TimeBlock::with('color')->get();
+
+		return Inertia::render('AvailabilityCalendarPage', [
+			'availabilityTimeBlocks' => "", // Pass the time_blocks to the frontend
+		]);
 	});
 	Route::get('/teams', function () {
 		return Inertia::render('TeamsPage');
