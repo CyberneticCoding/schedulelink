@@ -28,7 +28,16 @@
 									<li>
 										<ul role="list" class="-mx-2 space-y-1">
 											<li v-for="item in navigation" :key="item.name">
-												<Link :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
+												<!--Title's for navigation in settings-->
+												<span v-if="inSettings && item.name==='Title'">
+													<i :class="['h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', item.icon
+														? 'text-primary'
+														: '',
+													]" aria-hidden="true"/>
+													{{ $t(item.translationKey) }}
+												</span>
+												<!--Navigation items-->
+												<Link v-else :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
 													$page.component === item.component
 														? 'bg-gray-50 text-indigo-600'
 														: '',
@@ -40,7 +49,7 @@
 														]"
 														aria-hidden="true"
 													/>
-													{{ item.name }}
+													{{ $t(item.translationKey) }}
 												</Link>
 											</li>
 										</ul>
@@ -75,7 +84,16 @@
 					<li>
 						<ul role="list" class="-mx-2 space-y-1">
 							<li v-for="item in navigation" :key="item.name">
-								<Link :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
+								<!--Title's for navigation in settings-->
+								<span v-if="inSettings && item.name==='Title'">
+									<i :class="['h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', item.icon
+										? 'text-primary'
+										: '',
+									]" aria-hidden="true"/>
+									{{ $t(item.translationKey) }}
+								</span>
+								<!--Navigation items-->
+								<Link v-else :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
 									$page.component === item.component
 										? 'bg-gray-50 text-indigo-600'
 										: '',
@@ -212,14 +230,16 @@ export default {
 			{name: "Settings", href: "/settings", icon: "fa-solid fa-gear",  translationKey: "layout.nav.settings"},
 		]
 		const settingsNavigationBackbutton =[
-			{name: "Back", href: "/", icon: "",  translationKey: "layout.nav.settingsmenu.back"},
+			{name: "Back", href: "/", icon: "fa-solid fa-circle-left",  translationKey: "layout.nav.settingsmenu.back"},
 		]
 
 		const settingsNavigation = [
+			{ name: "Title", icon: "",  translationKey: "layout.nav.settingsmenu.usersettings"},
 			{ name: "Account", href: "/settings", icon: "fa-solid fa-user", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
 			{ name: "Notifications", href: "/settings/settings2", icon: "fa-solid fa-bell", component: "Settings/Settings2", translationKey: "layout.nav.settingsmenu.user.notifications" },
 			{ name: "Calendar preferences", href: "/settings", icon: "fa-solid fa-calendar-check", component: "", translationKey: "layout.nav.settingsmenu.user.preferences" },
 			{ name: "Import", href: "/settings", icon: "fa-solid fa-cloud-arrow-up", component: "", translationKey: "layout.nav.settingsmenu.user.import" },
+			{ name: "Title", icon: "",  translationKey: "layout.nav.settingsmenu.companysettings"},
 			{ name: "Details", href: "/settings", icon: "fa-solid fa-building", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
 			{ name: "Members", href: "/settings", icon: "fa-solid fa-users", component: "", translationKey: "layout.nav.settingsmenu.company.members" },
 		]

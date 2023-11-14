@@ -12,10 +12,12 @@
 		"settings": "Settings",
 	  	"logout": "Log out",
 	  	"settingsmenu":{
+		  "usersettings": "User Settings",
+		  "companysettings": "Company Settings",
 		  "user": {
 			"account": "Account",
 			"notifications": "Notifications",
-			"preferences": "Calendar preferences",
+			"preferences": "Calendar Preferences",
 			"import": "Import"
 		  },
 		  "company": {
@@ -48,8 +50,8 @@
   },
   "settings_account": {
 	"title": {
-	  "profile": "My profile",
-	  "account": "Account settings" },
+	  "profile": "My Profile",
+	  "account": "Account Settings" },
 	"profile":{
 	  "picture": "Change profile picture",
 	  "name": "Change name",
@@ -57,22 +59,22 @@
 	  "lastname": "Last name: "},
 	"email": {
 	  "name": "Email",
-	  "change": "Change email" },
+	  "change": "Change Email" },
 	"password": {
 	  "name": "Password",
-	  "change": "Change password",
+	  "change": "Change Password",
 	  "description": "Want to change your current password?" },
 	"company": {
-	  "name": "Default company",
-	  "change": "Change company",
+	  "name": "Default Company",
+	  "change": "Change Company",
 	  "description": "Your default calendar view when starting the app" },
 	"language": {
 	  "name": "Language",
-	  "change": "Change language",
+	  "change": "Change Language",
 	  "description": "Select your preferred language" },
 	"view": {
 	  "name": "Default calendar view",
-	  "change": "Change view",
+	  "change": "Change View",
 	  "description": "Your default calendar view when starting the app" }
   }
 }
