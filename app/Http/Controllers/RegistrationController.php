@@ -23,7 +23,7 @@ class RegistrationController extends Controller
 		$newuser->first_name = $validated['firstname'];
 		$newuser->last_name = $validated['lastname'];
 		$newuser->tutorial_done = false;
-		$newuser->email = $validated['email'];
+		$newuser->email = strtolower($validated['email']);
 		$newuser->password = $validated['password'];
 		$newuser->save();
 

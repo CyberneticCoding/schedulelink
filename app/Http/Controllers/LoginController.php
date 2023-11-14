@@ -21,6 +21,8 @@ class LoginController extends Controller
 			'password' => ['required'],
 		]);
 
+		$credentials['email'] = strtolower($credentials['email']);
+
 		if (Auth::attempt($credentials)) {
 			$request->session()->regenerate();
 			return redirect()->route('calendar');
