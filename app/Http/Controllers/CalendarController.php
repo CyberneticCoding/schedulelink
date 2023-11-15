@@ -19,6 +19,13 @@ class CalendarController extends Controller
 		]);
 	}
 
+	public function availability()
+	{
+		return Inertia::render('AvailabilityCalendarPage', [
+			'availabilityTimeBlocks' => "", // Pass the time_blocks to the frontend
+		]);
+	}
+
 
 	public function store(StoreTimeBlock $request)
 	{
