@@ -14,9 +14,8 @@ class CalendarController extends Controller
 	public function index()
 	{
 		$timeBlocks = TimeBlock::with('color')->get();
-
 		return Inertia::render('MainCalendarPage', [
-			'timeBlocks' => $timeBlocks, // Pass the time_blocks to the frontend
+			'calendarTimeBlocks' => $timeBlocks, // Pass the time_blocks to the frontend
 		]);
 	}
 
