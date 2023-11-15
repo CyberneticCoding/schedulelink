@@ -22,5 +22,9 @@ class SettingController extends Controller
 	{
 		return Inertia::render('Settings/CompanyDetailsPage');
 	}
+	public function CompanyMembersView()
+	{
+		return Inertia::render('Settings/CompanyMembersPage');
+	}
 
 }

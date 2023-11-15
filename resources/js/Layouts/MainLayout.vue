@@ -235,14 +235,16 @@ export default {
 		]
 
 		const settingsNavigation = [
-			{ name: "Title", icon: "",  translationKey: "layout.nav.settingsmenu.usersettings"},
+			// 	Account settings variables
+			{ name: "Title", translationKey: "layout.nav.settingsmenu.usersettings"},
 			{ name: "Account", href: "/settings", icon: "fa-solid fa-user", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
 			{ name: "Notifications", href: "/settings/settings2", icon: "fa-solid fa-bell", component: "Settings/Settings2", translationKey: "layout.nav.settingsmenu.user.notifications" },
 			{ name: "Calendar preferences", href: "/settings", icon: "fa-solid fa-calendar-check", component: "", translationKey: "layout.nav.settingsmenu.user.preferences" },
 			{ name: "Import", href: "/settings", icon: "fa-solid fa-cloud-arrow-up", component: "", translationKey: "layout.nav.settingsmenu.user.import" },
-			{ name: "Title", icon: "",  translationKey: "layout.nav.settingsmenu.companysettings"},
-			{ name: "Details", href: "/settings", icon: "fa-solid fa-building", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
-			{ name: "Members", href: "/settings", icon: "fa-solid fa-users", component: "", translationKey: "layout.nav.settingsmenu.company.members" },
+			// 	Company settings variables
+			{ name: "Title", translationKey: "layout.nav.settingsmenu.companysettings"},
+			{ name: "Details", href: "/company", icon: "fa-solid fa-building", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
+			{ name: "Members", href: "/company/members", icon: "fa-solid fa-users", component: "Settings/CompanyMembersPage", translationKey: "layout.nav.settingsmenu.company.members" },
 		]
 
 		const userNavigation = [
@@ -270,18 +272,14 @@ export default {
 			return match ? match[1] : null; // Geeft het overeenkomende deel terug, of anders null
 		},
 		navigation(){
-			if(this.inSettings==="settings"){
-
-				return this.settingsNavigation
-			}
+			if(this.inSettings==="settings"){return this.settingsNavigation}
+			if(this.inSettings==="company"){return this.settingsNavigation}
 			else{return this.defaultNavigation}
 		},
 		navigationSettingsbutton(){
-			if(this.inSettings==="settings"){
-				return this.settingsNavigationBackbutton
-			}
+			if(this.inSettings==="settings"){return this.settingsNavigationBackbutton}
+			if(this.inSettings==="company"){return this.settingsNavigationBackbutton}
 			else{return this.defaultNavigationSettingsbutton}
-
 		},
 
 	}
