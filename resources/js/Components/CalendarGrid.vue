@@ -220,7 +220,7 @@
 							<!--<div class="col-start-8 row-span-full w-8" />-->
 						</div>
 						<!-- Events -->
-						<ol @click="handleGridClick" ref="calendar" class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 ggrid-rows-[repeat(24,minmax(2rem,1fr))] grid-rows-[repeat(48,minmax(1.5rem,1fr))]">
+						<ol @click="handleGridClick" ref="calendar" class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 ggrid-rows-[repeat(24,minmax(2rem,1fr))] grid-rows-[repeat(48,minmax(2rem,1fr))]">
 							<TimeBlock
 								v-for="timeBlock in timeBlocks"
 								:key="timeBlock.timeblock.id"
@@ -308,15 +308,24 @@ export default {
 			currentDate.setHours(hours + 1);
 			currentDate.setMinutes(minutes);
 
+			const endpointMap = {
+				MainCalendar: "/calendar",
+				AvailabilityCalendar: "/availability",
+				Combined: "/combined-calendar",
+			};
 
-			this.$inertia.post("/calendar", {
-				name: "New Event",
-				start_time: currentDate.toISOString(),
-				stop_time: null,
-				type: this.type,
-			}, {
-				preserveScroll: true
-			})
+			const endpoint = endpointMap[this.type];
+
+			if (endpoint) {
+				this.$inertia.post(endpoint, {
+					name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",
+					start_time: currentDate.toISOString(),
+					stop_time: null,
+					type: this.type,
+				}, {
+					preserveScroll: true,
+				});
+			}
 		},
 		formatDate(date, formatOptions) {
 			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);

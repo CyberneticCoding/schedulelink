@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CalendarItem extends Model
 {
 	use HasFactory;
+
+	protected $fillable = [
+		'time_block_id',
+	];
+
 	public function user()
 	{
 		return $this->belongsTo(User::class);

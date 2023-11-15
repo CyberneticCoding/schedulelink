@@ -14,6 +14,7 @@ class TimeBlock extends Model
 		'start_time',
 		'stop_time',
 		'description',
+		'color_id',
 	];
 
 	public function color()

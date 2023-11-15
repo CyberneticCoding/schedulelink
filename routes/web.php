@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 	Route::post('/calendar', [CalendarController::class, 'store'])->name('calendar.store');
 	Route::get('/availability', [CalendarController::class, 'availability'])->name('availability');
+	Route::post('/availability', [CalendarController::class, 'storeAvailability'])->name('availability.store');
 	Route::get('/combined-calendar', function () {
 		return Inertia::render('CombinedCalendarPage');
 	});
