@@ -42,12 +42,12 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	//	settings routes
-	Route::get('/settings', [SettingController::class, 'AccountView']);
-	Route::get('/settings/settings2', [SettingController::class, 'Settings2']);
-	Route::get('/company', [SettingController::class, 'CompanyView']);
+	Route::redirect('/settings', '/settings/account');
 
-
-
-	//Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-	//Route::get('/logout', [LoginController::class, 'logout']);
+	Route::get('/settings/account', [SettingController::class, 'accountPage']);
+	Route::get('/settings/notifications', [SettingController::class, 'notificationsPage']);
+	//Route::get('/settings/preferences', [SettingController::class, 'Settings2']);
+	//Route::get('/settings/calendar-import', [SettingController::class, 'Settings2']);
+	//Route::get('/settings/company', [SettingController::class, 'Details']);
+	//Route::get('/settings/company/members', [SettingController::class, 'CompanyView']);
 });

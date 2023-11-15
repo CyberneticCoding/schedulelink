@@ -10,17 +10,13 @@ class SettingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function AccountView()
+    public function accountPage()
     {
-		return Inertia::render('Settings/AccountSettingsPage');
+		return Inertia::render('Settings/AccountPage');
     }
-	public function Settings2()
+	public function notificationsPage()
 	{
-		return Inertia::render('Settings/Settings2');
-	}
-	public function CompanyView()
-	{
-		return Inertia::render('Settings/CompanyDetailsPage');
+		return Inertia::render('Settings/NotificationsPage');
 	}
 
 }
