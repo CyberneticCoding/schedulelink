@@ -269,18 +269,14 @@ export default {
 			return match ? match[1] : null; // Geeft het overeenkomende deel terug, of anders null
 		},
 		navigation(){
-			if(this.inSettings==="settings"){
-
-				return this.settingsNavigation
-			}
+			if(this.inSettings==="settings"){return this.settingsNavigation}
+			if(this.inSettings==="company"){return this.settingsNavigation}
 			else{return this.defaultNavigation}
 		},
 		navigationSettingsbutton(){
-			if(this.inSettings==="settings"){
-				return this.settingsNavigationBackbutton
-			}
+			if(this.inSettings==="settings"){return this.settingsNavigationBackbutton}
+			if(this.inSettings==="company"){return this.settingsNavigationBackbutton}
 			else{return this.defaultNavigationSettingsbutton}
-
 		},
 
 	}
