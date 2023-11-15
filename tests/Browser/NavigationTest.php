@@ -34,6 +34,10 @@ class NavigationTest extends DuskTestCase
 			$browser->visit('/calendar')
 				->waitForLocation('/calendar')
 				->assertPathIs('/calendar');
+			$browser->click('#availability-button')
+			->waitForText('Save Changes');
+			$browser->assertSee('Save Changes');
+			$browser->assertSee('Cancel');
         });
     }
 }

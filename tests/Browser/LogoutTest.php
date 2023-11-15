@@ -21,7 +21,9 @@ class LogoutTest extends DuskTestCase
 				->waitForLocation('/calendar');
 			$browser->click('#user-profile-button')
 				->pause(1000);
-			$browser->click('.logout-button');
+			$browser->click('.logout-button')
+				->waitForLocation('/login')
+				->assertPathIs('/login');
 
 			//$browser->logout();
 		});
