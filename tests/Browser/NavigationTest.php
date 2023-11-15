@@ -31,6 +31,9 @@ class NavigationTest extends DuskTestCase
 			$browser->visit('/teams')
 				->waitForLocation('/teams')
 				->assertPathIs('/teams');
+			$browser->visit('/calendar')
+				->waitForLocation('/calendar')
+				->assertPathIs('/calendar');
         });
     }
 }
