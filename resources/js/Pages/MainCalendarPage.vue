@@ -1,7 +1,7 @@
 <template>
 	<MainLayout>
 		<template #main>
-			<CalendarGrid type="MainCalendar" :time-blocks="calendarTimeBlocks"></CalendarGrid>
+			<CalendarGrid type="MainCalendar" :time-blocks="calendarItems"></CalendarGrid>
 		</template>
 	</MainLayout>
 </template>
@@ -12,7 +12,7 @@ import MainLayout from "../Layouts/MainLayout.vue";
 export default {
 	name: "MainCalendarPage",
 	props: {
-		calendarTimeBlocks: Array,
+		calendarItems: Array,
 	},
 	components: {
 		CalendarGrid,

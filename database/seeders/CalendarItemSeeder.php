@@ -2,19 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\TimeBlock;
+use App\Models\CalendarItem;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TimeBlockSeeder extends Seeder
+class CalendarItemSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-		TimeBlock::factory()
-			->count(5)
+		CalendarItem::factory()
+			->count(8)
+			->for(User::find(1))
 			->create();
-   }
+    }
 }

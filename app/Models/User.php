@@ -43,6 +43,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+	public function calendarItems()
+	{
+		return $this->hasMany(CalendarItem::class);
+	}
 	public function availabilityItems()
 	{
 		return $this->hasMany(AvailabilityItem::class);

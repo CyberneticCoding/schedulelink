@@ -16,9 +16,9 @@ class TimeBlockFactory extends Factory
      *
      * @return array<string, mixed>
      */
-	public function definition(): array
-	{
-// Generate a random hour and minutes, then round the minutes to the nearest half-hour
+    public function definition(): array
+    {
+		// Generate a random hour and minutes, then round the minutes to the nearest half-hour
 		$startHour = fake()->numberBetween(2, 8); // Random hour between 6 and 13 (1 PM)
 		$startMinutes = fake()->randomElement([0, 30]); // Either 0 or 30 minutes
 		$startTime = Carbon::now()->startOfWeek()->addDays(fake()->numberBetween(0, 6))->setHour($startHour)->setMinutes($startMinutes);
@@ -30,9 +30,9 @@ class TimeBlockFactory extends Factory
 		return [
 			'start_time' => $startTime,
 			'stop_time' => $stopTime,
-			'name' => fake()->name(),
-			'color_id' => Color::find(fake()->numberBetween(1, 2)),
-			'description' => fake()->sentence(),
-		];
-	}
+			'name' => $this->faker->name(),
+			'color_id' => Color::find($this->faker->numberBetween(1, 2)),
+			'description' => $this->faker->sentence(),
+        ];
+    }
 }

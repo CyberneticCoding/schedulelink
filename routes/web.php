@@ -3,7 +3,6 @@
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
-use App\Models\TimeBlock;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

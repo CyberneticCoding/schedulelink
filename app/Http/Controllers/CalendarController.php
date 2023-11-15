@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTimeBlock;
+use App\Models\AvailabilityItem;
+use App\Models\CalendarItem;
 use App\Models\Color;
 use App\Models\TimeBlock;
 use Illuminate\Http\Request;
@@ -13,16 +15,18 @@ class CalendarController extends Controller
 {
 	public function index()
 	{
-		$timeBlocks = TimeBlock::with('color')->get();
+		$calendarItems = CalendarItem::with('timeblock.color')->get();
 		return Inertia::render('MainCalendarPage', [
-			'calendarTimeBlocks' => $timeBlocks, // Pass the time_blocks to the frontend
+			'calendarItems' => $calendarItems, // Pass the time_blocks to the frontend
 		]);
 	}
 
 	public function availability()
 	{
+		$availabilityItems = AvailabilityItem::with('timeblock.color')->get();
+
 		return Inertia::render('AvailabilityCalendarPage', [
-			'availabilityTimeBlocks' => "", // Pass the time_blocks to the frontend
+			'availabilityItems' => $availabilityItems, // Pass the time_blocks to the frontend
 		]);
 	}
 

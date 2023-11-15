@@ -223,11 +223,11 @@
 						<ol @click="handleGridClick" ref="calendar" class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 grid-rows-[repeat(24,minmax(2rem,1fr))] sm:grid-rows-[repeat(48,minmax(2rem,1fr))]">
 							<TimeBlock
 								v-for="timeBlock in timeBlocks"
-								:key="timeBlock.id"
-								:name="timeBlock.name"
-								:color="timeBlock.color"
-								:start_time="new Date(timeBlock.start_time)"
-								:stop_time="new Date(timeBlock.stop_time)"
+								:key="timeBlock.timeblock.id"
+								:name="timeBlock.timeblock.name"
+								:color="timeBlock.timeblock.color"
+								:start_time="new Date(timeBlock.timeblock.start_time)"
+								:stop_time="new Date(timeBlock.timeblock.stop_time)"
 							></TimeBlock>
 						</ol>
 					</div>

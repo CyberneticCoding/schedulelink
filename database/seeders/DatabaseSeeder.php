@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
 		$this->call([
 			UserSeeder::class,
 			ColorSeeder::class,
-			TimeBlockSeeder::class,
+			CalendarItemSeeder::class,
 		]);
 
     }

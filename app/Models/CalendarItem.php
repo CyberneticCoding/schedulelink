@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AvailabilityItem extends Model
+class CalendarItem extends Model
 {
+	use HasFactory;
 	public function user()
 	{
 		return $this->belongsTo(User::class);
 	}
-
 	public function timeblock()
 	{
-		return $this->belongsTo(TimeBlock::class);
+		return $this->belongsTo(TimeBlock::class, 'time_block_id');
 	}
 }
