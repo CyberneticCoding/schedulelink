@@ -10,7 +10,22 @@
 		"meetings": "Meetings",
 		"teams": "Teams",
 		"settings": "Settings",
-	  	"logout": "Log out"
+	  	"logout": "Log out",
+	  	"settingsmenu":{
+		  "usersettings": "User Settings",
+		  "companysettings": "Company Settings",
+		  "user": {
+			"account": "Account",
+			"notifications": "Notifications",
+			"preferences": "Calendar Preferences",
+			"import": "Import"
+		  },
+		  "company": {
+			"details": "Details",
+			"members": "Members"
+		  },
+		  "back": "Back"
+		}
 	}
   },
   "login": {
@@ -33,7 +48,35 @@
 	"submit": "Register",
 	"login": "Log in"
   },
-
+  "settings_account": {
+	"title": {
+	  "profile": "My Profile",
+	  "account": "Account Settings" },
+	"profile":{
+	  "picture": "Change profile picture",
+	  "name": "Change name",
+	  "firstname": "First name: ",
+	  "lastname": "Last name: "},
+	"email": {
+	  "name": "Email",
+	  "change": "Change Email" },
+	"password": {
+	  "name": "Password",
+	  "change": "Change Password",
+	  "description": "Want to change your current password?" },
+	"company": {
+	  "name": "Default Company",
+	  "change": "Change Company",
+	  "description": "Your default calendar view when starting the app" },
+	"language": {
+	  "name": "Language",
+	  "change": "Change Language",
+	  "description": "Select your preferred language" },
+	"view": {
+	  "name": "Default calendar view",
+	  "change": "Change View",
+	  "description": "Your default calendar view when starting the app" }
+  },
   "calendar": {
 	"calendar": "Calendar",
 	"week": "Week",

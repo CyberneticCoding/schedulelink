@@ -28,7 +28,16 @@
 									<li>
 										<ul role="list" class="-mx-2 space-y-1">
 											<li v-for="item in navigation" :key="item.name">
-												<Link :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
+												<!--Title's for navigation in settings-->
+												<span v-if="inSettings && item.name==='Title'">
+													<i :class="['h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', item.icon
+														? 'text-primary'
+														: '',
+													]" aria-hidden="true"/>
+													{{ $t(item.translationKey) }}
+												</span>
+												<!--Navigation items-->
+												<Link v-else :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
 													$page.component === item.component
 														? 'bg-gray-50 text-indigo-600'
 														: '',
@@ -40,16 +49,16 @@
 														]"
 														aria-hidden="true"
 													/>
-													{{ item.name }}
+													{{ $t(item.translationKey) }}
 												</Link>
 											</li>
 
 										</ul>
 									</li>
-									<li class="mt-auto">
-										<Link href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-											<i class="fa-solid fa-gear text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
-											{{ $t('layout.nav.settings') }}
+									<li class="mt-auto" v-for="item in navigationSettingsbutton" :key="item.name">
+										<Link :href="item.href" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+											<i :class="[item.icon,' text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5']" aria-hidden="true" />
+											{{ $t(item.translationKey) }}
 										</Link>
 									</li>
 								</ul>
@@ -76,7 +85,16 @@
 					<li>
 						<ul role="list" class="-mx-2 space-y-1">
 							<li v-for="item in navigation" :key="item.name">
-								<Link :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
+								<!--Title's for navigation in settings-->
+								<span v-if="inSettings && item.name==='Title'">
+									<i :class="['h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', item.icon
+										? 'text-primary'
+										: '',
+									]" aria-hidden="true"/>
+									{{ $t(item.translationKey) }}
+								</span>
+								<!--Navigation items-->
+								<Link v-else :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
 									$page.component === item.component
 										? 'bg-gray-50 text-indigo-600'
 										: '',
@@ -93,10 +111,10 @@
 							</li>
 						</ul>
 					</li>
-					<li class="mt-auto">
-						<Link href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-							<i class="fa-solid fa-gear text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
-							{{ $t('layout.nav.settings') }}
+					<li class="mt-auto" v-for="item in navigationSettingsbutton" :key="item.name">
+						<Link :href="item.href" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+							<i :class="[item.icon,' text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5']" aria-hidden="true" />
+							{{ $t(item.translationKey) }}
 						</Link>
 					</li>
 				</ul>
@@ -183,8 +201,11 @@ import {
 	MenuItems,
 	TransitionChild,
 	TransitionRoot,
+
 } from "@headlessui/vue"
 import {Link} from "@inertiajs/inertia-vue3";
+
+
 
 export default {
 	name: "MainLayout",
@@ -200,12 +221,30 @@ export default {
 		Link,
 	},
 	setup() {
-		const navigation = [
+		const defaultNavigation = [
 			{ name: "Calendar", href: "/", icon: "fa-regular fa-calendar-days", component: "MainCalendarPage",  translationKey: "layout.nav.main_calendar"},
 			{ name: "Combined Calendar", href: "/combined-calendar", icon: "fa-solid fa-calendar-week", component: "CombinedCalendarPage", translationKey: "layout.nav.combined_calendar" },
 			{ name: "Meetings", href: "/meetings", icon: "fa-regular fa-handshake", component: "MeetingsPage", translationKey: "layout.nav.meetings" },
 			{ name: "Teams", href: "/teams", icon: "fa-solid fa-people-group", component: "TeamsPage", translationKey: "layout.nav.teams" },
 		]
+		const defaultNavigationSettingsbutton =[
+			{name: "Settings", href: "/settings", icon: "fa-solid fa-gear",  translationKey: "layout.nav.settings"},
+		]
+		const settingsNavigationBackbutton =[
+			{name: "Back", href: "/", icon: "fa-solid fa-circle-left",  translationKey: "layout.nav.settingsmenu.back"},
+		]
+
+		const settingsNavigation = [
+			{ name: "Title", icon: "",  translationKey: "layout.nav.settingsmenu.usersettings"},
+			{ name: "Account", href: "/settings", icon: "fa-solid fa-user", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
+			{ name: "Notifications", href: "/settings/settings2", icon: "fa-solid fa-bell", component: "Settings/Settings2", translationKey: "layout.nav.settingsmenu.user.notifications" },
+			{ name: "Calendar preferences", href: "/settings", icon: "fa-solid fa-calendar-check", component: "", translationKey: "layout.nav.settingsmenu.user.preferences" },
+			{ name: "Import", href: "/settings", icon: "fa-solid fa-cloud-arrow-up", component: "", translationKey: "layout.nav.settingsmenu.user.import" },
+			{ name: "Title", icon: "",  translationKey: "layout.nav.settingsmenu.companysettings"},
+			{ name: "Details", href: "/settings", icon: "fa-solid fa-building", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
+			{ name: "Members", href: "/settings", icon: "fa-solid fa-users", component: "", translationKey: "layout.nav.settingsmenu.company.members" },
+		]
+
 		const userNavigation = [
 			{ name: "Logout", href: "/logout", method:"POST", icon: "fa-solid fa-right-from-bracket", translationKey: "layout.nav.logout"},
 		]
@@ -213,12 +252,38 @@ export default {
 		const sidebarOpen = ref(false)
 		return {
 			sidebarOpen,
-			navigation,
-			userNavigation
+			defaultNavigation,
+			userNavigation,
+			defaultNavigationSettingsbutton,
+			settingsNavigationBackbutton,
+			settingsNavigation
 		}
 	},
-	methods: {
 
+	methods: {
 	},
+	computed:{
+		inSettings(){
+			// const parts = window.location.href.split("/")
+			// return parts[1]
+			const match = window.location.pathname.match(/^\/([^/]+)/); // RegEx om het eerste pad te matchen
+			return match ? match[1] : null; // Geeft het overeenkomende deel terug, of anders null
+		},
+		navigation(){
+			if(this.inSettings==="settings"){
+
+				return this.settingsNavigation
+			}
+			else{return this.defaultNavigation}
+		},
+		navigationSettingsbutton(){
+			if(this.inSettings==="settings"){
+				return this.settingsNavigationBackbutton
+			}
+			else{return this.defaultNavigationSettingsbutton}
+
+		},
+
+	}
 }
 </script>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -39,6 +40,12 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/teams', function () {
 		return Inertia::render('TeamsPage');
 	});
+
+	//	settings routes
+	Route::get('/settings', [SettingController::class, 'AccountView']);
+	Route::get('/settings/settings2', [SettingController::class, 'Settings2']);
+	Route::get('/company', [SettingController::class, 'CompanyView']);
+
 
 
 	//Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
