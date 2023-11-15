@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 			UserSeeder::class,
 			ColorSeeder::class,
 			CalendarItemSeeder::class,
+			AvailabilityItemSeeder::class,
 		]);
 
     }

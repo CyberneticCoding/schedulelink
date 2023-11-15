@@ -18,6 +18,20 @@ class TimeBlockFactory extends Factory
      */
     public function definition(): array
     {
+
+		$times = TimeBlockFactory::generateRandomTimes();
+
+		return [
+			'start_time' => $times['start_time'],
+			'stop_time' => $times['stop_time'],
+			'name' => $this->faker->name(),
+			'color_id' => Color::find($this->faker->numberBetween(1, 2)),
+			'description' => $this->faker->sentence(),
+        ];
+    }
+
+	public static function generateRandomTimes()
+	{
 		// Generate a random hour and minutes, then round the minutes to the nearest half-hour
 		$startHour = fake()->numberBetween(2, 8); // Random hour between 6 and 13 (1 PM)
 		$startMinutes = fake()->randomElement([0, 30]); // Either 0 or 30 minutes
@@ -30,9 +44,6 @@ class TimeBlockFactory extends Factory
 		return [
 			'start_time' => $startTime,
 			'stop_time' => $stopTime,
-			'name' => $this->faker->name(),
-			'color_id' => Color::find($this->faker->numberBetween(1, 2)),
-			'description' => $this->faker->sentence(),
-        ];
-    }
+		];
+	}
 }

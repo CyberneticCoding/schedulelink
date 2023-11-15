@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AvailabilityItem extends Model
 {
+	use HasFactory;
 	public function user()
 	{
 		return $this->belongsTo(User::class);
@@ -14,6 +15,7 @@ class AvailabilityItem extends Model
 
 	public function timeblock()
 	{
-		return $this->belongsTo(TimeBlock::class);
+		return $this->belongsTo(TimeBlock::class, 'time_block_id');
+
 	}
 }

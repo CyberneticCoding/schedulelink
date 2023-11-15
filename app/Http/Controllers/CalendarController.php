@@ -25,6 +25,8 @@ class CalendarController extends Controller
 	{
 		$availabilityItems = AvailabilityItem::with('timeblock.color')->get();
 
+		//dd($availabilityItems);
+
 		return Inertia::render('AvailabilityCalendarPage', [
 			'availabilityItems' => $availabilityItems, // Pass the time_blocks to the frontend
 		]);
