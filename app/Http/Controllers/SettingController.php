@@ -35,13 +35,12 @@ class SettingController extends Controller
 					->join('users', 'companies.owner_id', '=', 'users.id')
 					->select('users.first_name', 'users.last_name', 'companies.*')
 					->get();
-				$currentCompanyMembers = DB::table('company_user')
+				$currentCompanyMembers = DB::table('company_users')
 					->where('company_id','=', auth()->user()->current_company)
-					->join('users', 'company_user.user_id', '=', 'users.id')
-					->select('users.first_name', 'users.last_name', 'company_user.*')
+					->join('users', 'company_users.user_id', '=', 'users.id')
+					->select('users.first_name', 'users.last_name', 'company_users.*')
 					->get();
 
-				dd($currentCompany, $currentCompanyMembers);
 				// Doe iets met de $currentUser, bijvoorbeeld teruggeven aan de view
 				return Inertia::render('Settings/CompanyMembersPage', [ 'companySet' => 0,'currentCompany' => $currentCompany, 'currentCompanyMembers' => $currentCompanyMembers]);}
 		}
@@ -54,17 +53,7 @@ class SettingController extends Controller
 
 	// Add company members
 	public function CompanyAddMembersView(){
-		if (Auth::check()) {
-			// Haal de huidige ingelogde gebruiker op
-			$currentUser = Auth::user();
-			//		als current company is opgeslagen in de user:
-			if (!is_null(auth()->user()->current_company)) {
-				$currentCompany = DB::table('companies')->where('id', '=', auth()->user()->current_company)->first('');
-				$currentCompanyMembers = DB::table('company_user')->where('company_id','=', auth()->user()->current_company );
 
-				// Doe iets met de $currentUser, bijvoorbeeld teruggeven aan de view
-				return Inertia::render('Settings/CompanyAddMembersPage', [ 'companySet' => '1', 'currentCompany' => $currentCompany, 'currentCompanyMembers' => $currentCompanyMembers]);}
-		}
 		return Inertia::render('Settings/CompanyAddMembersPage', ['companySet' => '0']);
 	}
 

@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
 			UserSeeder::class,
 			ColorSeeder::class,
 			TimeBlockSeeder::class,
-			CompanySeeder::class
+			CompanySeeder::class,
+			CompanyUserSeeder::class
 		]);
 
     }
