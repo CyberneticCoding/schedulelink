@@ -19,7 +19,7 @@ class AvailabilityItemSeeder extends Seeder
 
 		$firstMonday = now()->startOfWeek();
 
-		for ($day = 0; $day < 7; $day++) {
+		for ($day = 0; $day < 5; $day++) {
 			$startTime = $firstMonday->copy()->setHour(9)->setMinute(0);
 			$stopTime = $firstMonday->copy()->setHour(17)->setMinute(0);
 

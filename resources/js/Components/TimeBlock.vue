@@ -4,8 +4,8 @@
 			<span :class="['order-1 font-semibold', color.text_color]">{{ name }}</span>
 			<span :class="['hidden sm:inline group-hover:text-blue-700', color.text_color]">
 				<time :datetime="start_time">{{ formattedStartTime }}</time>
+				{{start_time}}
 			</span>
-			<!--{{ color}}-->
 		</button>
 	</li>
 </template>
@@ -34,7 +34,7 @@ export default {
 	},
 	setup(props) {
 		const dayOfWeek = props.start_time.getDay();
-		const dayStyle = `col-start-${dayOfWeek + 1}`;
+		const dayStyle = `col-start-${dayOfWeek}`;
 
 		return {
 			dayStyle,

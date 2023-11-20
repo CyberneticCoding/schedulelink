@@ -254,7 +254,7 @@ export default {
 		MenuButton
 	},
 	props: {
-		timeBlocks: Array, // Define the timeBlocks prop
+		timeBlocks: Array,
 		type: String,
 	},
 	data() {
@@ -294,7 +294,7 @@ export default {
 			const timeSlot = Math.floor(clickPositionY / halfHourHeight);
 			// Calculate the day (column) based on the horizontal click position on the grid
 			const dayColumnWidth = grid.clientWidth / DAY_COLUMNS;
-			const dayIndex = Math.floor(clickPositionX / dayColumnWidth); //clicked day
+			const dayIndex = Math.floor(clickPositionX / dayColumnWidth); //the clicked day
 
 			const currentDate = new Date();
 			const currentDayOfWeek = currentDate.getDay(); //current week day, 0 - 6
