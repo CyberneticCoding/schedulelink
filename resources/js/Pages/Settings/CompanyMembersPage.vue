@@ -7,13 +7,17 @@
 					<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings.company.members.title') }}</h3>
 					<div class="flex">
 						<h1>{{"## ToDo: members function ##"}}</h1>
-						<ul v-if="CompanyMembers != null" role="list" class="-mx-2 space-y-1">
-							<li v-for="member in CompanyMembers" :key="member.id">
-								<ul role="list" class="-mx-2 space-y-1">
-									<li v-for="item in member" :key="item.id">
-										<span>{{member}}</span>
-									</li>
-								</ul>
+						<div >
+							<Link href="/user" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+								{{ "test button" }}
+							</Link>
+						</div>
+						<ul v-if="companySet !== 0" role="list" class="-mx-2 space-y-1">
+							<li><span class="-mx-2 space-y-1">{{currentCompany.}}</span></li>
+							<li v-for="item in currentUser" :key="item.id">
+
+								<span class="-mx-2 space-y-1">{{item}}</span>
+
 							</li>
 						</ul>
 					</div>
@@ -58,9 +62,16 @@
 import MainLayout from "../../Layouts/MainLayout.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
+
 export default {
 	name: "SettingsPage",
 	components: { MainLayout, Link },
+	props: {
+		currentCompany: Object,
+		currentCompanyMembers: Object,
+		companySet: Boolean,
+
+	},
 	setup() {
 		const accountsettingsTranslations = [
 			{ name: "settings_account.email.name",
@@ -83,10 +94,6 @@ export default {
 			accountsettingsTranslations
 		}
 	},
-	computed: {
-		// CompanyMembers() {
-		//
-		// }
-	}
+	computed: {	}
 }
 </script>

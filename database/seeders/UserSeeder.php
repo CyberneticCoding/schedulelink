@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
 			'last_name' => 'ScheduleLink',
 			'email' => 'admin@schedulelink.com',
 			'password' => 'test',
-			'current_company' => '11'
+			'current_company' => '1'
 		]);
 		User::factory()->count(8)->create();
     }
