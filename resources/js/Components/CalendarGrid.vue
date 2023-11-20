@@ -224,7 +224,7 @@
 							<TimeBlock
 								v-for="timeBlock in timeBlocks"
 								:key="timeBlock.timeblock.id"
-								:name="timeBlock.timeblock.name"
+								:name="type==='AvailabilityCalendar' ? '' : timeBlock.timeblock.name "
 								:color="timeBlock.timeblock.color"
 								:start_time="new Date(timeBlock.timeblock.start_time)"
 								:stop_time="new Date(timeBlock.timeblock.stop_time)"
@@ -294,7 +294,7 @@ export default {
 			const timeSlot = Math.floor(clickPositionY / halfHourHeight);
 			// Calculate the day (column) based on the horizontal click position on the grid
 			const dayColumnWidth = grid.clientWidth / DAY_COLUMNS;
-			const dayIndex = Math.floor(clickPositionX / dayColumnWidth); //the clicked day
+			const dayIndex = Math.floor(clickPositionX / dayColumnWidth) + 1; //the clicked day
 
 			const currentDate = new Date();
 			const currentDayOfWeek = currentDate.getDay(); //current week day, 0 - 6

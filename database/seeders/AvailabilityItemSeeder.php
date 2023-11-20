@@ -27,6 +27,7 @@ class AvailabilityItemSeeder extends Seeder
 				'start_time' => $startTime,
 				'stop_time' => $stopTime,
 				'color_id' => 1,
+				'name' => '',
 			]);
 
 			AvailabilityItem::factory()

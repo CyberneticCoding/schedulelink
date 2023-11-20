@@ -4,7 +4,6 @@
 			<span :class="['order-1 font-semibold', color.text_color]">{{ name }}</span>
 			<span :class="['hidden sm:inline group-hover:text-blue-700', color.text_color]">
 				<time :datetime="start_time">{{ formattedStartTime }}</time>
-				{{start_time}}
 			</span>
 		</button>
 	</li>
