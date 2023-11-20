@@ -1,11 +1,11 @@
-# ScheduleLink
+# ScheduleLink  
 
-ScheduleLink is application that allows for calendar/scheduling functionality. It that allows users within a team or company to quickly find the available time of selected users and plan a meeting in record time.
+ScheduleLink is application that allows for calendar/scheduling functionality. It that allows users within a team or company to quickly find the available time of selected users and plan a meeting in record time.  
 
-# Tech Stack
+# Tech Stack  
 This application uses Laravel, Vue3, Inertiajs and TailwindCSS. Together with fontawesome for icons, ESLint as a linter and PostgreSQL for database  
 
-# Installation
+# Installation  
 
 **Install PostgreSQL**  
 Make sure you have have downloaded postgreSQL. https://www.postgresql.org/download/  
@@ -29,7 +29,7 @@ Open 2 terminals and run these commands in each another terminal. Keep them runn
 `php artisan serve`  
 `npm run dev`  
 
-# Github Rules
+# Github Rules  
 Before going to work, make sure you are on the main branch and have done `git pull`  
 Create a new feature branch and checkout to that branch `git checkout -b "feature/example-feature"`  
 Go to work. Work in small commits A commit is done like:  
@@ -39,7 +39,7 @@ After you have done all your commits and you are ready to push your changes.
 `git push origin feature/example-feature`  
 Now the pipeline will run the tests and hopefully the branch is ready to be merged.  
 
-**Testing**
+**Testing**  
 Before pushing and merging code, run the tests locally first.  
 Run feature tests with `php artisan test`  
 Run Dusk's e2e tests with `php artisan dusk`  
