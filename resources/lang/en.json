@@ -82,6 +82,10 @@
 	},
   	"company": {
 	  "members": {
+		"title": "Company Members",
+		"add_members": "Add new members"
+	  },
+	  "add_members": {
 		"title": "Company Members"
 	  }
   	}

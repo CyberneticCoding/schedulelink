@@ -4,23 +4,9 @@
 			<div class="mx-auto ml-10" >
 				<!--	Member settings	-->
 				<div >
-					<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings.company.members.title') }}</h3>
+					<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings.company.add_members.title') }}</h3>
 					<div class="flex">
-						<h1>{{"## ToDo: members function ##"}}</h1>
-						<ul v-if="CompanyMembers != null" role="list" class="-mx-2 space-y-1">
-							<li v-for="member in CompanyMembers" :key="member.id">
-								<ul role="list" class="-mx-2 space-y-1">
-									<li v-for="item in member" :key="item.id">
-										<span>{{member}}</span>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-					<div >
-						<Link href="/company/members/add" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-							{{ $t('settings.company.members.add_members') }}
-						</Link>
+
 					</div>
 				</div>
 				<!--	oude code maar herbruikbaar voor pagina	-->
@@ -56,11 +42,11 @@
 <script>
 
 import MainLayout from "../../Layouts/MainLayout.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+
 
 export default {
 	name: "SettingsPage",
-	components: { MainLayout, Link },
+	components: { MainLayout },
 	setup() {
 		const accountsettingsTranslations = [
 			{ name: "settings_account.email.name",
@@ -84,9 +70,7 @@ export default {
 		}
 	},
 	computed: {
-		// CompanyMembers() {
-		//
-		// }
+		//CompanyMembers() {	}
 	}
 }
 </script>
