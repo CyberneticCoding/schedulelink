@@ -315,7 +315,6 @@ export default {
 			};
 
 			const endpoint = endpointMap[this.type];
-
 			if (endpoint) {
 				this.$inertia.post(endpoint, {
 					name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",

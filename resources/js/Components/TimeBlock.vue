@@ -32,7 +32,8 @@ export default {
 		},
 	},
 	setup(props) {
-		const dayOfWeek = props.start_time.getDay();
+		let dayOfWeek = props.start_time.getDay();
+		if (dayOfWeek === 0) dayOfWeek = 7
 		const dayStyle = `col-start-${dayOfWeek}`;
 
 		return {
