@@ -14,10 +14,19 @@ class TimeBlock extends Model
 		'start_time',
 		'stop_time',
 		'description',
+		'color_id',
 	];
 
 	public function color()
 	{
 		return $this->belongsTo(Color::class, 'color_id');
+	}
+	public function calendarItems()
+	{
+		return $this->hasMany(CalendarItem::class);
+	}
+	public function availabilityItems()
+	{
+		return $this->hasMany(AvailabilityItem::class);
 	}
 }

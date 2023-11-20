@@ -5,7 +5,6 @@
 			<span :class="['hidden sm:inline group-hover:text-blue-700', color.text_color]">
 				<time :datetime="start_time">{{ formattedStartTime }}</time>
 			</span>
-			<!--{{ color}}-->
 		</button>
 	</li>
 </template>
@@ -33,8 +32,9 @@ export default {
 		},
 	},
 	setup(props) {
-		const dayOfWeek = props.start_time.getDay();
-		const dayStyle = `col-start-${dayOfWeek + 1}`;
+		let dayOfWeek = props.start_time.getDay();
+		if (dayOfWeek === 0) dayOfWeek = 7
+		const dayStyle = `col-start-${dayOfWeek}`;
 
 		return {
 			dayStyle,

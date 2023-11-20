@@ -217,8 +217,5 @@ export default {
 			userNavigation
 		}
 	},
-	methods: {
-
-	},
 }
 </script>
