@@ -11,15 +11,15 @@
 						</div>
 						<div class="ml-8">
 							<div class="flex">
-								<span>{{$page.props.auth.user.first_name}}</span>
-								<span class="ml-2">{{$page.props.auth.user.last_name}}</span>
+								<span>{{ $page.props.auth.user.first_name }}</span>
+								<span class="ml-2">{{ $page.props.auth.user.last_name }}</span>
 							</div>
 							<div>
 								<div class="mt-8">
-									<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.name")}}</a>
+									<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">{{ $t("settings_account.profile.name") }}</a>
 								</div>
 								<div>
-									<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">{{$t("settings_account.profile.picture")}}</a>
+									<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">{{ $t("settings_account.profile.picture") }}</a>
 								</div>
 							</div>
 						</div>
@@ -33,14 +33,14 @@
 							<div class="mt-5">
 								<ul>
 									<li class="flex justify-between w-3/4">
-										<div class="">
+										<div>
 											<ul>
 												<li>{{ $t(item.name) }}</li>
 												<li class="text-sm" v-if="item.desc">{{ $t(item.desc) }}</li>
-												<li class="text-sm" v-if="item.value==='email'">{{$page.props.auth.user.email}}</li>
+												<li class="text-sm" v-if="item.value==='email'">{{ $page.props.auth.user.email }}</li>
 											</ul>
 										</div>
-										<div >
+										<div>
 											<button type="button" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 												{{ $t(item.change) }}</button>
 										</div>
@@ -60,7 +60,7 @@
 import MainLayout from "../../Layouts/MainLayout.vue";
 
 export default {
-	name: "SettingsPage",
+	name: "AccountPage",
 	components: { MainLayout },
 	setup() {
 		const accountsettingsTranslations = [

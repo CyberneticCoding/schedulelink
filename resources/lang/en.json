@@ -48,6 +48,20 @@
 	"submit": "Register",
 	"login": "Log in"
   },
+  "calendar": {
+	"calendar": "Calendar",
+	"week": "Week",
+	"day_view": "Day view",
+	"week_view": "Week view",
+	"month_view": "Month view",
+	"year_view": "Year view",
+	"previous_week": "Previous week",
+	"next_week": "Next week",
+	"open_menu": "Open menu",
+	"create_event": "Create event",
+	"change availability": "Change Availability",
+	"time": "Time"
+  },
   "settings_account": {
 	"title": {
 	  "profile": "My Profile",
@@ -75,21 +89,7 @@
 	"view": {
 	  "name": "Default calendar view",
 	  "change": "Change View",
-	  "description": "Your default calendar view when starting the app" }
-  },
-
-  "calendar": {
-	"calendar": "Calendar",
-	"week": "Week",
-	"day_view": "Day view",
-	"week_view": "Week view",
-	"month_view": "Month view",
-	"year_view": "Year view",
-	"previous_week": "Previous week",
-	"next_week": "Next week",
-	"open_menu": "Open menu",
-	"create_event": "Create event",
-	"change availability": "Change Availability",
-	"time": "Time"
+	  "description": "Your default calendar view when starting the app"
+	}
   }
 }
