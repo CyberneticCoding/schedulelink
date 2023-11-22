@@ -2,21 +2,21 @@
 
 namespace Database\Seeders;
 
+use App\Models\CalendarItem;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class CalendarItemSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-		\App\Models\User::factory()->create([
-			'first_name' => 'Admin',
-			'last_name' => 'ScheduleLink',
-			'email' => 'admin@schedulelink.com',
-			'password' => 'test',
-		]);
+		CalendarItem::factory()
+			->count(8)
+			->for(User::find(1))
+			->create();
     }
 }
