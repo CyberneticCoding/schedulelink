@@ -22,22 +22,48 @@ class NavigationTest extends DuskTestCase
 		]);
         $this->browse(function (Browser $browser) {
 			$browser->loginAs($this->user);
-			$browser->visit('/combined-calendar')
-				->waitForLocation('/combined-calendar')
-				->assertPathIs('/combined-calendar');
-            $browser->visit('/meetings')
-				->waitForLocation('/meetings')
-				->assertPathIs('/meetings');
-			$browser->visit('/teams')
-				->waitForLocation('/teams')
-				->assertPathIs('/teams');
-			$browser->visit('/calendar')
-				->waitForLocation('/calendar')
-				->assertPathIs('/calendar');
+			$this->visitUrl($browser, '/combined-calendar');
+			$this->checkDefaultNav($browser);
+
+			$this->visitUrl($browser, '/meetings');
+			$this->checkDefaultNav($browser);
+
+			$this->visitUrl($browser, '/teams');
+			$this->checkDefaultNav($browser);
+
+			$this->visitUrl($browser, '/calendar');
+			$this->checkDefaultNav($browser);
+
 			$browser->click('#availability-button')
 			->waitForText('Save Changes');
 			$browser->assertSee('Save Changes');
 			$browser->assertSee('Cancel');
+			$this->checkDefaultNav($browser);
+
+			//settings navigation
+			$this->visitUrl($browser, '/settings');
+			$this->checkSettingsNav($browser);
+
         });
     }
+
+	public function visitUrl($browser, $url) {
+		$browser->visit($url)
+			->waitForLocation($url)
+			->assertPathIs($url);
+	}
+	public function checkDefaultNav($browser) {
+		$browser->assertSee('Calendar');
+		$browser->assertSee('Combined Calendar');
+		$browser->assertSee('Meetings');
+		$browser->assertSee('Teams');
+		$browser->assertSee('Settings');
+	}
+	public function checkSettingsNav($browser) {
+		$browser->assertSee('Account');
+		$browser->assertSee('Notifications');
+		$browser->assertSee('User Settings');
+		$browser->assertSee('Company Settings');
+		$browser->assertSee('Back');
+	}
 }
