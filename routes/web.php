@@ -49,11 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	//	settings routes
-	Route::get('/settings', [SettingController::class, 'AccountView']);
-	Route::get('/settings/settings2', [SettingController::class, 'Settings2']);
-	Route::get('/company', [SettingController::class, 'CompanyView']);
-
-
+	Route::redirect('/settings', '/settings/account');
 	Route::get('/settings/account', [SettingController::class, 'accountPage']);
 	Route::get('/settings/notifications', [SettingController::class, 'notificationsPage']);
 	//Route::get('/settings/preferences', [SettingController::class, 'Settings2']);

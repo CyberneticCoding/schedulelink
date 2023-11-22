@@ -41,7 +41,10 @@ class NavigationTest extends DuskTestCase
 			$this->checkDefaultNav($browser);
 
 			//settings navigation
-			$this->visitUrl($browser, '/settings');
+			$this->visitUrl($browser, '/settings/account');
+			$this->checkSettingsNav($browser);
+
+			$this->visitUrl($browser, '/settings/notifications');
 			$this->checkSettingsNav($browser);
 
         });
