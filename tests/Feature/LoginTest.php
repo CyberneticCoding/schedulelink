@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Testing\Assert;
 use Inertia\Testing\AssertableInertia;
 use Tests\TestCase;
@@ -27,20 +28,6 @@ class LoginTest extends TestCase
 		);
 	}
 
-	///**
-	// * Test if the user cannot login if he is already logged in. Todo
-	// *
-	// * @return void
-	// */
-	//public function test_user_cannot_see_login_page_when_authenticated()
-	//{
-	//	$user = User::factory()->create();
-	//
-	//	$response = $this->actingAs($user)->get('/login');
-	//
-	//	$response->assertRedirect('/themes');
-	//}
-
 	/**
 	 * Test if the user can login
 	 *
@@ -56,6 +43,7 @@ class LoginTest extends TestCase
 		]);
 
 		$response->assertRedirect('/calendar');
+		$this->assertAuthenticatedAs($user);
 	}
 
 	/**
@@ -65,7 +53,7 @@ class LoginTest extends TestCase
 	 */
 	public function test_user_cannot_login_if_password_is_incorrect()
 	{
-		$user = User::factory()->create();
+		$user = User::factory()->make();
 
 		$response = $this->post('/login', [
 			'email' => $user->email,
@@ -75,6 +63,23 @@ class LoginTest extends TestCase
 		$response->assertSessionHasErrors([
 			'validation' => 'The provided credentials do not match our records.',
 		]);
+
+		$this->assertFalse(Auth::check());
+	}
+
+	/**
+	 * Test if an authenticated user cannot get to the login page
+	 *
+	 * @return void
+	 */
+	public function test_user_cannot_view_a_login_form_when_authenticated()
+	{
+		$user = User::factory()->create();
+		Auth::guard()->setUser($user);
+
+		$response = $this->actingAs($user)->get('/login');
+
+		$response->assertRedirect('/calendar');
 	}
 }
 

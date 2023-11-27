@@ -2,11 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\CalendarItem;
 use App\Models\User;
 use Database\Seeders\ColorSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
