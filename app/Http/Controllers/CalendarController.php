@@ -16,7 +16,7 @@ class CalendarController extends Controller
 {
 	public function index()
 	{
-		$calendarItems = CalendarItem::with('timeblock.color')->get();
+		$calendarItems = auth()->user()->calendarItems()->with('timeblock.color')->get();
 		return Inertia::render('MainCalendarPage', [
 			'calendarItems' => $calendarItems, // Pass the time_blocks to the frontend
 		]);
@@ -24,11 +24,24 @@ class CalendarController extends Controller
 
 	public function availability()
 	{
-		$availabilityItems = AvailabilityItem::with('timeblock.color')->get();
+		$availabilityItems = auth()->user()->availabilityItems()->with('timeblock.color')->get();
 		return Inertia::render('AvailabilityCalendarPage', [
 			'availabilityItems' => $availabilityItems, // Pass the time_blocks to the frontend
 		]);
 	}
+	public function store(StoreTimeBlock $request)
+	{
+		return $this->storeTimeBlockAndRedirect($request, 'calendarItems', 'calendar');
+	}
+	public function storeAvailability(StoreTimeBlock $request)
+	{
+		return $this->storeTimeBlockAndRedirect($request, 'availabilityItems', 'availability');
+
+	}
+
+
+
+
 
 	public function storeTimeBlock($data) {
 		return TimeBlock::create([
@@ -53,21 +66,11 @@ class CalendarController extends Controller
 		$user = auth()->user();
 
 		// Determine the relationship based on the method name
-
 		$user->$relationship()->create([
 			'time_block_id' => $timeBlock->id,
 			'user_id' => $user,
 		]);
 
 		return redirect()->route($route);
-	}
-	public function store(StoreTimeBlock $request)
-	{
-		return $this->storeTimeBlockAndRedirect($request, 'calendarItems', 'calendar');
-	}
-	public function storeAvailability(StoreTimeBlock $request)
-	{
-		return $this->storeTimeBlockAndRedirect($request, 'availabilityItems', 'availability');
-
 	}
 }
