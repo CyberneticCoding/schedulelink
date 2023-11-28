@@ -26,5 +26,9 @@ class UserSeeder extends Seeder
 			'owner_id' => $user->id,
 		]);
 		$user->update(['active_company_id' => $company->id]);
+
+		$users = User::factory()->count(10)->create();
+		$company->users()->attach($users);
+
     }
 }

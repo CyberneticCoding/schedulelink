@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,15 +41,15 @@ class SettingController extends Controller
 	public function companyMembersAddPage(){
 		return Inertia::render('Settings/Company/MemberAddPage');
 	}
-	public function RemoveUserFromCompany(Request $request){
-		//dd($request->input('userId'));
-		$userId = $request->input('userId');
-		$companyId = $request->input('companyId');
-		// Verwijder de gebruiker uit het bedrijf
-		DB::table('company_users')->where('company_id', $companyId)->where('user_id', $userId)->delete();
+	public function companyMembersRemove(Request $request){
+		$userId = $request->userId;
+		$companyId = $request->companyId;
 
+		$user = User::findOrFail($userId);
+		$company = Company::findOrFail($companyId);
 
-		return response()->json(['success' => true]);
+		$company->users()->detach($user);
+		return redirect()->route('companies.members');
 	}
 
 

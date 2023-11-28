@@ -44,13 +44,13 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	Route::redirect('/settings', '/settings/account');
-	Route::get('/settings/account', [SettingController::class, 'accountPage']);
-	Route::get('/settings/notifications', [SettingController::class, 'notificationsPage']);
-	//Route::get('/settings/preferences', [SettingController::class, 'preferencesPage']);
-	//Route::get('/settings/calendar-import', [SettingController::class, 'importPage']);
-	Route::get('/settings/company', [SettingController::class, 'companyDetailsPage']);
-	Route::get('/settings/company/members', [SettingController::class, 'companyMembersPage']);
+	Route::get('/settings/account', [SettingController::class, 'accountPage'])->name('settings.account');
+	Route::get('/settings/notifications', [SettingController::class, 'notificationsPage'])->name('settings.notifications');
+	//Route::get('/settings/preferences', [SettingController::class, 'preferencesPage'])->name('settings.preferences');
+	//Route::get('/settings/calendar-import', [SettingController::class, 'importPage'])->name('settings.import');
+	Route::get('/settings/company', [SettingController::class, 'companyDetailsPage'])->name('settings.details');
+	Route::get('/settings/company/members', [SettingController::class, 'companyMembersPage'])->name('companies.members');
 
-	Route::post('/settings/company/members/remove', [SettingController::class, 'RemoveUserFromCompany']);
-	Route::get('/settings/company/members/add', [SettingController::class, 'companyMembersAddPage']);
+	Route::get('/settings/company/members/add', [SettingController::class, 'companyMembersAddPage'])->name('companies.members.add');
+	Route::post('/settings/company/members/remove', [SettingController::class, 'companyMembersRemove'])->name('companies.members.remove');
 });
