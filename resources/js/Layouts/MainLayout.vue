@@ -205,8 +205,6 @@ import {
 } from "@headlessui/vue"
 import {Link} from "@inertiajs/inertia-vue3";
 
-
-
 export default {
 	name: "MainLayout",
 	components: {
@@ -219,6 +217,9 @@ export default {
 		TransitionChild,
 		TransitionRoot,
 		Link,
+	},
+	props:{
+		companySet: Boolean,
 	},
 	setup() {
 		const defaultNavigation = [
@@ -233,8 +234,7 @@ export default {
 		const settingsNavigationBackbutton =[
 			{name: "Back", href: "/", icon: "fa-solid fa-circle-left",  translationKey: "layout.nav.settingsmenu.back"},
 		]
-
-		const settingsNavigation = [
+		const settingsNavigationAccount = [
 			// 	Account settings variables
 			{ name: "Title", translationKey: "layout.nav.settingsmenu.usersettings"},
 			{ name: "Account", href: "/settings", icon: "fa-solid fa-user", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
@@ -244,6 +244,9 @@ export default {
 			// 	Company settings variables
 			{ name: "Title", translationKey: "layout.nav.settingsmenu.companysettings"},
 			{ name: "Details", href: "/company", icon: "fa-solid fa-building", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
+		]
+		const settingsNavigationCompany = [
+			// navigation item if company is set
 			{ name: "Members", href: "/company/members", icon: "fa-solid fa-users", component: "Settings/CompanyMembersPage", translationKey: "layout.nav.settingsmenu.company.members" },
 		]
 
@@ -258,7 +261,8 @@ export default {
 			userNavigation,
 			defaultNavigationSettingsbutton,
 			settingsNavigationBackbutton,
-			settingsNavigation
+			settingsNavigationAccount,
+			settingsNavigationCompany,
 		}
 	},
 
@@ -266,8 +270,6 @@ export default {
 	},
 	computed:{
 		inSettings(){
-			// const parts = window.location.href.split("/")
-			// return parts[1]
 			const match = window.location.pathname.match(/^\/([^/]+)/); // RegEx om het eerste pad te matchen
 			return match ? match[1] : null; // Geeft het overeenkomende deel terug, of anders null
 		},
@@ -281,7 +283,17 @@ export default {
 			if(this.inSettings==="company"){return this.settingsNavigationBackbutton}
 			else{return this.defaultNavigationSettingsbutton}
 		},
+		settingsNavigation(){
+			console.log(this.companySet)
+			if(this.companySet === true){
+				return [...this.settingsNavigationAccount, ...this.settingsNavigationCompany]
+			}
+			else{
+				return this.settingsNavigationAccount}
+		},
 
-	}
+	},
+	mounted() {
+	},
 }
 </script>

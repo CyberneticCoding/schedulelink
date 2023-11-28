@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/company/members/remove', [SettingController::class, 'RemoveUserFromCompany']);
 	Route::get('/company/members/add', [SettingController::class, 'CompanyAddMembersView']);
 
-	Route::get('/user', [SettingController::class, 'CompanyMembers'])->name('currentUser');
+
 
 
 	//Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

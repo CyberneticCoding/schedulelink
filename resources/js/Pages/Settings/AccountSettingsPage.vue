@@ -1,5 +1,5 @@
 <template>
-	<MainLayout>
+	<MainLayout :company-set="companySet">
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Profile settings	-->
@@ -62,6 +62,9 @@ import MainLayout from "../../Layouts/MainLayout.vue";
 export default {
 	name: "SettingsPage",
 	components: { MainLayout },
+	props: {
+		companySet: Boolean
+	},
 	setup() {
 		const accountsettingsTranslations = [
 			{ name: "settings.user.account.email.name",

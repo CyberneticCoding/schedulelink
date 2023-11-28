@@ -13,23 +13,35 @@ use function Laravel\Prompts\error;
 
 class SettingController extends Controller
 {
+
     // Account settings
-    public function AccountView()
-    {return Inertia::render('Settings/AccountSettingsPage');}
+    public function AccountView(){
+		if (Auth::check()) {
+		//		als current company is opgeslagen in de user:
+		if (!is_null(auth()->user()->current_company)) {
+			return Inertia::render('Settings/AccountSettingsPage', [ 'companySet' => true]);}
+	}
+		return Inertia::render('Settings/AccountSettingsPage', ['companySet' => false]);
+	}
+
 
 	// ##Test
 	public function Settings2()
 	{return Inertia::render('Settings/Settings2');}
 
 	// Company settings
-	public function CompanyView()
-	{return Inertia::render('Settings/CompanyDetailsPage');}
+	public function CompanyView(){
+		if (Auth::check()) {
+			//		als current company is opgeslagen in de user:
+			if (!is_null(auth()->user()->current_company)) {
+				return Inertia::render('Settings/CompanyDetailsPage', [ 'companySet' => true]);}
+		}
+		return Inertia::render('Settings/CompanyDetailsPage', ['companySet' => false]);
+	}
 
 	// Company members
 	public function CompanyMembersView(){
 		if (Auth::check()) {
-			// Haal de huidige ingelogde gebruiker op
-			$currentUser = Auth::user();
 			//		als current company is opgeslagen in de user:
 			if (!is_null(auth()->user()->current_company)) {
 				$currentCompany = DB::table('companies')
@@ -49,14 +61,14 @@ class SettingController extends Controller
 		return Inertia::render('Settings/CompanyMembersPage', ['companySet' => false]);
 	}
 
-
-
-
-
 	// Add company members
 	public function CompanyAddMembersView(){
-
-		return Inertia::render('Settings/CompanyAddMembersPage', ['companySet' => '0']);
+		if (Auth::check()) {
+			//		als current company is opgeslagen in de user:
+			if (!is_null(auth()->user()->current_company)) {
+				return Inertia::render('Settings/CompanyAddMembersPage', [ 'companySet' => true]);}
+		}
+		return Inertia::render('Settings/CompanyAddMembersPage', ['companySet' => false]);
 	}
 	public function RemoveUserFromCompany(Request $request){
 		//dd($request->input('userId'));
@@ -68,11 +80,6 @@ class SettingController extends Controller
 
 		return response()->json(['success' => true]);
 	}
-
-
-
-
-
 
 
 }

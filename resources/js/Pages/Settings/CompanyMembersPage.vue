@@ -1,5 +1,5 @@
 <template>
-	<MainLayout>
+	<MainLayout :company-set="companySet">
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Member settings	-->
