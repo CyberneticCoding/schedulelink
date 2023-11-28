@@ -13,18 +13,28 @@ use function Laravel\Prompts\error;
 
 class SettingController extends Controller
 {
-
     // Account settings
-    public function AccountView(){
+    public function AccountView()
+	{
 		if (Auth::check()) {
-		//		als current company is opgeslagen in de user:
-		if (!is_null(auth()->user()->current_company)) {
-			return Inertia::render('Settings/AccountSettingsPage', [ 'companySet' => true]);}
-	}
+			//		als current company is opgeslagen in de user:
+			if (!is_null(auth()->user()->current_company)) {
+				return Inertia::render('Settings/AccountSettingsPage', ['companySet' => true]);
+			}
+		}
 		return Inertia::render('Settings/AccountSettingsPage', ['companySet' => false]);
 	}
-
-
+    /**
+     * Display a listing of the resource.
+     */
+    public function accountPage()
+    {
+		return Inertia::render('Settings/AccountPage');
+    }
+	public function notificationsPage()
+	{
+		return Inertia::render('Settings/NotificationsPage');
+	}
 	// ##Test
 	public function Settings2()
 	{return Inertia::render('Settings/Settings2');}

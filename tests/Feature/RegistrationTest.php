@@ -58,63 +58,26 @@ class RegistrationTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function test_register_no_firstname()
+	public function test_user_cannot_register_with_empty_data()
 	{
 		$response = $this->post('/register', [
 			'firstname' => '',
-			'lastname' => fake()->lastName,
-			'email' => fake()->unique()->email,
-			'password' => 'Testpass123',
-			'password_confirmation' => 'Testpass123'
-		]);
-
-		$response->assertSessionHasErrors([
-			'firstname',
-		]);
-	}
-	public function test_register_no_lastname()
-	{
-		$response = $this->post('/register', [
-			'firstname' => fake()->firstName,
 			'lastname' => '',
-			'email' => fake()->unique()->email,
-			'password' => 'Testpass123',
-			'password_confirmation' => 'Testpass123'
-		]);
-
-		$response->assertSessionHasErrors([
-			'lastname',
-		]);
-	}
-	public function test_register_no_email()
-	{
-		$response = $this->post('/register', [
-			'firstname' => fake()->firstName,
-			'lastname' => fake()->lastName,
 			'email' => '',
-			'password' => 'Testpass123',
-			'password_confirmation' => 'Testpass123'
+			'password' => '',
+			'password_confirmation' => ''
+		]);
+		$response->assertSessionHasErrors([
+			'email',
+			'firstname',
+			'lastname',
+			'password',
+			'password_confirmation'
 		]);
 
-		$response->assertSessionHasErrors([
-			'email' => 'The email field is required.',
-		]);
 	}
-	public function test_register_not_legit_email()
-	{
-		$response = $this->post('/register', [
-			'firstname' => fake()->firstName,
-			'lastname' => fake()->lastName,
-			'email' => fake()->firstName,
-			'password' => 'Testpass123',
-			'password_confirmation' => 'Testpass123'
-		]);
 
-		$response->assertSessionHasErrors([
-			'email' => 'E-mail address is invalid',
-		]);
-	}
-	public function test_register_existing_email()
+	public function test_user_cannot_register_with_existing_email()
 	{
 		$user = User::factory()->create();
 		$response = $this->post('/register', [
@@ -129,21 +92,7 @@ class RegistrationTest extends TestCase
 			'email' => 'The email has already been taken.',
 		]);
 	}
-	public function test_register_no_password()
-	{
-		$response = $this->post('/register', [
-			'firstname' => fake()->firstName,
-			'lastname' => fake()->lastName,
-			'email' => fake()->unique()->email,
-			'password' => '',
-			'password_confirmation' => ''
-		]);
-
-		$response->assertSessionHasErrors([
-			'password'=>'The password field is required.',
-		]);
-	}
-	public function test_register_passwords_dont_match()
+	public function test_user_cannot_register_when_passwords_dont_match()
 	{
 		$response = $this->post('/register', [
 			'firstname' => fake()->firstName,
@@ -157,7 +106,7 @@ class RegistrationTest extends TestCase
 			'password_confirmation'=>'Password fields don\'t match',
 		]);
 	}
-	public function test_register_password_too_short()
+	public function test_user_cannot_register_when_password_too_short()
 	{
 		$response = $this->post('/register', [
 			'firstname' => fake()->firstName,

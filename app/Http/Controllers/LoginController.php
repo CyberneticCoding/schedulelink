@@ -9,8 +9,6 @@ use Inertia\Inertia;
 
 class LoginController extends Controller
 {
-
-	protected string $redirectTo = '/calendar';
 	public function index (Request $request) {
 		return Inertia::render('LoginPage');
 	}

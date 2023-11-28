@@ -18,40 +18,39 @@ use Inertia\Inertia;
 |
 */
 
-//Route::resource('/', [UserController::class, 'show']);
 
 Route::redirect('/', '/calendar');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/register',[RegistrationController::class, 'index'])->name('register');
 Route::post('/register', [RegistrationController::class, 'register']);
 
 Route::group(['middleware' => ['auth']], function () {
+	Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 	Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 	Route::post('/calendar', [CalendarController::class, 'store'])->name('calendar.store');
+	Route::get('/availability', [CalendarController::class, 'availability'])->name('availability');
+	Route::post('/availability', [CalendarController::class, 'storeAvailability'])->name('availability.store');
 	Route::get('/combined-calendar', function () {
 		return Inertia::render('CombinedCalendarPage');
 	});
 	Route::get('/meetings', function () {
 		return Inertia::render('MeetingsPage');
 	});
+
 	Route::get('/teams', function () {
 		return Inertia::render('TeamsPage');
 	});
-
 	//	settings routes
-	Route::get('/settings', [SettingController::class, 'AccountView']);
-	Route::get('/settings/settings2', [SettingController::class, 'Settings2']);
-	Route::get('/company', [SettingController::class, 'CompanyView']);
-	Route::get('/company/members', [SettingController::class, 'CompanyMembersView']);
+	Route::redirect('/settings', '/settings/account');
+	Route::get('/settings/account', [SettingController::class, 'accountPage']);
+	Route::get('/settings/notifications', [SettingController::class, 'notificationsPage']);
+	//Route::get('/settings/preferences', [SettingController::class, 'Settings2']);
+	//Route::get('/settings/calendar-import', [SettingController::class, 'Settings2']);
+	//Route::get('/settings/company', [SettingController::class, 'Details']);
+	Route::get('/settings/company/members', [SettingController::class, 'CompanyView']);
+
 	Route::post('/company/members/remove', [SettingController::class, 'RemoveUserFromCompany']);
 	Route::get('/company/members/add', [SettingController::class, 'CompanyAddMembersView']);
-
-
-
-
-	//Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-	//Route::get('/logout', [LoginController::class, 'logout']);
 });
