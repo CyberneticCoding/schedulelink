@@ -33,12 +33,12 @@
 				<!--Scroll through week menu-->
 				<div class="sm:ml-12 flex items-center">
 					<div v-if="!ifAvailabilityCalendar" class="relative flex rounded-full bg-white shadow-sm items-stretch">
-						<button @click="switchWeek(-1)" type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
+						<button id="previous-week-button" @click="switchWeek(-1)" type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
 							<span class="sr-only">{{ $t('calendar.previous_week') }}</span>
 							<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
 						</button>
-						<button @click="switchWeek(0)" type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{ thisWeekString }} <span class="text-gray-400"></span></button> <!-- todo - add year-->
-						<button @click="switchWeek(1)" type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
+						<button id="current-week-button"  @click="switchWeek(0)" type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{ thisWeekString }} <span class="text-gray-400"></span></button> <!-- todo - add year-->
+						<button id="next-week-button" @click="switchWeek(1)" type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
 							<span class="sr-only">{{ $t('calendar.next_week') }}</span>
 							<i class="fa-solid fa-chevron-right ml-2 h-5 w-5" aria-hidden="true" />
 						</button>
@@ -51,8 +51,8 @@
 				<div class="hidden md:ml-4 md:flex md:items-center">
 					<div class="ml-6 h-6 w-px bg-gray-300" />
 					<Link id="availability-button" href="/availability" v-if="ifMainCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Change Availability</Link>
-					<Link id="calendar-button" href="/calendar" v-if="ifAvailabilityCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Cancel</Link>
-					<button v-if="ifAvailabilityCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save Changes</button>
+					<Link href="/calendar" v-if="ifAvailabilityCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Cancel</Link>
+					<Link href="/calendar" v-if="ifAvailabilityCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save Changes</Link>
 				</div>
 				<!--Hidden mobile foldable menu-->
 				<Menu as="div" class="relative ml-6 md:hidden">
