@@ -37,7 +37,7 @@
 							<span class="sr-only">{{ $t('calendar.previous_week') }}</span>
 							<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
 						</button>
-						<button type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{ thisWeekString }} <span class="text-gray-400"></span></button> <!-- todo - add year-->
+						<button @click="switchWeek(0)" type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{ thisWeekString }} <span class="text-gray-400"></span></button> <!-- todo - add year-->
 						<button @click="switchWeek(1)" type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
 							<span class="sr-only">{{ $t('calendar.next_week') }}</span>
 							<i class="fa-solid fa-chevron-right ml-2 h-5 w-5" aria-hidden="true" />
@@ -101,8 +101,8 @@
 					<!-- Desktop Calendar header -->
 					<div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
 						<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">{{ $t('calendar.time') }}</div>
-						<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center py-3">
-							<span :class="[day === currentDay ? 'bg-primary rounded-full p-2 text-white ' :  '']">{{ day }}</span>
+						<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center my-3">
+							<span :class="[day === currentDay ? 'bg-primary rounded-full px-2 text-white ' :  '']">{{ day }}</span>
 						</div>
 					</div>
 				</div>
@@ -261,12 +261,11 @@ export default {
 	data() {
 		return {
 			timezone: "Europe/Amsterdam",
-			weekOffset: 0,
 		}
 	},
 	methods: {
 		formatDate(date, formatOptions) {
-			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
+			return new Intl.DateTimeFormat("en-US", formatOptions).format(new Date(date));
 		},
 		handleGridClick(event) {
 			const isTimeBlock = event.target.getAttribute("data-time-block") === "true";
@@ -329,10 +328,14 @@ export default {
 			});
 		},
 		switchWeek(value) {
-			if (value === 1) {
-				this.$inertia.post("/calendar", {
-					"week": value,
-				});
+			if (value === 0 || value === 1 || value === -1) {
+				let currentDay = new Date();
+				if (value !== 0) {
+					currentDay = new Date(this.week.current_day);
+					currentDay.setDate(currentDay.getDate() + 7 * value); // Add or subtract 7 days based on the value
+				}
+				const formattedDate = currentDay.toISOString().split("T")[0];
+				this.$inertia.get(`/calendar/${formattedDate}`);
 			}
 		}
 	},
@@ -345,7 +348,7 @@ export default {
 		},
 		daysOfWeek() {
 			/*  returns something like [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
-			const currentDate = new Date();
+			const currentDate = new Date(this.week.current_day);
 			const currentDayOfWeek = currentDate.getUTCDay(); // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
 
 			const daysToSubtract = (currentDayOfWeek + 6) % 7; // Calculate the number of days to subtract to get to the previous Monday
@@ -383,7 +386,7 @@ export default {
 				day: "2-digit",
 				month: "short",
 			};
-			return this.formatDate(this.week.firstday, formatOptions) + " - " + this.formatDate(this.week.lastday, formatOptions);
+			return this.formatDate(this.week.first_day, formatOptions) + " - " + this.formatDate(this.week.last_day, formatOptions);
 		},
 	}
 }

@@ -14,11 +14,25 @@ use Inertia\Inertia;
 
 class CalendarController extends Controller
 {
-	public function index()
+	public function index($week = null)
 	{
-		$startDate = Carbon::now()->startOfWeek();
-		$currentDate = Carbon::now();
-		$endDate = Carbon::now()->endOfWeek();
+		$validator = validator(['week' => $week], [
+			'week' => 'nullable|date',
+		]);
+		if (!$validator->passes()) {
+			return redirect()->route('calendar');
+		}
+
+		if ($week) {
+			$startDate = Carbon::parse($week)->startOfWeek();
+			$currentDate = Carbon::parse($week);
+			$endDate = Carbon::parse($week)->endOfWeek();
+		} else {
+			// Otherwise, use the current week's start date
+			$startDate = Carbon::now()->startOfWeek();
+			$currentDate = Carbon::now();
+			$endDate = Carbon::now()->endOfWeek();
+		}
 
 		$calendarItems = auth()->user()
 			->calendarItems()
@@ -31,13 +45,12 @@ class CalendarController extends Controller
 		return Inertia::render('MainCalendarPage', [
 			'calendarItems' => $calendarItems, // Pass the time_blocks to the frontend
 			'week' => [
-				'firstDay' => $startDate,
-				'currentDay' => $currentDate,
-				'lastDay' => $endDate,
+				'first_day' => $startDate,
+				'current_day' => $currentDate,
+				'last_day' => $endDate,
 			],
 		]);
 	}
-
 	public function availability()
 	{
 		$availabilityItems = auth()->user()->availabilityItems()->with('timeblock.color')->get();
