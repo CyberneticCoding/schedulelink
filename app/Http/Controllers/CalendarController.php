@@ -23,27 +23,12 @@ class CalendarController extends Controller
 			return redirect()->route('calendar');
 		}
 
-		if ($week) {
-			$startDate = Carbon::parse($week)->startOfWeek();
-			$currentDate = Carbon::parse($week);
-			$endDate = Carbon::parse($week)->endOfWeek();
-		} else {
-			// Otherwise, use the current week's start date
-			$startDate = Carbon::now()->startOfWeek();
-			$currentDate = Carbon::now();
-			$endDate = Carbon::now()->endOfWeek();
-		}
+		list($startDate, $currentDate, $endDate) = $this->calculateDates($week);
 
-		$calendarItems = auth()->user()
-			->calendarItems()
-			->with('timeblock.color')
-			->whereHas('timeblock', function ($query) use ($startDate, $endDate) {
-				$query->whereBetween('start_time', [$startDate, $endDate]);
-			})->get();
-
+		$calendarItems = $this->getCalendarItems(auth()->user()->calendarItems(), $startDate, $endDate);
 
 		return Inertia::render('MainCalendarPage', [
-			'calendarItems' => $calendarItems, // Pass the time_blocks to the frontend
+			'calendarItems' => $calendarItems,
 			'week' => [
 				'first_day' => $startDate,
 				'current_day' => $currentDate,
@@ -51,13 +36,47 @@ class CalendarController extends Controller
 			],
 		]);
 	}
-	public function availability()
+
+	public function availability($week = null)
 	{
-		$availabilityItems = auth()->user()->availabilityItems()->with('timeblock.color')->get();
+		list($startDate, $currentDate, $endDate) = $this->calculateDates($week);
+
+		$availabilityItems = $this->getCalendarItems(auth()->user()->availabilityItems(), $startDate, $endDate);
+
 		return Inertia::render('AvailabilityCalendarPage', [
-			'availabilityItems' => $availabilityItems, // Pass the time_blocks to the frontend
+			'availabilityItems' => $availabilityItems,
+			'week' => [
+				'first_day' => $startDate,
+				'current_day' => $currentDate,
+				'last_day' => $endDate,
+			],
 		]);
 	}
+
+	protected function calculateDates($week)
+	{
+		if ($week) {
+			$startDate = Carbon::parse($week)->startOfWeek();
+			$currentDate = Carbon::parse($week);
+			$endDate = Carbon::parse($week)->endOfWeek();
+		} else {
+			$startDate = Carbon::now()->startOfWeek();
+			$currentDate = Carbon::now();
+			$endDate = Carbon::now()->endOfWeek();
+		}
+
+		return [$startDate, $currentDate, $endDate];
+	}
+
+	protected function getCalendarItems($query, $startDate, $endDate)
+	{
+		return $query->with('timeblock.color')
+			->whereHas('timeblock', function ($query) use ($startDate, $endDate) {
+				$query->whereBetween('start_time', [$startDate, $endDate]);
+			})
+			->get();
+	}
+
 	public function store(StoreTimeBlock $request)
 	{
 		return $this->storeTimeBlockAndRedirect($request, 'calendarItems');

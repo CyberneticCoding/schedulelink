@@ -30,8 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 	Route::get('/calendar/{week?}', [CalendarController::class, 'index'])->name('calendar');
 	Route::post('/calendar/{week?}', [CalendarController::class, 'store'])->name('calendar.store');
-	Route::get('/availability', [CalendarController::class, 'availability'])->name('availability');
-	Route::post('/availability', [CalendarController::class, 'storeAvailability'])->name('availability.store');
+	Route::get('/availability/{week?}', [CalendarController::class, 'availability'])->name('availability');
+	Route::post('/availability/{week?}', [CalendarController::class, 'storeAvailability'])->name('availability.store');
 	Route::get('/combined-calendar', function () {
 		return Inertia::render('CombinedCalendarPage');
 	});

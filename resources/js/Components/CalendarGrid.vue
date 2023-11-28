@@ -32,7 +32,7 @@
 				</div>
 				<!--Scroll through week menu-->
 				<div class="sm:ml-12 flex items-center">
-					<div class="relative flex rounded-full bg-white shadow-sm items-stretch">
+					<div v-if="!ifAvailabilityCalendar" class="relative flex rounded-full bg-white shadow-sm items-stretch">
 						<button @click="switchWeek(-1)" type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
 							<span class="sr-only">{{ $t('calendar.previous_week') }}</span>
 							<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
@@ -310,7 +310,6 @@ export default {
 			currentDate.setHours(hours + 1);
 			currentDate.setMinutes(minutes);
 
-
 			this.$inertia.post(window.location.pathname, {
 				name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",
 				start_time: currentDate.toISOString(),
@@ -328,7 +327,11 @@ export default {
 					currentDay.setDate(currentDay.getDate() + 7 * value); // Add or subtract 7 days based on the value
 				}
 				const formattedDate = currentDay.toISOString().split("T")[0];
-				this.$inertia.get(`/calendar/${formattedDate}`);
+				let routeName = "/calendar/"
+				if (this.ifAvailabilityCalendar) {
+					routeName = "/availability/"
+				}
+				this.$inertia.get(`${routeName}${formattedDate}`);
 			}
 		}
 	},
