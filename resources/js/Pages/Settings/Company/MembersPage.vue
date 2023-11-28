@@ -1,5 +1,5 @@
 <template>
-	<MainLayout :company-set="companySet">
+	<SettingsLayout :company-set="companySet">
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Member settings	-->
@@ -79,19 +79,21 @@
 				</div>
 			</div>
 		</template>
-	</MainLayout>
+	</SettingsLayout>
 </template>
 
 <script>
 
-import MainLayout from "../../Layouts/MainLayout.vue";
+import SettingsLayout from "../../../Layouts/SettingsLayout.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import axios from "axios";
 
-
 export default {
-	name: "SettingsPage",
-	components: { MainLayout, Link },
+	name: "MembersPage",
+	components: {
+		SettingsLayout,
+		Link
+	},
 	props: {
 		currentCompany: Object,
 		currentCompanyMembers: Object,

@@ -13,7 +13,7 @@
 import SettingsLayout from "../../Layouts/SettingsLayout.vue";
 
 export default {
-	name: "NotificationsPage",
+	name: "CalendarPage",
 	components: {
 		SettingsLayout
 	},

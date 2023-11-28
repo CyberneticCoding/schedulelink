@@ -28,16 +28,7 @@
 									<li>
 										<ul role="list" class="-mx-2 space-y-1">
 											<li v-for="item in navigation" :key="item.name">
-												<!--Title's for navigation in settings-->
-												<span v-if="inSettings && item.name==='Title'">
-													<i :class="['h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', item.icon
-														? 'text-primary'
-														: '',
-													]" aria-hidden="true"/>
-													{{ $t(item.translationKey) }}
-												</span>
-												<!--Navigation items-->
-												<Link v-else :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
+												<Link :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
 													$page.component === item.component
 														? 'bg-gray-50 text-indigo-600'
 														: '',
@@ -46,19 +37,19 @@
 														$page.component === item.component
 															? 'text-primary'
 															: '',
-														]"
-														aria-hidden="true"
+													]" aria-hidden="true"
+
 													/>
-													{{ $t(item.translationKey) }}
+													{{ item.name }}
 												</Link>
 											</li>
 
 										</ul>
 									</li>
-									<li class="mt-auto" v-for="item in navigationSettingsbutton" :key="item.name">
-										<Link :href="item.href" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-											<i :class="[item.icon,' text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5']" aria-hidden="true" />
-											{{ $t(item.translationKey) }}
+									<li class="mt-auto">
+										<Link href="/settings" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+											<i class="fa-solid fa-gear text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
+											{{ $t('layout.nav.settings') }}
 										</Link>
 									</li>
 								</ul>
@@ -85,16 +76,7 @@
 					<li>
 						<ul role="list" class="-mx-2 space-y-1">
 							<li v-for="item in navigation" :key="item.name">
-								<!--Title's for navigation in settings-->
-								<span v-if="inSettings && item.name==='Title'">
-									<i :class="['h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', item.icon
-										? 'text-primary'
-										: '',
-									]" aria-hidden="true"/>
-									{{ $t(item.translationKey) }}
-								</span>
-								<!--Navigation items-->
-								<Link v-else :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
+								<Link :href="item.href" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold',
 									$page.component === item.component
 										? 'bg-gray-50 text-indigo-600'
 										: '',
@@ -103,18 +85,17 @@
 										$page.component === item.component
 											? 'text-primary'
 											: '',
-										]"
-										aria-hidden="true"
+									]" aria-hidden="true"
 									/>
 									{{ $t(item.translationKey) }}
 								</Link>
 							</li>
 						</ul>
 					</li>
-					<li class="mt-auto" v-for="item in navigationSettingsbutton" :key="item.name">
-						<Link :href="item.href" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-							<i :class="[item.icon,' text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5']" aria-hidden="true" />
-							{{ $t(item.translationKey) }}
+					<li class="mt-auto">
+						<Link href="/settings" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+							<i class="fa-solid fa-gear text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
+							{{ $t('layout.nav.settings') }}
 						</Link>
 					</li>
 				</ul>
@@ -150,7 +131,7 @@
 
 						<!-- Profile dropdown -->
 						<Menu as="div" class="relative">
-							<MenuButton class="-m-1.5 flex items-center p-1.5">
+							<MenuButton id="user-profile-button" class="-m-1.5 flex items-center p-1.5">
 								<span class="sr-only">{{ $t('layout.open_user_menu') }}</span>
 								<img class="h-8 w-8 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
 								<span class="hidden lg:flex lg:items-center">
@@ -163,14 +144,7 @@
 							<transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
 								<MenuItems class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
 									<MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-										<Link :method="item.method" :href="item.href" :class="[active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900']">
-											<!--<i :class="['h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', item.icon,-->
-											<!--	$page.component === item.component-->
-											<!--		? 'text-primary'-->
-											<!--		: '',-->
-											<!--	]"-->
-											<!--	aria-hidden="true"-->
-											<!--/>-->
+										<Link :method="item.method" :name="item.name" :href="item.href" :class="[active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900 logout-button']">
 											{{ item.name }}
 										</Link>
 									</MenuItem>
@@ -201,7 +175,6 @@ import {
 	MenuItems,
 	TransitionChild,
 	TransitionRoot,
-
 } from "@headlessui/vue"
 import {Link} from "@inertiajs/inertia-vue3";
 
@@ -218,38 +191,13 @@ export default {
 		TransitionRoot,
 		Link,
 	},
-	props:{
-		companySet: Boolean,
-	},
 	setup() {
-		const defaultNavigation = [
+		const navigation = [
 			{ name: "Calendar", href: "/", icon: "fa-regular fa-calendar-days", component: "MainCalendarPage",  translationKey: "layout.nav.main_calendar"},
 			{ name: "Combined Calendar", href: "/combined-calendar", icon: "fa-solid fa-calendar-week", component: "CombinedCalendarPage", translationKey: "layout.nav.combined_calendar" },
 			{ name: "Meetings", href: "/meetings", icon: "fa-regular fa-handshake", component: "MeetingsPage", translationKey: "layout.nav.meetings" },
 			{ name: "Teams", href: "/teams", icon: "fa-solid fa-people-group", component: "TeamsPage", translationKey: "layout.nav.teams" },
 		]
-		const defaultNavigationSettingsbutton =[
-			{name: "Settings", href: "/settings", icon: "fa-solid fa-gear",  translationKey: "layout.nav.settings"},
-		]
-		const settingsNavigationBackbutton =[
-			{name: "Back", href: "/", icon: "fa-solid fa-circle-left",  translationKey: "layout.nav.settingsmenu.back"},
-		]
-		const settingsNavigationAccount = [
-			// 	Account settings variables
-			{ name: "Title", translationKey: "layout.nav.settingsmenu.usersettings"},
-			{ name: "Account", href: "/settings/account", icon: "fa-solid fa-user", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
-			{ name: "Notifications", href: "/settings/notifications", icon: "fa-solid fa-bell", component: "Settings/Settings2", translationKey: "layout.nav.settingsmenu.user.notifications" },
-			{ name: "Calendar preferences", href: "/settings", icon: "fa-solid fa-calendar-check", component: "", translationKey: "layout.nav.settingsmenu.user.preferences" },
-			{ name: "Import", href: "/settings", icon: "fa-solid fa-cloud-arrow-up", component: "", translationKey: "layout.nav.settingsmenu.user.import" },
-			// 	Company settings variables
-			{ name: "Title", translationKey: "layout.nav.settingsmenu.companysettings"},
-			{ name: "Details", href: "/settings/company", icon: "fa-solid fa-building", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
-		]
-		const settingsNavigationCompany = [
-			// navigation item if company is set
-			{ name: "Members", href: "/settings/company/members", icon: "fa-solid fa-users", component: "Settings/CompanyMembersPage", translationKey: "layout.nav.settingsmenu.company.members" },
-		]
-
 		const userNavigation = [
 			{ name: "Logout", href: "/logout", method:"POST", icon: "fa-solid fa-right-from-bracket", translationKey: "layout.nav.logout"},
 		]
@@ -257,43 +205,9 @@ export default {
 		const sidebarOpen = ref(false)
 		return {
 			sidebarOpen,
-			defaultNavigation,
-			userNavigation,
-			defaultNavigationSettingsbutton,
-			settingsNavigationBackbutton,
-			settingsNavigationAccount,
-			settingsNavigationCompany,
+			navigation,
+			userNavigation
 		}
-	},
-
-	methods: {
-	},
-	computed:{
-		inSettings(){
-			const match = window.location.pathname.match(/^\/([^/]+)/); // RegEx om het eerste pad te matchen
-			return match ? match[1] : null; // Geeft het overeenkomende deel terug, of anders null
-		},
-		navigation(){
-			if(this.inSettings==="settings"){return this.settingsNavigation}
-			if(this.inSettings==="company"){return this.settingsNavigation}
-			else{return this.defaultNavigation}
-		},
-		navigationSettingsbutton(){
-			if(this.inSettings==="settings"){return this.settingsNavigationBackbutton}
-			if(this.inSettings==="company"){return this.settingsNavigationBackbutton}
-			else{return this.defaultNavigationSettingsbutton}
-		},
-		settingsNavigation(){
-			console.log(this.companySet)
-			if(this.companySet === true){
-				return [...this.settingsNavigationAccount, ...this.settingsNavigationCompany]
-			}
-			else{
-				return this.settingsNavigationAccount}
-		},
-
-	},
-	mounted() {
 	},
 }
 </script>

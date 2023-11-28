@@ -1,5 +1,5 @@
 <template>
-	<MainLayout :company-set="companySet">
+	<SettingsLayout :company-set="companySet">
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Profile settings	-->
@@ -41,8 +41,9 @@
 											</ul>
 										</div>
 										<div>
-											<button type="button" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-												{{ $t(item.change) }}</button>
+											<button class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+												{{ $t(item.change) }}
+											</button>
 										</div>
 									</li>
 								</ul>
@@ -52,16 +53,18 @@
 				</div>
 			</div>
 		</template>
-	</MainLayout>
+	</SettingsLayout>
 </template>
 
 <script>
 
-import MainLayout from "../../Layouts/MainLayout.vue";
+import SettingsLayout from "../../Layouts/SettingsLayout.vue";
 
 export default {
 	name: "AccountPage",
-	components: { MainLayout },
+	components: {
+		SettingsLayout
+	},
 	props: {
 		companySet: Boolean
 	},

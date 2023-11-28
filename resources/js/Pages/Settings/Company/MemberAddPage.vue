@@ -1,5 +1,5 @@
 <template>
-	<MainLayout :company-set="companySet">
+	<SettingsLayout :company-set="companySet">
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Member settings	-->
@@ -36,17 +36,19 @@
 				</div>
 			</div>
 		</template>
-	</MainLayout>
+	</SettingsLayout>
 </template>
 
 <script>
 
-import MainLayout from "../../Layouts/MainLayout.vue";
+import SettingsLayout from "../../../Layouts/SettingsLayout.vue";
 
 
 export default {
-	name: "SettingsPage",
-	components: { MainLayout },
+	name: "MemberAddPage",
+	components: {
+		SettingsLayout
+	},
 	props: {
 		companySet: Boolean
 	},
