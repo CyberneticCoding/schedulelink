@@ -60,11 +60,11 @@ class CalendarController extends Controller
 	}
 	public function store(StoreTimeBlock $request)
 	{
-		return $this->storeTimeBlockAndRedirect($request, 'calendarItems', 'calendar');
+		return $this->storeTimeBlockAndRedirect($request, 'calendarItems');
 	}
 	public function storeAvailability(StoreTimeBlock $request)
 	{
-		return $this->storeTimeBlockAndRedirect($request, 'availabilityItems', 'availability');
+		return $this->storeTimeBlockAndRedirect($request, 'availabilityItems');
 
 	}
 
@@ -80,10 +80,9 @@ class CalendarController extends Controller
 			'color_id' => 1,
 		]);
 	}
-	private function storeTimeBlockAndRedirect(StoreTimeBlock $request, $relationship, $route)
+	private function storeTimeBlockAndRedirect(StoreTimeBlock $request, $relationship)
 	{
 		$data = $request->validated();
-
 		if (!$data['stop_time']) {
 			// If 'stop_time' is not provided, calculate it as needed
 			$start_time = Carbon::parse($data['start_time']);
@@ -100,6 +99,6 @@ class CalendarController extends Controller
 			'user_id' => $user,
 		]);
 
-		return redirect()->route($route);
+		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
 	}
 }

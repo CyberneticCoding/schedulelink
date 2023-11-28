@@ -269,7 +269,6 @@ export default {
 		},
 		handleGridClick(event) {
 			const isTimeBlock = event.target.getAttribute("data-time-block") === "true";
-
 			if (isTimeBlock) {
 				alert("timeblock")
 			} else {
@@ -299,7 +298,7 @@ export default {
 			const dayColumnWidth = grid.clientWidth / DAY_COLUMNS;
 			const dayIndex = Math.floor(clickPositionX / dayColumnWidth) + 1; //the clicked day
 
-			const currentDate = new Date();
+			const currentDate = new Date(this.week.current_day);
 			const currentDayOfWeek = currentDate.getDay(); //current week day, 0 - 6
 
 			const dayDifference = dayIndex - currentDayOfWeek;
@@ -312,13 +311,7 @@ export default {
 			currentDate.setMinutes(minutes);
 
 
-			const endpointMap = {
-				MainCalendar: "/calendar",
-				AvailabilityCalendar: "/availability",
-				Combined: "/combined-calendar",
-			};
-
-			this.$inertia.post(endpointMap[this.type], {
+			this.$inertia.post(window.location.pathname, {
 				name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",
 				start_time: currentDate.toISOString(),
 				stop_time: null,

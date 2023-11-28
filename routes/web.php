@@ -29,7 +29,7 @@ Route::post('/register', [RegistrationController::class, 'register']);
 Route::group(['middleware' => ['auth']], function () {
 	Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 	Route::get('/calendar/{week?}', [CalendarController::class, 'index'])->name('calendar');
-	Route::post('/calendar', [CalendarController::class, 'store'])->name('calendar.store');
+	Route::post('/calendar/{week?}', [CalendarController::class, 'store'])->name('calendar.store');
 	Route::get('/availability', [CalendarController::class, 'availability'])->name('availability');
 	Route::post('/availability', [CalendarController::class, 'storeAvailability'])->name('availability.store');
 	Route::get('/combined-calendar', function () {
