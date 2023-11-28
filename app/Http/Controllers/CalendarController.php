@@ -16,7 +16,15 @@ class CalendarController extends Controller
 {
 	public function index()
 	{
-		$calendarItems = auth()->user()->calendarItems()->with('timeblock.color')->get();
+		$startDate = Carbon::now()->startOfWeek();
+		$endDate = Carbon::now()->endOfWeek();
+
+		$calendarItems = auth()->user()
+			->calendarItems()
+			->with('timeblock.color')
+			->whereHas('timeblock', function ($query) use ($startDate, $endDate) {
+				$query->whereBetween('start_time', [$startDate, $endDate]);
+			})->get();
 		return Inertia::render('MainCalendarPage', [
 			'calendarItems' => $calendarItems, // Pass the time_blocks to the frontend
 		]);

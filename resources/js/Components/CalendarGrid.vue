@@ -308,23 +308,21 @@ export default {
 			currentDate.setHours(hours + 1);
 			currentDate.setMinutes(minutes);
 
+
 			const endpointMap = {
 				MainCalendar: "/calendar",
 				AvailabilityCalendar: "/availability",
 				Combined: "/combined-calendar",
 			};
 
-			const endpoint = endpointMap[this.type];
-			if (endpoint) {
-				this.$inertia.post(endpoint, {
-					name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",
-					start_time: currentDate.toISOString(),
-					stop_time: null,
-					type: this.type,
-				}, {
-					preserveScroll: true,
-				});
-			}
+			this.$inertia.post(endpointMap[this.type], {
+				name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",
+				start_time: currentDate.toISOString(),
+				stop_time: null,
+				type: this.type,
+			}, {
+				preserveScroll: true,
+			});
 		},
 		formatDate(date, formatOptions) {
 			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
