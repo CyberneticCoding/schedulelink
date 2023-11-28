@@ -1,5 +1,5 @@
 <template>
-	<SettingsLayout :company-set="companySet">
+	<SettingsLayout>
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Profile settings	-->
@@ -64,9 +64,6 @@ export default {
 	name: "AccountPage",
 	components: {
 		SettingsLayout
-	},
-	props: {
-		companySet: Boolean
 	},
 	setup() {
 		const accountsettingsTranslations = [

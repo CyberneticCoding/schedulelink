@@ -1,5 +1,5 @@
 <template>
-	<SettingsLayout :company-set="companySet">
+	<SettingsLayout>
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Member settings	-->
@@ -49,9 +49,6 @@ export default {
 	components: {
 		SettingsLayout
 	},
-	props: {
-		companySet: Boolean
-	},
 	setup() {
 		const accountsettingsTranslations = [
 			{ name: "settings_account.email.name",
@@ -74,8 +71,5 @@ export default {
 			accountsettingsTranslations
 		}
 	},
-	computed: {
-		//CompanyMembers() {	}
-	}
 }
 </script>

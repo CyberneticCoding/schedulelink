@@ -2,75 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use App\Models\CompanyUser;
-use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use function Laravel\Prompts\error;
 
 class SettingController extends Controller
 {
     // Account settings
     public function accountPage()
 	{
-		if (Auth::check()) {
-			//		als current company is opgeslagen in de user:
-			if (!is_null(auth()->user()->current_company)) {
-				return Inertia::render('Settings/AccountPage', ['companySet' => true]);
-			}
-		}
-		return Inertia::render('Settings/AccountPage', ['companySet' => false]);
+		return Inertia::render('Settings/AccountPage');
 	}
-    /**
-     * Display a listing of the resource.
-     */
+	// Notifications settings
 	public function notificationsPage()
 	{
 		return Inertia::render('Settings/NotificationsPage');
 	}
-		// Company settings
-	public function Details(){
-		if (Auth::check()) {
-			//		als current company is opgeslagen in de user:
-			if (!is_null(auth()->user()->current_company)) {
-				return Inertia::render('Settings/CompanyDetailsPage', [ 'companySet' => true]);}
-		}
-		return Inertia::render('Settings/CompanyDetailsPage', ['companySet' => false]);
+	// Company settings
+	public function companyDetailsPage(){
+		return Inertia::render('Settings/Company/DetailsPage');
 	}
-
 	// Company members
-	public function CompanyMembersView(){
-		if (Auth::check()) {
-			//		als current company is opgeslagen in de user:
-			if (!is_null(auth()->user()->current_company)) {
-				$currentCompany = DB::table('companies')
-					->where('companies.id', '=', auth()->user()->current_company)
-					->join('users', 'companies.owner_id', '=', 'users.id')
-					->select('users.first_name', 'users.last_name', 'companies.*')
-					->get();
-				$currentCompanyMembers = DB::table('company_users')
-					->where('company_id','=', auth()->user()->current_company)
-					->join('users', 'company_users.user_id', '=', 'users.id')
-					->select('users.first_name', 'users.last_name', 'company_users.*')
-					->get();
-
-				// Doe iets met de $currentUser, bijvoorbeeld teruggeven aan de view
-				return Inertia::render('Settings/CompanyMembersPage', [ 'companySet' => true,'currentCompany' => $currentCompany, 'currentCompanyMembers' => $currentCompanyMembers]);}
+	public function companyMembersPage()
+	{
+		$activeCompany = auth()->user()->activeCompany;
+		if ($activeCompany) {
+			$companyMembers = $activeCompany->users;
+			return Inertia::render('Settings/Company/MembersPage', ['companyMembers' => $companyMembers]);
+		} else {
+			return response()->json(['message' => 'User does not have an active company.']);
 		}
-		return Inertia::render('Settings/CompanyMembersPage', ['companySet' => false]);
 	}
 
 	// Add company members
-	public function CompanyAddMembersView(){
-		if (Auth::check()) {
-			//		als current company is opgeslagen in de user:
-			if (!is_null(auth()->user()->current_company)) {
-				return Inertia::render('Settings/CompanyAddMembersPage', [ 'companySet' => true]);}
-		}
-		return Inertia::render('Settings/CompanyAddMembersPage', ['companySet' => false]);
+	public function companyMembersAddPage(){
+		return Inertia::render('Settings/Company/MemberAddPage');
 	}
 	public function RemoveUserFromCompany(Request $request){
 		//dd($request->input('userId'));

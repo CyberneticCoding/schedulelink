@@ -21,9 +21,10 @@ class UserSeeder extends Seeder
 			'email' => 'admin@schedulelink.com',
 			'password' => Hash::make('test'),
 		]);
-		Company::create([
+		$company = Company::create([
 			'name' => 'CompanyName',
 			'owner_id' => $user->id,
 		]);
+		$user->update(['active_company_id' => $company->id]);
     }
 }

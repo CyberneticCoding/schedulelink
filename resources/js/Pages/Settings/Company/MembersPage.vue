@@ -1,11 +1,11 @@
 <template>
-	<SettingsLayout :company-set="companySet">
+	<SettingsLayout>
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Member settings	-->
 				<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{"Company info"}}</h3>
 				<div>
-					<div v-if="companySet===true">
+					<div>
 						<div>
 
 						</div>
@@ -13,22 +13,22 @@
 							<li class="flex justify-between w-2/4">
 								<div class="flex">
 									Company name:
-									<h1>{{currentCompany[0].name}}</h1>
+									<h1>{{$page.props.auth.activeCompany.name}}</h1>
 								</div>
 								<div class="flex">
 
 									admin:
-									<h1>{{currentCompany[0].first_name+" "+currentCompany[0].last_name }}</h1>
+									<h1>{{$page.props.auth.activeCompany.owner.first_name+" "+ $page.props.auth.activeCompany.owner.last_name }}</h1>
 
 								</div>
 							</li>
 						</ul>
 						<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings.company.members.title') }}</h3>
 						<div>
-							<div v-if="companySet===true">
+							<div>
 								<ul role="list" class="-mx-2 space-y-1">
 
-									<li v-for="member in currentCompanyMembers" :key="member.id" class="flex justify-between w-3/4">
+									<li v-for="member in companyMembers" :key="member.id" class="flex justify-between w-3/4">
 
 										<div>
 											<ul>
@@ -46,7 +46,7 @@
 							</div>
 						</div>
 						<div >
-							<Link href="/company/members/add" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+							<Link href="members/add" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 								{{ $t('settings.company.members.add_members') }}
 							</Link>
 						</div>
@@ -95,10 +95,7 @@ export default {
 		Link
 	},
 	props: {
-		currentCompany: Object,
-		currentCompanyMembers: Object,
-		companySet: Boolean,
-
+		companyMembers: Object,
 	},
 	setup() {
 		const accountsettingsTranslations = [
@@ -125,17 +122,11 @@ export default {
 	methods: {
 		async removeUser(userId) {
 			try {
-				await axios.post("/settings/company/members/remove", { userId: userId, companyId: this.currentCompany[0].id });
+				await axios.post("/settings/company/members/remove", { userId: userId, companyId: this.$page.props.auth.activeCompany.id });
 				// Voeg hier eventueel logica toe om de gebruiker lokaal te verwijderen zonder de pagina opnieuw te laden
 			} catch (error) {
 				console.error("Error removing user:", error);
 			}
-		},
-	},
-	computed: {
-		membersList() {
-			//return company admin AND company members
-			return [...this.currentCompany, ...this.currentCompanyMembers];
 		},
 	},
 }

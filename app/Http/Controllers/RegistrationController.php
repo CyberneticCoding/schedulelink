@@ -18,13 +18,13 @@ class RegistrationController extends Controller
     {
 		$validated = $request->validated();
 
-		User::create([
-			'first_name' => $validated['firstname'],
-			'last_name' => $validated['lastname'],
-			'tutorial_done' => false,
-			'email' => $validated['email'],
-			'password' => $validated['password'],
-		]);
+		$newuser = new User();
+		$newuser->first_name = $validated['firstname'];
+		$newuser->last_name = $validated['lastname'];
+		$newuser->tutorial_done = false;
+		$newuser->email = $validated['email'];
+		$newuser->password = $validated['password'];
+		$newuser->save();
 
 		return redirect('/');
     }
