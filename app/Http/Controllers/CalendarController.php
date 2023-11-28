@@ -17,6 +17,7 @@ class CalendarController extends Controller
 	public function index()
 	{
 		$startDate = Carbon::now()->startOfWeek();
+		$currentDate = Carbon::now();
 		$endDate = Carbon::now()->endOfWeek();
 
 		$calendarItems = auth()->user()
@@ -25,8 +26,15 @@ class CalendarController extends Controller
 			->whereHas('timeblock', function ($query) use ($startDate, $endDate) {
 				$query->whereBetween('start_time', [$startDate, $endDate]);
 			})->get();
+
+
 		return Inertia::render('MainCalendarPage', [
 			'calendarItems' => $calendarItems, // Pass the time_blocks to the frontend
+			'week' => [
+				'firstDay' => $startDate,
+				'currentDay' => $currentDate,
+				'lastDay' => $endDate,
+			],
 		]);
 	}
 

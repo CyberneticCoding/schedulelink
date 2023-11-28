@@ -33,12 +33,12 @@
 				<!--Scroll through week menu-->
 				<div class="sm:ml-12 flex items-center">
 					<div class="relative flex rounded-full bg-white shadow-sm items-stretch">
-						<button type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
+						<button @click="switchWeek(-1)" type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
 							<span class="sr-only">{{ $t('calendar.previous_week') }}</span>
 							<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
 						</button>
-						<button type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{thisWeek}} <span class="text-gray-400"></span></button> <!-- todo - add year-->
-						<button type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
+						<button type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{ thisWeekString }} <span class="text-gray-400"></span></button> <!-- todo - add year-->
+						<button @click="switchWeek(1)" type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
 							<span class="sr-only">{{ $t('calendar.next_week') }}</span>
 							<i class="fa-solid fa-chevron-right ml-2 h-5 w-5" aria-hidden="true" />
 						</button>
@@ -256,14 +256,18 @@ export default {
 	props: {
 		timeBlocks: Array,
 		type: String,
+		week: Object,
 	},
 	data() {
 		return {
 			timezone: "Europe/Amsterdam",
-			week: this.getWeekData(),
+			weekOffset: 0,
 		}
 	},
 	methods: {
+		formatDate(date, formatOptions) {
+			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
+		},
 		handleGridClick(event) {
 			const isTimeBlock = event.target.getAttribute("data-time-block") === "true";
 
@@ -324,25 +328,11 @@ export default {
 				preserveScroll: true,
 			});
 		},
-		formatDate(date, formatOptions) {
-			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
-		},
-		getWeekData() {
-			const currentDate = new Date();
-			const currentDay = currentDate.getDay();
-			const first = currentDate.getDate() - currentDay + (currentDay === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
-
-			// Calculate the first Monday
-			const firstMonday = new Date(currentDate);
-			firstMonday.setDate(first);
-			// Calculate the last day (Sunday) by adding 6 days to the first Monday
-			const lastSunday = new Date(firstMonday);
-			lastSunday.setDate(firstMonday.getDate() + 6);
-
-			return {
-				firstday: firstMonday,
-				currentday: currentDate,
-				lastday: lastSunday,
+		switchWeek(value) {
+			if (value === 1) {
+				this.$inertia.post("/calendar", {
+					"week": value,
+				});
 			}
 		}
 	},
@@ -359,7 +349,7 @@ export default {
 			const currentDayOfWeek = currentDate.getUTCDay(); // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
 
 			const daysToSubtract = (currentDayOfWeek + 6) % 7; // Calculate the number of days to subtract to get to the previous Monday
-			const previousMonday = new Date(currentDate);
+			const previousMonday = currentDate;
 			previousMonday.setUTCDate(currentDate.getUTCDate() - daysToSubtract); //first monday of the week
 
 			const formatOptions = {
@@ -385,7 +375,7 @@ export default {
 				day: "2-digit",
 			});
 		},
-		thisWeek() {
+		thisWeekString() {
 			// Returns a string of the first date in the current week (based on timezone).
 			// The dates are formatted in a string like: "15 Oct - 21 Oct"
 			const formatOptions = {
