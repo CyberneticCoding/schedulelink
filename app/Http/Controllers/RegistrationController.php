@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 class RegistrationController extends Controller
 {
-    public function index (Request $request) {
+    public function index() {
         return Inertia::render('RegistrationPage');
     }
 
@@ -18,16 +18,14 @@ class RegistrationController extends Controller
     {
 		$validated = $request->validated();
 
-
-		$newuser = new User();
-		$newuser->first_name = $validated['firstname'];
-		$newuser->last_name = $validated['lastname'];
-		$newuser->tutorial_done = false;
-		$newuser->email = $validated['email'];
-		$newuser->password = $validated['password'];
-		$newuser->save();
+		User::create([
+			'first_name' => $validated['firstname'],
+			'last_name' => $validated['lastname'],
+			'tutorial_done' => false,
+			'email' => $validated['email'],
+			'password' => $validated['password'],
+		]);
 
 		return redirect('/');
-
     }
 }
