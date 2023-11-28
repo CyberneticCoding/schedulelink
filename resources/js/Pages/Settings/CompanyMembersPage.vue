@@ -3,59 +3,79 @@
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Member settings	-->
-				<div >
-					<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings.company.members.title') }}</h3>
-					<div>
+				<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{"Company info"}}</h3>
+				<div>
+					<div v-if="companySet===true">
 						<div>
-							<h1>{{currentCompany[0].name}}</h1>
+
 						</div>
 						<ul role="list" class="-mx-2 space-y-1">
-							<li v-for="item in membersList" :key="item.id" class="flex justify-between w-3/4">
-
-								<div>
-									<ul>
-										<li>{{item.first_name+" "+item.last_name }}</li>
-										<li class="text-sm">{{ "evt extra info" }}</li>
-									</ul>
+							<li class="flex justify-between w-2/4">
+								<div class="flex">
+									Company name:
+									<h1>{{currentCompany[0].name}}</h1>
 								</div>
-								<div >
-									<button type="button" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-										{{"Change"}}</button>
-								</div>
+								<div class="flex">
 
+									admin:
+									<h1>{{currentCompany[0].first_name+" "+currentCompany[0].last_name }}</h1>
+
+								</div>
 							</li>
 						</ul>
-					</div>
-					<div >
-						<Link href="/company/members/add" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-							{{ $t('settings.company.members.add_members') }}
-						</Link>
-					</div>
-				</div>
-				<!--	oude code maar herbruikbaar voor pagina	-->
-				<div >
-					<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ "#OUD#" }}</h3>
-					<ul role="list" class="-mx-2 space-y-1">
-						<li v-for="item in accountsettingsTranslations" :key="item.name">
-							<div class="mt-5">
-								<ul>
-									<li class="flex justify-between w-3/4">
-										<div class="">
+						<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings.company.members.title') }}</h3>
+						<div>
+							<div v-if="companySet===true">
+								<ul role="list" class="-mx-2 space-y-1">
+
+									<li v-for="member in currentCompanyMembers" :key="member.id" class="flex justify-between w-3/4">
+
+										<div>
 											<ul>
-												<li>{{ $t(item.name) }}</li>
-												<li class="text-sm" v-if="item.desc">{{ $t(item.desc) }}</li>
-												<li class="text-sm" v-if="item.value==='email'">{{$page.props.auth.user.email}}</li>
+												<li>{{member.first_name+" "+member.last_name }}</li>
+												<li class="text-sm">{{ "evt extra info" }}</li>
 											</ul>
 										</div>
 										<div >
-											<button type="button" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-												{{ $t(item.change) }}</button>
+											<Link @click="removeUser(member.user_id)" class="flex w-44 justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+												{{"Remove"}}</Link>
 										</div>
+
 									</li>
 								</ul>
 							</div>
-						</li>
-					</ul>
+						</div>
+						<div >
+							<Link href="/company/members/add" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+								{{ $t('settings.company.members.add_members') }}
+							</Link>
+						</div>
+					</div>
+					<!--	oude code maar herbruikbaar voor pagina	-->
+					<div >
+					<!--					<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ "#OUD#" }}</h3>-->
+					<!--					<ul role="list" class="-mx-2 space-y-1">-->
+					<!--						<li v-for="item in accountsettingsTranslations" :key="item.name">-->
+					<!--							<div class="mt-5">-->
+					<!--								<ul>-->
+					<!--									<li class="flex justify-between w-3/4">-->
+					<!--										<div class="">-->
+					<!--											<ul>-->
+					<!--												<li>{{ $t(item.name) }}</li>-->
+					<!--												<li class="text-sm" v-if="item.desc">{{ $t(item.desc) }}</li>-->
+					<!--												<li class="text-sm" v-if="item.value==='email'">{{$page.props.auth.user.email}}</li>-->
+					<!--											</ul>-->
+					<!--										</div>-->
+					<!--										<div >-->
+					<!--											<button type="button" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">-->
+					<!--												{{ $t(item.change) }}</button>-->
+					<!--										</div>-->
+					<!--									</li>-->
+					<!--								</ul>-->
+					<!--							</div>-->
+					<!--						</li>-->
+					<!--					</ul>-->
+					</div>
 				</div>
 			</div>
 		</template>
@@ -66,6 +86,7 @@
 
 import MainLayout from "../../Layouts/MainLayout.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import axios from "axios";
 
 
 export default {
@@ -98,6 +119,16 @@ export default {
 		return {
 			accountsettingsTranslations
 		}
+	},
+	methods: {
+		async removeUser(userId) {
+			try {
+				await axios.post("/company/members/remove", { userId: userId, companyId: this.currentCompany[0].id });
+				// Voeg hier eventueel logica toe om de gebruiker lokaal te verwijderen zonder de pagina opnieuw te laden
+			} catch (error) {
+				console.error("Error removing user:", error);
+			}
+		},
 	},
 	computed: {
 		membersList() {

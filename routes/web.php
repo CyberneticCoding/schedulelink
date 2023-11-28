@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/settings/settings2', [SettingController::class, 'Settings2']);
 	Route::get('/company', [SettingController::class, 'CompanyView']);
 	Route::get('/company/members', [SettingController::class, 'CompanyMembersView']);
+	Route::post('/company/members/remove', [SettingController::class, 'RemoveUserFromCompany']);
 	Route::get('/company/members/add', [SettingController::class, 'CompanyAddMembersView']);
 
 	Route::get('/user', [SettingController::class, 'CompanyMembers'])->name('currentUser');

@@ -21,6 +21,12 @@ class UserSeeder extends Seeder
 			'password' => 'test',
 			'current_company' => '1'
 		]);
+		User::factory()->create([
+			'first_name' => 'Admin2',
+			'last_name' => 'ScheduleLink2',
+			'email' => 'admin2@schedulelink.com',
+			'password' => 'test',
+		]);
 
     }
 }

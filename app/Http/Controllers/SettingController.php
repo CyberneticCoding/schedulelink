@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\CompanyUser;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use function Laravel\Prompts\error;
 
 class SettingController extends Controller
 {
@@ -42,9 +44,9 @@ class SettingController extends Controller
 					->get();
 
 				// Doe iets met de $currentUser, bijvoorbeeld teruggeven aan de view
-				return Inertia::render('Settings/CompanyMembersPage', [ 'companySet' => 0,'currentCompany' => $currentCompany, 'currentCompanyMembers' => $currentCompanyMembers]);}
+				return Inertia::render('Settings/CompanyMembersPage', [ 'companySet' => true,'currentCompany' => $currentCompany, 'currentCompanyMembers' => $currentCompanyMembers]);}
 		}
-		return Inertia::render('Settings/CompanyMembersPage', ['companySet' => 0]);
+		return Inertia::render('Settings/CompanyMembersPage', ['companySet' => false]);
 	}
 
 
@@ -56,6 +58,21 @@ class SettingController extends Controller
 
 		return Inertia::render('Settings/CompanyAddMembersPage', ['companySet' => '0']);
 	}
+	public function RemoveUserFromCompany(Request $request){
+		//dd($request->input('userId'));
+		$userId = $request->input('userId');
+		$companyId = $request->input('companyId');
+		// Verwijder de gebruiker uit het bedrijf
+		DB::table('company_users')->where('company_id', $companyId)->where('user_id', $userId)->delete();
+
+
+		return response()->json(['success' => true]);
+	}
+
+
+
+
+
 
 
 }
