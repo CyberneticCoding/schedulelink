@@ -1,9 +1,9 @@
 <template>
 	<li :class="['relative mt-px flex', dayStyle]" :style="posStyle">
 		<button data-time-block="true" :class="['text-left break-words group absolute inset-1 flex flex-col w-[96%] overflow-hidden rounded-lg p-1 text-xs leading-5' , color.primary_color, color.hover_color]">
-			<span :class="['order-1 font-semibold', color.text_color]">{{ name }}</span>
-			<span :class="['hidden sm:inline group-hover:text-blue-700', color.text_color]">
-				<time :datetime="start_time">{{ formattedStartTime }}</time>
+			<span data-time-block="true" :class="['order-1 font-semibold', color.text_color]">{{ name }}</span>
+			<span data-time-block="true" :class="['hidden sm:inline group-hover:text-blue-700', color.text_color]">
+				<time data-time-block="true" :datetime="start_time">{{ formattedStartTime }}</time>
 			</span>
 		</button>
 	</li>

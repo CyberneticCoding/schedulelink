@@ -32,13 +32,13 @@
 				</div>
 				<!--Scroll through week menu-->
 				<div class="sm:ml-12 flex items-center">
-					<div class="relative flex rounded-full bg-white shadow-sm items-stretch">
-						<button type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
+					<div v-if="!ifAvailabilityCalendar" class="relative flex rounded-full bg-white shadow-sm items-stretch">
+						<button id="previous-week-button" @click="switchWeek(-1)" type="button" class="flex h-9 items-center justify-center rounded-l-full border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
 							<span class="sr-only">{{ $t('calendar.previous_week') }}</span>
 							<i class="fa-solid fa-chevron-left ml-2 h-5 w-5" aria-hidden="true" />
 						</button>
-						<button type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{thisWeek}} <span class="text-gray-400"></span></button> <!-- todo - add year-->
-						<button type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
+						<button id="current-week-button"  @click="switchWeek(0)" type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative block">{{ thisWeekString }} <span class="text-gray-400"></span></button> <!-- todo - add year-->
+						<button id="next-week-button" @click="switchWeek(1)" type="button" class="flex h-9 items-center justify-center rounded-r-full border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
 							<span class="sr-only">{{ $t('calendar.next_week') }}</span>
 							<i class="fa-solid fa-chevron-right ml-2 h-5 w-5" aria-hidden="true" />
 						</button>
@@ -51,8 +51,8 @@
 				<div class="hidden md:ml-4 md:flex md:items-center">
 					<div class="ml-6 h-6 w-px bg-gray-300" />
 					<Link id="availability-button" href="/availability" v-if="ifMainCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Change Availability</Link>
-					<Link id="calendar-button" href="/calendar" v-if="ifAvailabilityCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Cancel</Link>
-					<button v-if="ifAvailabilityCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save Changes</button>
+					<Link href="/calendar" v-if="ifAvailabilityCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Cancel</Link>
+					<Link href="/calendar" v-if="ifAvailabilityCalendar" type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save Changes</Link>
 				</div>
 				<!--Hidden mobile foldable menu-->
 				<Menu as="div" class="relative ml-6 md:hidden">
@@ -101,8 +101,8 @@
 					<!-- Desktop Calendar header -->
 					<div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
 						<div class="col-end-1 w-14 bg-primary text-white flex justify-center items-center">{{ $t('calendar.time') }}</div>
-						<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center py-3">
-							<span :class="[day === currentDay ? 'bg-primary rounded-full p-2 text-white ' :  '']">{{ day }}</span>
+						<div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center justify-center my-3">
+							<span :class="[day === currentDay ? 'bg-primary rounded-full px-2 text-white ' :  '']">{{ day }}</span>
 						</div>
 					</div>
 				</div>
@@ -256,17 +256,19 @@ export default {
 	props: {
 		timeBlocks: Array,
 		type: String,
+		week: Object,
 	},
 	data() {
 		return {
 			timezone: "Europe/Amsterdam",
-			week: this.getWeekData(),
 		}
 	},
 	methods: {
+		formatDate(date, formatOptions) {
+			return new Intl.DateTimeFormat("en-US", formatOptions).format(new Date(date));
+		},
 		handleGridClick(event) {
 			const isTimeBlock = event.target.getAttribute("data-time-block") === "true";
-
 			if (isTimeBlock) {
 				alert("timeblock")
 			} else {
@@ -296,7 +298,7 @@ export default {
 			const dayColumnWidth = grid.clientWidth / DAY_COLUMNS;
 			const dayIndex = Math.floor(clickPositionX / dayColumnWidth) + 1; //the clicked day
 
-			const currentDate = new Date();
+			const currentDate = new Date(this.week.current_day);
 			const currentDayOfWeek = currentDate.getDay(); //current week day, 0 - 6
 
 			const dayDifference = dayIndex - currentDayOfWeek;
@@ -308,43 +310,28 @@ export default {
 			currentDate.setHours(hours + 1);
 			currentDate.setMinutes(minutes);
 
-			const endpointMap = {
-				MainCalendar: "/calendar",
-				AvailabilityCalendar: "/availability",
-				Combined: "/combined-calendar",
-			};
-
-			const endpoint = endpointMap[this.type];
-			if (endpoint) {
-				this.$inertia.post(endpoint, {
-					name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",
-					start_time: currentDate.toISOString(),
-					stop_time: null,
-					type: this.type,
-				}, {
-					preserveScroll: true,
-				});
-			}
+			this.$inertia.post(window.location.pathname, {
+				name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",
+				start_time: currentDate.toISOString(),
+				stop_time: null,
+				type: this.type,
+			}, {
+				preserveScroll: true,
+			});
 		},
-		formatDate(date, formatOptions) {
-			return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
-		},
-		getWeekData() {
-			const currentDate = new Date();
-			const currentDay = currentDate.getDay();
-			const first = currentDate.getDate() - currentDay + (currentDay === 0 ? -6 : 1); // First day is the day of the month - the day of the week + 1 (if it's Sunday, start from Monday)
-
-			// Calculate the first Monday
-			const firstMonday = new Date(currentDate);
-			firstMonday.setDate(first);
-			// Calculate the last day (Sunday) by adding 6 days to the first Monday
-			const lastSunday = new Date(firstMonday);
-			lastSunday.setDate(firstMonday.getDate() + 6);
-
-			return {
-				firstday: firstMonday,
-				currentday: currentDate,
-				lastday: lastSunday,
+		switchWeek(value) {
+			if (value === 0 || value === 1 || value === -1) {
+				let currentDay = new Date();
+				if (value !== 0) {
+					currentDay = new Date(this.week.current_day);
+					currentDay.setDate(currentDay.getDate() + 7 * value); // Add or subtract 7 days based on the value
+				}
+				const formattedDate = currentDay.toISOString().split("T")[0];
+				let routeName = "/calendar/"
+				if (this.ifAvailabilityCalendar) {
+					routeName = "/availability/"
+				}
+				this.$inertia.get(`${routeName}${formattedDate}`);
 			}
 		}
 	},
@@ -357,11 +344,11 @@ export default {
 		},
 		daysOfWeek() {
 			/*  returns something like [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
-			const currentDate = new Date();
+			const currentDate = new Date(this.week.current_day);
 			const currentDayOfWeek = currentDate.getUTCDay(); // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
 
 			const daysToSubtract = (currentDayOfWeek + 6) % 7; // Calculate the number of days to subtract to get to the previous Monday
-			const previousMonday = new Date(currentDate);
+			const previousMonday = currentDate;
 			previousMonday.setUTCDate(currentDate.getUTCDate() - daysToSubtract); //first monday of the week
 
 			const formatOptions = {
@@ -387,7 +374,7 @@ export default {
 				day: "2-digit",
 			});
 		},
-		thisWeek() {
+		thisWeekString() {
 			// Returns a string of the first date in the current week (based on timezone).
 			// The dates are formatted in a string like: "15 Oct - 21 Oct"
 			const formatOptions = {
@@ -395,7 +382,7 @@ export default {
 				day: "2-digit",
 				month: "short",
 			};
-			return this.formatDate(this.week.firstday, formatOptions) + " - " + this.formatDate(this.week.lastday, formatOptions);
+			return this.formatDate(this.week.first_day, formatOptions) + " - " + this.formatDate(this.week.last_day, formatOptions);
 		},
 	}
 }
