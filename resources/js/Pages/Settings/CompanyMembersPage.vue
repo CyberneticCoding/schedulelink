@@ -123,7 +123,7 @@ export default {
 	methods: {
 		async removeUser(userId) {
 			try {
-				await axios.post("/company/members/remove", { userId: userId, companyId: this.currentCompany[0].id });
+				await axios.post("/settings/company/members/remove", { userId: userId, companyId: this.currentCompany[0].id });
 				// Voeg hier eventueel logica toe om de gebruiker lokaal te verwijderen zonder de pagina opnieuw te laden
 			} catch (error) {
 				console.error("Error removing user:", error);

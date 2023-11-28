@@ -237,17 +237,17 @@ export default {
 		const settingsNavigationAccount = [
 			// 	Account settings variables
 			{ name: "Title", translationKey: "layout.nav.settingsmenu.usersettings"},
-			{ name: "Account", href: "/settings", icon: "fa-solid fa-user", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
-			{ name: "Notifications", href: "/settings/settings2", icon: "fa-solid fa-bell", component: "Settings/Settings2", translationKey: "layout.nav.settingsmenu.user.notifications" },
+			{ name: "Account", href: "/settings/account", icon: "fa-solid fa-user", component: "Settings/AccountSettingsPage",  translationKey: "layout.nav.settingsmenu.user.account"},
+			{ name: "Notifications", href: "/settings/notifications", icon: "fa-solid fa-bell", component: "Settings/Settings2", translationKey: "layout.nav.settingsmenu.user.notifications" },
 			{ name: "Calendar preferences", href: "/settings", icon: "fa-solid fa-calendar-check", component: "", translationKey: "layout.nav.settingsmenu.user.preferences" },
 			{ name: "Import", href: "/settings", icon: "fa-solid fa-cloud-arrow-up", component: "", translationKey: "layout.nav.settingsmenu.user.import" },
 			// 	Company settings variables
 			{ name: "Title", translationKey: "layout.nav.settingsmenu.companysettings"},
-			{ name: "Details", href: "/company", icon: "fa-solid fa-building", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
+			{ name: "Details", href: "/settings/company", icon: "fa-solid fa-building", component: "", translationKey: "layout.nav.settingsmenu.company.details" },
 		]
 		const settingsNavigationCompany = [
 			// navigation item if company is set
-			{ name: "Members", href: "/company/members", icon: "fa-solid fa-users", component: "Settings/CompanyMembersPage", translationKey: "layout.nav.settingsmenu.company.members" },
+			{ name: "Members", href: "/settings/company/members", icon: "fa-solid fa-users", component: "Settings/CompanyMembersPage", translationKey: "layout.nav.settingsmenu.company.members" },
 		]
 
 		const userNavigation = [

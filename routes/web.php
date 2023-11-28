@@ -48,9 +48,9 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/settings/notifications', [SettingController::class, 'notificationsPage']);
 	//Route::get('/settings/preferences', [SettingController::class, 'Settings2']);
 	//Route::get('/settings/calendar-import', [SettingController::class, 'Settings2']);
-	//Route::get('/settings/company', [SettingController::class, 'Details']);
-	Route::get('/settings/company/members', [SettingController::class, 'CompanyView']);
+	Route::get('/settings/company', [SettingController::class, 'Details']);
+	Route::get('/settings/company/members', [SettingController::class, 'CompanyMembersView']);
 
-	Route::post('/company/members/remove', [SettingController::class, 'RemoveUserFromCompany']);
-	Route::get('/company/members/add', [SettingController::class, 'CompanyAddMembersView']);
+	Route::post('/settings/company/members/remove', [SettingController::class, 'RemoveUserFromCompany']);
+	Route::get('/settings/company/members/add', [SettingController::class, 'CompanyAddMembersView']);
 });
