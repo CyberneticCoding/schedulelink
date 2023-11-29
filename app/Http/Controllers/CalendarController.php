@@ -25,7 +25,7 @@ class CalendarController extends Controller
 
 		list($startDate, $currentDate, $endDate) = $this->calculateDates($week);
 
-		$calendarItems = $this->getCalendarItems(auth()->user()->calendarItems(), $startDate, $endDate);
+		$calendarItems = $this->getTimeBlocks(auth()->user()->calendarItems(), $startDate, $endDate);
 
 		return Inertia::render('MainCalendarPage', [
 			'calendarItems' => $calendarItems,
@@ -41,7 +41,7 @@ class CalendarController extends Controller
 	{
 		list($startDate, $currentDate, $endDate) = $this->calculateDates($week);
 
-		$availabilityItems = $this->getCalendarItems(auth()->user()->availabilityItems(), $startDate, $endDate);
+		$availabilityItems = $this->getTimeBlocks(auth()->user()->availabilityItems(), $startDate, $endDate);
 
 		return Inertia::render('AvailabilityCalendarPage', [
 			'availabilityItems' => $availabilityItems,
@@ -52,6 +52,26 @@ class CalendarController extends Controller
 			],
 		]);
 	}
+
+	public function store(StoreTimeBlock $request)
+	{
+		return $this->storeTimeBlockAndRedirect($request, 'calendarItems');
+	}
+	public function storeAvailability(StoreTimeBlock $request)
+	{
+		return $this->storeTimeBlockAndRedirect($request, 'availabilityItems');
+	}
+
+	public function destroy(CalendarItem $calendarItem)
+	{
+		$calendarItem->timeblock->forceDelete();
+		$calendarItem->delete();
+		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
+	}
+
+
+
+
 
 	protected function calculateDates($week)
 	{
@@ -68,7 +88,7 @@ class CalendarController extends Controller
 		return [$startDate, $currentDate, $endDate];
 	}
 
-	protected function getCalendarItems($query, $startDate, $endDate)
+	protected function getTimeBlocks($query, $startDate, $endDate)
 	{
 		return $query->with('timeblock.color')
 			->whereHas('timeblock', function ($query) use ($startDate, $endDate) {
@@ -76,20 +96,6 @@ class CalendarController extends Controller
 			})
 			->get();
 	}
-
-	public function store(StoreTimeBlock $request)
-	{
-		return $this->storeTimeBlockAndRedirect($request, 'calendarItems');
-	}
-	public function storeAvailability(StoreTimeBlock $request)
-	{
-		return $this->storeTimeBlockAndRedirect($request, 'availabilityItems');
-
-	}
-
-
-
-
 
 	public function storeTimeBlock($data) {
 		return TimeBlock::create([

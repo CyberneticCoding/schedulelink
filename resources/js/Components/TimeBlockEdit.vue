@@ -15,7 +15,7 @@
 					>
 
 						<DialogPanel class="w-full max-w-xs transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-al border-t-8 border-primary">
-							<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
+							<DialogTitle as="h3" class="text-lg font-bold leading-6 text-gray-900">
 								{{ timeBlock.timeblock.name }}
 							</DialogTitle>
 							<div class="mt-2 text-gray-500">
@@ -35,7 +35,7 @@
 									<span>{{ timeBlock.timeblock.start_time }}</span>
 								</div>
 								<div class="flex gap-2">
-									<i class="fa-solid fa-clock fa-flip-horizontal text-black transform translate-y-0.5"></i>
+									<i class="fa-solid fa-clock text-black transform translate-y-0.5"></i>
 									<span>{{ timeBlock.timeblock.stop_time }}</span>
 								</div>
 							</div>
@@ -84,13 +84,15 @@ export default {
 	props: {
 		open: Boolean,
 		timeBlock: Object,
+		route: String,
 	},
 	methods: {
 		closeModal() {
 			this.$emit("closeModal")
 		},
 		deleteTimeBlock() {
-			alert("delete")
+			this.$inertia.delete(`/calendar/${this.timeBlock.id}`);
+			this.closeModal();
 		},
 	}
 }

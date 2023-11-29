@@ -231,7 +231,8 @@
 						<TimeBlockEdit
 							@closeModal="editPopupOpen = false"
 							:timeBlock="selectedTimeBlock"
-							:open="editPopupOpen">
+							:open="editPopupOpen"
+							route="/calendar/">
 						</TimeBlockEdit>
 					</div>
 				</div>
