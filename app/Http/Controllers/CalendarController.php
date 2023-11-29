@@ -62,11 +62,20 @@ class CalendarController extends Controller
 		return $this->storeTimeBlockAndRedirect($request, 'availabilityItems');
 	}
 
-	public function destroy(CalendarItem $calendarItem)
+	public function destroy(CalendarItem $calendarItem, Request $request)
 	{
 		$calendarItem->timeblock->forceDelete();
 		$calendarItem->delete();
-		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
+		$week = $request->query('week');
+		return redirect()->route('calendar', ['week' => $week]);
+	}
+
+	public function destroyAvailability(AvailabilityItem $availabilityItem, Request $request)
+	{
+		$availabilityItem->timeblock->forceDelete();
+		$availabilityItem->delete();
+		$week = $request->query('week');
+		return redirect()->route('availability', ['week' => $week]);
 	}
 
 

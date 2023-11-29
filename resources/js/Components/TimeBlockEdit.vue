@@ -25,7 +25,7 @@
 							</div>
 							<div class="mt-2 text-sm  text-gray-600 flex flex-col">
 								<div class="flex gap-2">
-									<i class="fa-solid fa-clock text-black transform translate-y-0.5"></i>
+									<i class="fa-solid fa-location-dot text-black transform translate-y-0.5"></i>
 									<span>Location place</span>
 								</div>
 							</div>
@@ -91,7 +91,17 @@ export default {
 			this.$emit("closeModal")
 		},
 		deleteTimeBlock() {
-			this.$inertia.delete(`/calendar/${this.timeBlock.id}`);
+			const weekData = window.location.pathname.split("/").pop();
+			if (weekData !== "calendar" || (weekData !== "availability")) {
+				this.$inertia.delete(`/calendar/${this.timeBlock.id}?week=${weekData}`, {
+					preserveScroll: true,
+				});
+			} else {
+				this.$inertia.delete(`/calendar/${this.timeBlock.id}`, {
+					preserveScroll: true,
+				});
+			}
+
 			this.closeModal();
 		},
 	}

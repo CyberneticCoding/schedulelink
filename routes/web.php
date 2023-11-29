@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::delete('/calendar/{calendarItem}', [CalendarController::class, 'destroy'])->name('calendar.destroy');
 	Route::get('/availability/{week?}', [CalendarController::class, 'availability'])->name('availability');
 	Route::post('/availability/{week?}', [CalendarController::class, 'storeAvailability'])->name('availability.store');
+	Route::delete('/availability/{availabilityItem}', [CalendarController::class, 'destroyAvailability'])->name('availability.destroy');
 	Route::get('/combined-calendar', function () {
 		return Inertia::render('CombinedCalendarPage');
 	});
