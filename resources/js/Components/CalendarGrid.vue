@@ -222,14 +222,18 @@
 						<!-- Events -->
 						<ol @click="handleGridClick" ref="calendar" class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 grid-cols-7 ggrid-rows-[repeat(24,minmax(2rem,1fr))] grid-rows-[repeat(48,minmax(2rem,1fr))]">
 							<TimeBlock
+								@clicked="(value) => selectedTimeBlock = value"
 								v-for="timeBlock in timeBlocks"
 								:key="timeBlock.timeblock.id"
-								:name="type==='AvailabilityCalendar' ? '' : timeBlock.timeblock.name "
-								:color="timeBlock.timeblock.color"
-								:start_time="new Date(timeBlock.timeblock.start_time)"
-								:stop_time="new Date(timeBlock.timeblock.stop_time)"
+								:timeBlock="timeBlock"
 							></TimeBlock>
 						</ol>
+						<TimeBlockEdit
+							@closeModal="editPopupOpen = false"
+							:timeBlock="selectedTimeBlock"
+							:open="editPopupOpen"
+							route="/calendar/">
+						</TimeBlockEdit>
 					</div>
 				</div>
 			</div>
@@ -242,10 +246,12 @@
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import TimeBlock from "../Components/TimeBlock.vue";
 import {Link} from "@inertiajs/inertia-vue3";
+import TimeBlockEdit from "../Components/TimeBlockEdit.vue";
 
 export default {
 	name: "CalendarGrid",
 	components: {
+		TimeBlockEdit,
 		TimeBlock,
 		Link,
 		Menu,
@@ -261,6 +267,11 @@ export default {
 	data() {
 		return {
 			timezone: "Europe/Amsterdam",
+			editPopupOpen: false,
+			selectedTimeBlock: {
+				type: Object,
+				default: {},
+			},
 		}
 	},
 	methods: {
@@ -270,7 +281,7 @@ export default {
 		handleGridClick(event) {
 			const isTimeBlock = event.target.getAttribute("data-time-block") === "true";
 			if (isTimeBlock) {
-				alert("timeblock")
+				this.editPopupOpen = true;
 			} else {
 				this.createNewTimeBlock()
 			}
