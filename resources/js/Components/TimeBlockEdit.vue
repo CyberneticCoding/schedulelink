@@ -23,20 +23,22 @@
 									Lorem ipsum dolor sit amet suru consecutor eru Lorem ipsum dolor sit amet suru consecutor eru.
 								</p>
 							</div>
-							<div class="mt-2 text-sm  text-gray-600 flex flex-col">
+							<div class="mt-2 text-sm text-gray-600 flex flex-col gap-2">
 								<div class="flex gap-2">
 									<i class="fa-solid fa-location-dot text-black transform translate-y-0.5"></i>
 									<span>Location place</span>
 								</div>
-							</div>
-							<div class="mt-2 text-sm text-gray-600 flex flex-col">
 								<div class="flex gap-2">
-									<i class="fa-solid fa-clock text-black transform translate-y-0.5"></i>
-									<span>{{ timeBlock.timeblock.start_time }}</span>
+									<i class="fa-solid fa-clock text-black transform translate-y-2.5"></i>
+									<button class="bg-neutral-200 hover:bg-neutral-300 p-2">{{ timeBlock.timeblock.start_time }}</button>
 								</div>
 								<div class="flex gap-2">
-									<i class="fa-solid fa-clock text-black transform translate-y-0.5"></i>
-									<span>{{ timeBlock.timeblock.stop_time }}</span>
+									<i class="fa-solid fa-clock text-black transform translate-y-2.5"></i>
+									<button class="bg-neutral-200 hover:bg-neutral-300 p-2">{{ timeBlock.timeblock.stop_time }}</button>
+								</div>
+								<div class="flex gap-2">
+									<input type="checkbox" id="all-day" name="all-day" class="transform translate-y-px">
+									<label for="all-day">All day</label>
 								</div>
 							</div>
 
@@ -49,6 +51,7 @@
 									Close
 								</button>
 								<button
+									id="delete"
 									type="button"
 									class="inline-flex justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 									@click="deleteTimeBlock">

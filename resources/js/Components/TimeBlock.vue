@@ -1,6 +1,6 @@
 <template>
 	<li :class="['relative flex', dayStyle]" :style="posStyle">
-		<button @click="handelClick()" data-time-block="true" :class="['text-left break-words group absolute inset-1 flex flex-col w-[96%] overflow-hidden rounded-lg p-1 text-xs leading-5' , primary_color, hover_color]">
+		<button :id="'timeblock-'+timeBlock.id" @click="handelClick()" data-time-block="true" :class="['text-left break-words group absolute inset-1 flex flex-col w-[96%] overflow-hidden rounded-lg p-1 text-xs leading-5' , primary_color, hover_color]">
 			<span data-time-block="true" :class="['order-1 font-semibold', text_color]">{{ name }}</span>
 			<span data-time-block="true" :class="['hidden sm:inline group-hover:text-blue-700', text_color]">
 				<time data-time-block="true" :datetime="start_time">{{ formattedStartTime }}</time>
