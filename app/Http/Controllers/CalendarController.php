@@ -63,8 +63,6 @@ class CalendarController extends Controller
 
 	public function update(Request $request, $id)
 	{
-		//$data = $request->validated();
-
 		$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
 
 		$data = [
@@ -73,10 +71,42 @@ class CalendarController extends Controller
 			'stop_time' => $this->formatDateTime($request->stop_time),
 		];
 
-		$calendarItem->timeblock->update($data);
+		$calendarItem->delete();
 
-		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
+		$timeBlock = TimeBlock::create([
+			'name' => $data['name'],
+			'start_time' => $data['start_time'],
+			'stop_time' => $data['stop_time'],
+			'color_id' => 1,
+		]);
+
+		$user = auth()->user();
+
+		// Determine the relationship based on the method name
+		$user->calendarItems()->create([
+			'time_block_id' => $timeBlock->id,
+			'user_id' => $user,
+		]);
+
+		$week = $request->query('week');
+		return redirect()->route('calendar', ['week' => $week]);
 	}
+
+	//public function update(Request $request, $id)
+	//{
+	//	$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
+	//
+	//	$data = [
+	//		'name' => $request->name,
+	//		'start_time' => $this->formatDateTime($request->start_time),
+	//		'stop_time' => $this->formatDateTime($request->stop_time),
+	//	];
+	//	$calendarItem->timeblock->fill($data)->save();
+	//
+	//	$week = $request->query('week');
+	//	return redirect()->route('calendar', ['week' => $week]);
+	//}
+
 
 	public function destroy(CalendarItem $calendarItem, Request $request)
 	{
