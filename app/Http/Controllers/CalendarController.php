@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTimeBlock;
 use App\Models\AvailabilityItem;
 use App\Models\CalendarItem;
-use App\Models\Color;
 use App\Models\TimeBlock;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CalendarController extends Controller
@@ -66,14 +65,12 @@ class CalendarController extends Controller
 	{
 		//$data = $request->validated();
 
-		dd($request);
-
 		$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
 
 		$data = [
-			'name' => $data->name,
-			'start_time' => $data->start_time,
-			'stop_time' => $data->stop_time,
+			'name' => $request->name,
+			'start_time' => $this->formatDateTime($request->start_time),
+			'stop_time' => $this->formatDateTime($request->stop_time),
 		];
 
 		$calendarItem->timeblock->update($data);
@@ -125,14 +122,6 @@ class CalendarController extends Controller
 			->get();
 	}
 
-	public function storeTimeBlock($data) {
-		return TimeBlock::create([
-			'name' => $data['name'],
-			'start_time' => $data['start_time'],
-			'stop_time' => $data['stop_time'],
-			'color_id' => 1,
-		]);
-	}
 	private function storeTimeBlockAndRedirect(Request $request, $relationship)
 	{
 		$data = $request->validated();
@@ -142,7 +131,12 @@ class CalendarController extends Controller
 			$data['stop_time'] = $start_time->copy()->addHour(); // Add 1 default hour
 		}
 
-		$timeBlock = $this->storeTimeBlock($data);
+		$timeBlock = TimeBlock::create([
+			'name' => $data['name'],
+			'start_time' => $data['start_time'],
+			'stop_time' => $data['stop_time'],
+			'color_id' => 1,
+		]);
 
 		$user = auth()->user();
 
@@ -153,5 +147,12 @@ class CalendarController extends Controller
 		]);
 
 		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
+	}
+	protected function formatDateTime($dateTime)
+	{
+		$formattedDate = new DateTime($dateTime['date']);
+		$formattedDate->setTime($dateTime['time']['hours'], $dateTime['time']['minutes'], 0);
+
+		return $formattedDate->format('Y-m-d H:i:s');
 	}
 }

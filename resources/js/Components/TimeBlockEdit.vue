@@ -30,13 +30,13 @@
 								</div>
 								<div class="flex gap-2">
 									<i class="fa-solid fa-clock text-black transform translate-y-2.5"></i>
-									<DatePicker v-model="form.start_day" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="start_date" id="start_date"></DatePicker>
-									<DatePicker v-model="form.start_time" :clearable="false" time-picker name="start_time" id="start_time"></DatePicker>
+									<DatePicker v-model="form.start_time.date" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="start_date" id="start_date"></DatePicker>
+									<DatePicker v-model="form.start_time.time" :clearable="false" time-picker name="start_time" id="start_time"></DatePicker>
 								</div>
 								<div class="flex gap-2">
 									<i class="fa-solid fa-clock text-black transform translate-y-2.5"></i>
-									<DatePicker v-model="form.stop_day" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="stop_date" id="stop_date"></DatePicker>
-									<DatePicker v-model="form.stop_time" :clearable="false" time-picker name="stop_time" id="stop_time"></DatePicker>
+									<DatePicker v-model="form.stop_time.date" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="stop_date" id="stop_date"></DatePicker>
+									<DatePicker v-model="form.stop_time.time" :clearable="false" time-picker name="stop_time" id="stop_time"></DatePicker>
 								</div>
 								<div class="flex gap-2">
 									<input type="checkbox" id="all-day" name="all-day" class="transform translate-y-px">
@@ -81,7 +81,6 @@ import {
 import DatePicker from "@vuepic/vue-datepicker"
 import "@vuepic/vue-datepicker/dist/main.css";
 import {useForm} from "@inertiajs/inertia-vue3";
-import {ref} from "vue";
 
 export default {
 	name: "TimeBlockEdit",
@@ -102,17 +101,19 @@ export default {
 		return {
 			form: useForm({
 				name: "New Event",
-				start_time: Date,
-				start_day: Date,
-				stop_time: Date,
-				stop_day: Date,
+				start_time: {
+					date: null,
+					time: { hours: 0, minutes: 0 },
+				},
+				stop_time: {
+					date: null,
+					time: { hours: 0, minutes: 0 },
+				},
 			}),
 		}
 	},
 	methods: {
 		submit() {
-			//alert(JSON.stringify(this.timeBlock.timeblock.start_time))
-			//alert(JSON.stringify(new Date(this.timeBlock.timeblock.start_time)))
 			this.form.patch(`/calendar/${this.timeBlock.id}`, {
 				onSuccess: () => {
 					this.closeModal();
@@ -133,23 +134,30 @@ export default {
 					preserveScroll: true,
 				});
 			}
-
 			this.closeModal();
 		},
 	},
 	watch: {
 		timeBlock() {
-			this.form.start_time = ref({
-				hours: new Date(this.timeBlock.timeblock.start_time).getHours(),
-				minutes: new Date(this.timeBlock.timeblock.start_time).getMinutes()
-			});
-			this.form.start_day = new Date(this.timeBlock.timeblock.start_time)
+			//const start_time = new Date(this.timeBlock.timeblock.start_time);
+			//this.form.start_time = new Date(start_time.getTime() - (start_time.getTimezoneOffset() * 60000)).toISOString();
+			//alert(JSON.stringify(this.form.start_time))
+			//const stop_time = new Date(this.timeBlock.timeblock.stop_time);
+			//this.form.stop_time = new Date(stop_time.getTime() - (stop_time.getTimezoneOffset() * 60000)).toISOString();
 
-			this.form.stop_time = ref({
-				hours: new Date(this.timeBlock.timeblock.stop_time).getHours(),
-				minutes: new Date(this.timeBlock.timeblock.stop_time).getMinutes()
-			});
-			this.form.stop_day = new Date(this.timeBlock.timeblock.stop_time)
+			const start_time = new Date(this.timeBlock.timeblock.start_time);
+			this.form.start_time.date = new Date(start_time.getTime() - (start_time.getTimezoneOffset() * 60000)).toISOString();
+			this.form.start_time.time = {
+				hours: start_time.getHours(),
+				minutes: start_time.getMinutes(),
+			};
+
+			const stop_time = new Date(this.timeBlock.timeblock.stop_time);
+			this.form.stop_time.date = new Date(stop_time.getTime() - (stop_time.getTimezoneOffset() * 60000)).toISOString();
+			this.form.stop_time.time = {
+				hours: stop_time.getHours(),
+				minutes: stop_time.getMinutes(),
+			};
 
 		}
 	}
