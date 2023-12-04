@@ -62,6 +62,25 @@ class CalendarController extends Controller
 		return $this->storeTimeBlockAndRedirect($request, 'availabilityItems');
 	}
 
+	public function update(Request $request, $id)
+	{
+		//$data = $request->validated();
+
+		dd($request);
+
+		$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
+
+		$data = [
+			'name' => $data->name,
+			'start_time' => $data->start_time,
+			'stop_time' => $data->stop_time,
+		];
+
+		$calendarItem->timeblock->update($data);
+
+		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
+	}
+
 	public function destroy(CalendarItem $calendarItem, Request $request)
 	{
 		$calendarItem->timeblock->forceDelete();
@@ -114,7 +133,7 @@ class CalendarController extends Controller
 			'color_id' => 1,
 		]);
 	}
-	private function storeTimeBlockAndRedirect(StoreTimeBlock $request, $relationship)
+	private function storeTimeBlockAndRedirect(Request $request, $relationship)
 	{
 		$data = $request->validated();
 		if (!$data['stop_time']) {

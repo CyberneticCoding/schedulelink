@@ -14,7 +14,7 @@
 						leave-to="opacity-0 scale-95"
 					>
 
-						<DialogPanel class="w-full max-w-xs transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-al border-t-8 border-primary">
+						<DialogPanel class="w-full max-w-sm transform  rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-al border-t-8 border-primary">
 							<DialogTitle as="h3" class="text-lg font-bold leading-6 text-gray-900">
 								{{ timeBlock.timeblock.name }}
 							</DialogTitle>
@@ -23,30 +23,32 @@
 									Lorem ipsum dolor sit amet suru consecutor eru Lorem ipsum dolor sit amet suru consecutor eru.
 								</p>
 							</div>
-							<div class="mt-2 text-sm text-gray-600 flex flex-col gap-2">
+							<form @submit.prevent="submit" class="mt-2 text-sm text-gray-600 flex flex-col gap-2">
 								<div class="flex gap-2">
 									<i class="fa-solid fa-location-dot text-black transform translate-y-0.5"></i>
 									<span>Location place</span>
 								</div>
 								<div class="flex gap-2">
 									<i class="fa-solid fa-clock text-black transform translate-y-2.5"></i>
-									<button class="bg-neutral-200 hover:bg-neutral-300 p-2">{{ timeBlock.timeblock.start_time }}</button>
+									<DatePicker v-model="form.start_day" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="start_date" id="start_date"></DatePicker>
+									<DatePicker v-model="form.start_time" :clearable="false" time-picker name="start_time" id="start_time"></DatePicker>
 								</div>
 								<div class="flex gap-2">
 									<i class="fa-solid fa-clock text-black transform translate-y-2.5"></i>
-									<button class="bg-neutral-200 hover:bg-neutral-300 p-2">{{ timeBlock.timeblock.stop_time }}</button>
+									<DatePicker v-model="form.stop_day" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="stop_date" id="stop_date"></DatePicker>
+									<DatePicker v-model="form.stop_time" :clearable="false" time-picker name="stop_time" id="stop_time"></DatePicker>
 								</div>
 								<div class="flex gap-2">
 									<input type="checkbox" id="all-day" name="all-day" class="transform translate-y-px">
 									<label for="all-day">All day</label>
 								</div>
-							</div>
+							</form>
 
 							<div class="mt-4 flex gap-4">
 								<button
 									type="button"
 									class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-									@click="closeModal">
+									@click="submit">
 									<i class="fa-solid fa-xmark translate-y-0.5 mr-2"></i>
 									Close
 								</button>
@@ -76,6 +78,10 @@ import {
 	DialogPanel,
 	DialogTitle,
 } from "@headlessui/vue"
+import DatePicker from "@vuepic/vue-datepicker"
+import "@vuepic/vue-datepicker/dist/main.css";
+import {useForm} from "@inertiajs/inertia-vue3";
+import {ref} from "vue";
 
 export default {
 	name: "TimeBlockEdit",
@@ -85,13 +91,34 @@ export default {
 		DialogPanel,
 		DialogTitle,
 		Dialog,
+		DatePicker
 	},
 	props: {
 		open: Boolean,
 		timeBlock: Object,
 		route: String,
 	},
+	data() {
+		return {
+			form: useForm({
+				name: "New Event",
+				start_time: Date,
+				start_day: Date,
+				stop_time: Date,
+				stop_day: Date,
+			}),
+		}
+	},
 	methods: {
+		submit() {
+			//alert(JSON.stringify(this.timeBlock.timeblock.start_time))
+			//alert(JSON.stringify(new Date(this.timeBlock.timeblock.start_time)))
+			this.form.patch(`/calendar/${this.timeBlock.id}`, {
+				onSuccess: () => {
+					this.closeModal();
+				}
+			})
+		},
 		closeModal() {
 			this.$emit("closeModal")
 		},
@@ -109,6 +136,28 @@ export default {
 
 			this.closeModal();
 		},
+	},
+	watch: {
+		timeBlock() {
+			this.form.start_time = ref({
+				hours: new Date(this.timeBlock.timeblock.start_time).getHours(),
+				minutes: new Date(this.timeBlock.timeblock.start_time).getMinutes()
+			});
+			this.form.start_day = new Date(this.timeBlock.timeblock.start_time)
+
+			this.form.stop_time = ref({
+				hours: new Date(this.timeBlock.timeblock.stop_time).getHours(),
+				minutes: new Date(this.timeBlock.timeblock.stop_time).getMinutes()
+			});
+			this.form.stop_day = new Date(this.timeBlock.timeblock.stop_time)
+
+		}
 	}
 }
+
 </script>
+<style scoped>
+	.dp__theme_light {
+		--dp-background-color: rgb(249 249 249);
+	}
+</style>
