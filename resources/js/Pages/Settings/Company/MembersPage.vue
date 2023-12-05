@@ -9,29 +9,35 @@
 						<ul role="list" class="space-y-1">
 							<li class="flex justify-between w-2/4">
 								<div class="flex">
-									<span>Company name:</span>
+									<span class="pr-4">Company name:</span>
 									<h1>{{ $page.props.auth.activeCompany.name }} </h1>
 								</div>
 								<div class="flex">
-									<span>Owner:</span>
+									<span class="pr-4">Owner:</span>
 									<h1>{{ $page.props.auth.activeCompany.owner.first_name + "" + $page.props.auth.activeCompany.owner.last_name }}</h1>
+								</div>
+							</li>
+							<li v-if="$page.props.auth.activeCompany.description">
+								<div class="flex">
+									<span class="pr-4">Description:</span>
+									<h1>{{$page.props.auth.activeCompany.description}}</h1>
 								</div>
 							</li>
 						</ul>
 						<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('settings.company.members.title') }}</h3>
 						<div>
 							<div>
-								<ul role="list" class="space-y-2">
+								<ul role="list" class="space-y-2 user-list">
 
 									<li v-for="member in companyMembers" :key="member.id" class="flex justify-between w-3/4">
 										<div>
 											<ul>
-												<li>{{ member.first_name + "" + member.last_name }}</li>
+												<li>{{ member.first_name + " " + member.last_name }}</li>
 												<li class="text-sm">{{ "extra info" }}</li>
 											</ul>
 										</div>
 										<div>
-											<Link @click="removeUser(member.id)" class="flex w-44 justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+											<Link :id="'remove-'+member.id" @click="removeUser(member.id)" class="flex w-44 justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
 												{{ "Remove" }}
 											</Link>
 										</div>

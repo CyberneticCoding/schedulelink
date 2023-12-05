@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
+	protected $fillable = ['name', 'owner_id'];
 
 	public function users()
 	{

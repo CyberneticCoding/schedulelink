@@ -24,7 +24,8 @@ class UserSeeder extends Seeder
 		$company = Company::create([
 			'name' => 'CompanyName',
 			'owner_id' => $user->id,
-		]);
+			'description' => 'we pride ourselves on delivering top-notch [Products/Services] tailored to meet the unique needs of our clients.we are driven by a commitment to quality, integrity, and customer satisfaction.',
+			]);
 		$user->update(['active_company_id' => $company->id]);
 
 		$users = User::factory()->count(10)->create();

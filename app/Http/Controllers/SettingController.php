@@ -33,7 +33,7 @@ class SettingController extends Controller
 			$companyMembers = $activeCompany->users;
 			return Inertia::render('Settings/Company/MembersPage', ['companyMembers' => $companyMembers]);
 		} else {
-			return response()->json(['message' => 'User does not have an active company.']);
+			return response()->json(['message' => 'User does not have an active company.']); //todo redirect to settings page instead
 		}
 	}
 
