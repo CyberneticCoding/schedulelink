@@ -20,21 +20,23 @@
 							</DialogTitle>
 							<div class="mt-2 text-gray-500">
 								<p class="text-sm text-gray-500 w-5/6">
-									Lorem ipsum dolor sit amet suru consecutor eru Lorem ipsum dolor sit amet suru consecutor eru.
+									{{ timeBlock.timeblock.description }}
 								</p>
 							</div>
 							<form @submit.prevent="submit" class="mt-2 text-sm text-gray-600 flex flex-col gap-2">
-								<div class="flex gap-2">
-									<i class="fa-solid fa-location-dot text-black transform translate-y-0.5"></i>
-									<span>Location place</span>
-								</div>
-								<div class="flex gap-2">
-									<i class="fa-solid fa-clock text-black transform translate-y-2.5"></i>
+								<!--<div class="flex gap-2">-->
+								<!--	<i class="fa-solid fa-location-dot text-black transform translate-y-0.5"></i>-->
+								<!--	<span>Location place</span>-->
+								<!--</div>-->
+								<div class="flex gap-2 items-center">
+									<span>Start</span>
+									<i class="fa-solid fa-clock text-black"></i>
 									<DatePicker v-model="form.start_time.date" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="start_date" id="start_date"></DatePicker>
 									<DatePicker v-model="form.start_time.time" :clearable="false" time-picker name="start_time" id="start_time"></DatePicker>
 								</div>
-								<div class="flex gap-2">
-									<i class="fa-solid fa-clock text-black transform translate-y-2.5"></i>
+								<div class="flex gap-2 items-center">
+									<span>Stop</span>
+									<i class="fa-solid fa-clock text-black"></i>
 									<DatePicker v-model="form.stop_time.date" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="stop_date" id="stop_date"></DatePicker>
 									<DatePicker v-model="form.stop_time.time" :clearable="false" time-picker name="stop_time" id="stop_time"></DatePicker>
 								</div>
