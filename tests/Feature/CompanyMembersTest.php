@@ -12,13 +12,14 @@ use Tests\TestCase;
 
 class CompanyMembersTest extends TestCase
 {
-	/**
-	 * Test if the user can see the registration page
-	 *
-	 * @return void
-	 */
-	public function test_company_owner_can_see_company_users()
+	public function test_company_owner_can_remove_users()
 	{
+
+	}
+
+	public function test_user_cannot_remove_users_from_active_company()
+	{
+
 	}
 
 

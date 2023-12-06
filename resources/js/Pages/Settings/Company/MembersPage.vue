@@ -14,7 +14,7 @@
 								</div>
 								<div class="flex">
 									<span class="pr-4">Owner:</span>
-									<!--<h1>{{ $page.props.auth.activeCompany.owner.first_name + "" + $page.props.auth.activeCompany.owner.last_name }}</h1>-->
+									<h1>{{ $page.props.auth.activeCompany.owner.name }}</h1>
 								</div>
 							</li>
 							<li v-if="$page.props.auth.activeCompany.description">
