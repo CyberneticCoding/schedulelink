@@ -57,13 +57,13 @@
 											<li>
 												<h2> {{ $t("layout.nav.settingsmenu.companysettings") }}</h2>
 											</li>
-											<li>
+											<li v-if="hasActiveCompany">
 												<Link href="/settings/company" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/Company/DetailsPage' ? 'bg-gray-50 text-indigo-600' : '']">
 													<i :class="['fa-solid fa-building h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/Company/DetailsPage' ? 'text-primary' : '']" aria-hidden="true"/>
 													{{ $t("layout.nav.settingsmenu.company.details") }}
 												</Link>
 											</li>
-											<li>
+											<li v-if="hasActiveCompany">
 												<Link href="/settings/company/members" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/Company/MembersPage'	? 'bg-gray-50 text-indigo-600' : '']">
 													<i :class="['fa-solid fa-users h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/Company/MembersPage' ? 'text-primary' : '']" aria-hidden="true"/>
 													{{ $t("layout.nav.settingsmenu.company.members") }}
@@ -130,13 +130,13 @@
 							<li>
 								<h2> {{ $t("layout.nav.settingsmenu.companysettings") }}</h2>
 							</li>
-							<li>
+							<li v-if="hasActiveCompany">
 								<Link href="/settings/company" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/Company/DetailsPage' ? 'bg-gray-50 text-indigo-600' : '']">
 									<i :class="['fa-solid fa-building h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/Company/DetailsPage' ? 'text-primary' : '']" aria-hidden="true"/>
 									{{ $t("layout.nav.settingsmenu.company.details") }}
 								</Link>
 							</li>
-							<li v-if="$page.props.auth.activeCompany !== null">
+							<li v-if="hasActiveCompany">
 								<Link href="/settings/company/members" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/Company/MembersPage'	? 'bg-gray-50 text-indigo-600' : '']">
 									<i :class="['fa-solid fa-users h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/Company/MembersPage' ? 'text-primary' : '']" aria-hidden="true"/>
 									{{ $t("layout.nav.settingsmenu.company.members") }}
@@ -255,5 +255,10 @@ export default {
 			userNavigation,
 		}
 	},
+	computed: {
+		hasActiveCompany() {
+			return this.$page.props.auth.activeCompany !== null
+		}
+	}
 }
 </script>
