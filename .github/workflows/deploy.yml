@@ -13,21 +13,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: '16'
 
       - name: Install NPM Dependencies and Build Assets
         run: |
           npm install
-          npm run production
+          npm run build
 
       - name: Run Laravel Migrations
         run: php artisan migrate --force
 
       - name: Optimize Laravel Application
         run: php artisan optimize
-
-      - name: Build
-        run: php artisan build
