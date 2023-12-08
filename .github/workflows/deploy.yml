@@ -1,4 +1,4 @@
-name: Deploy ScheduleLink
+name: Deploy Laravel Application
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -36,9 +37,5 @@ jobs:
       - name: Optimize Laravel Application
         run: php artisan optimize
 
-      - name: Reload PHP and Web Server
-        run: |
-          sudo service php7.4-fpm reload
-          sudo service nginx reload
       - name: Build
         run: php artisan build
