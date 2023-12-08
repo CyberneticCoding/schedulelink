@@ -1,0 +1,44 @@
+name: Deploy ScheduleLink
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install NPM Dependencies and Build Assets
+        run: |
+          npm install
+          npm run production
+
+      - name: Run Laravel Migrations
+        run: php artisan migrate --force
+
+      - name: Optimize Laravel Application
+        run: php artisan optimize
+
+      - name: Reload PHP and Web Server
+        run: |
+          sudo service php7.4-fpm reload
+          sudo service nginx reload
+      - name: Build
+        run: php artisan build
