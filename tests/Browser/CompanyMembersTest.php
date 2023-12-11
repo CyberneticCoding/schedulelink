@@ -65,13 +65,12 @@ class CompanyMembersTest extends DuskTestCase
 		});
 	}
 	public function setupTestuser(){
-		$user = User::factory()->create([
+		return User::factory()->create([
 			'first_name' => 'Tester',
 			'last_name' => 'ScheduleLink',
 			'email' => 'Tester@schedulelink.com',
 			'password' => Hash::make('test'),
 		]);
-		return $user;
 	}
 	public function setupTestcompany($user){
 		$company = Company::create([
