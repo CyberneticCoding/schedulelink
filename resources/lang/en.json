@@ -81,8 +81,20 @@
 	  }
 	},
   	"company": {
+	  "details": {
+		"title": "Company info",
+		"add_title": "New company",
+		"add_company": "Add new company"
+	  },
+	  "new_company": {
+		"title": "Create new company",
+		"name":"Company name *",
+		"description": "Company description",
+		"submit": "Create"
+	  },
 	  "members": {
 		"title": "Company Members",
+		"add_title": "Add company",
 		"add_members": "Add new members"
 	  },
 	  "add_members": {

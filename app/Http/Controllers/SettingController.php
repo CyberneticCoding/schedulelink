@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Http\Requests\AddCompanyRequest;
 
 class SettingController extends Controller
 {
@@ -25,6 +26,22 @@ class SettingController extends Controller
 	public function companyDetailsPage(){
 		return Inertia::render('Settings/Company/DetailsPage');
 	}
+	// Company add
+	public function companyAddPage(){
+		return Inertia::render('Settings/Company/CompanyAddPage');
+	}
+	public function addCompany(AddCompanyRequest $request)
+	{
+		$validated = $request->validated();
+
+		$newcompany = new Company();
+		$newcompany->name = $validated['name'];
+		$newcompany->description = $validated['description'];
+		$newcompany->owner_id = auth()->user()->id;
+		$newcompany->save();
+
+		return redirect('/settings/company');
+	}
 	// Company members
 	public function companyMembersPage()
 	{
@@ -36,7 +53,6 @@ class SettingController extends Controller
 			return response()->json(['message' => 'User does not have an active company.']); //todo redirect to settings page instead
 		}
 	}
-
 	// Add company members
 	public function companyMembersAddPage(){
 		return Inertia::render('Settings/Company/MemberAddPage');
