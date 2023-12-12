@@ -2,7 +2,7 @@
 	<TransitionRoot appear :show="open" as="template">
 		<Dialog as="div" @close="closeModal" class="relative z-10">
 
-			<div class="fixed inset-0 overflow-y-auto">
+			<form @submit.prevent="submit" class="fixed inset-0 overflow-y-auto">
 				<div class="flex min-h-full items-center justify-center p-4 text-center">
 					<TransitionChild
 						as="template"
@@ -14,29 +14,33 @@
 						leave-to="opacity-0 scale-95"
 					>
 
-						<DialogPanel class="w-full max-w-sm transform  rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-al border-t-8 border-primary">
+						<DialogPanel class="w-full max-w-md transform  rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-al border-t-8 border-primary">
 							<DialogTitle as="h3" class="text-lg font-bold leading-6 text-gray-900">
-								{{ timeBlock.timeblock.name }}
+								<ClickToEdit :value="form.name" @input="$event && $event.target && (toUpdate.name = $event.target.value)" font-size="text-lg"></ClickToEdit>
 							</DialogTitle>
 							<div class="mt-2 text-gray-500">
 								<p class="text-sm text-gray-500 w-5/6">
-									{{ timeBlock.timeblock.description }}
+									<ClickToEdit :value="form.description" @input="$event && $event.target && (toUpdate.description = $event.target.value)" font-size="text-lg"></ClickToEdit>
 								</p>
 							</div>
-							<form @submit.prevent="submit" class="mt-2 text-sm text-gray-600 flex flex-col gap-2">
+							<div class="mt-2 text-sm text-gray-600 flex flex-col gap-2">
 								<!--<div class="flex gap-2">-->
 								<!--	<i class="fa-solid fa-location-dot text-black transform translate-y-0.5"></i>-->
 								<!--	<span>Location place</span>-->
 								<!--</div>-->
 								<div class="flex gap-2 items-center">
-									<span>Start</span>
-									<i class="fa-solid fa-clock text-black"></i>
+									<div class="flex flex-col items-center">
+										<span>Start</span>
+										<i class="fa-solid fa-clock text-black"></i>
+									</div>
 									<DatePicker v-model="form.start_time.date" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="start_date" id="start_date"></DatePicker>
 									<DatePicker v-model="form.start_time.time" :clearable="false" time-picker name="start_time" id="start_time"></DatePicker>
 								</div>
 								<div class="flex gap-2 items-center">
-									<span>Stop</span>
-									<i class="fa-solid fa-clock text-black"></i>
+									<div class="flex flex-col items-center">
+										<span>Stop</span>
+										<i class="fa-solid fa-clock text-black"></i>
+									</div>
 									<DatePicker v-model="form.stop_time.date" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="stop_date" id="stop_date"></DatePicker>
 									<DatePicker v-model="form.stop_time.time" :clearable="false" time-picker name="stop_time" id="stop_time"></DatePicker>
 								</div>
@@ -67,12 +71,12 @@
 										Delete
 									</button>
 								</div>
-							</form>
+							</div>
 						</DialogPanel>
 
 					</TransitionChild>
 				</div>
-			</div>
+			</form>
 		</Dialog>
 	</TransitionRoot>
 </template>
@@ -88,10 +92,12 @@ import {
 import DatePicker from "@vuepic/vue-datepicker"
 import "@vuepic/vue-datepicker/dist/main.css";
 import {useForm} from "@inertiajs/inertia-vue3";
+import ClickToEdit from "../Components/Click-to-Edit.vue";
 
 export default {
 	name: "TimeBlockEdit",
 	components: {
+		ClickToEdit,
 		TransitionRoot,
 		TransitionChild,
 		DialogPanel,
@@ -106,8 +112,13 @@ export default {
 	},
 	data() {
 		return {
+			toUpdate: {
+				name: "",
+				description: "",
+			},
 			form: useForm({
-				name: "New Event",
+				name: String,
+				description: String,
 				start_time: {
 					date: null,
 					time: { hours: 0, minutes: 0 },
@@ -121,6 +132,12 @@ export default {
 	},
 	methods: {
 		submit() {
+			if (this.toUpdate.description !== "") {
+				this.form.description = this.toUpdate.description
+			}
+			if (this.toUpdate.name !== "") {
+				this.form.name = this.toUpdate.name
+			}
 			const weekData = window.location.pathname.split("/").pop();
 			if (weekData !== "calendar" || (weekData !== "availability")) {
 				this.form.patch(`/calendar/${this.timeBlock.id}?week=${weekData}`, {
@@ -170,8 +187,9 @@ export default {
 				hours: stop_time.getHours(),
 				minutes: stop_time.getMinutes(),
 			};
-
-		}
+			this.form.name = this.timeBlock.timeblock.name
+			this.form.description = this.timeBlock.timeblock.description
+		},
 	}
 }
 

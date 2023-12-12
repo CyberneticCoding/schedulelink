@@ -67,6 +67,7 @@ class CalendarController extends Controller
 
 		$data = [
 			'name' => $request->name,
+			'description' => $request->description,
 			'start_time' => $this->formatDateTime($request->start_time),
 			'stop_time' => $this->formatDateTime($request->stop_time),
 		];
@@ -75,6 +76,7 @@ class CalendarController extends Controller
 
 		$timeBlock = TimeBlock::create([
 			'name' => $data['name'],
+			'description' => $data['description'],
 			'start_time' => $data['start_time'],
 			'stop_time' => $data['stop_time'],
 			'color_id' => 1,
