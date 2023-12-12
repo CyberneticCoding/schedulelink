@@ -17,6 +17,8 @@
 						<DialogPanel class="w-full max-w-md transform  rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-al border-t-8 border-primary">
 							<DialogTitle as="h3" class="text-lg font-bold leading-6 text-gray-900">
 								<ClickToEdit :value="form.name" @input="$event && $event.target && (toUpdate.name = $event.target.value)" input-style="text-lg"></ClickToEdit>
+								<div class="mt-2 text-sm text-red-600" v-if="form.errors.name">{{ form.errors.name }}</div>
+								{{form.errors}}
 							</DialogTitle>
 							<div class="mt-2 text-gray-500">
 								<p class="text-sm text-gray-500 w-5/6">
@@ -36,6 +38,7 @@
 									<DatePicker v-model="form.start_time.date" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="start_date" id="start_date"></DatePicker>
 									<DatePicker v-model="form.start_time.time" :clearable="false" time-picker name="start_time" id="start_time"></DatePicker>
 								</div>
+								<div class="mt-2 text-sm text-red-600" v-if="form.errors.start_time">{{ form.errors.start_time }}</div>
 								<div class="flex gap-2 items-center">
 									<div class="flex flex-col items-center">
 										<span>Stop</span>
@@ -44,6 +47,7 @@
 									<DatePicker v-model="form.stop_time.date" :clearable="false" :auto-apply="true" :enable-time-picker="false" name="stop_date" id="stop_date"></DatePicker>
 									<DatePicker v-model="form.stop_time.time" :clearable="false" time-picker name="stop_time" id="stop_time"></DatePicker>
 								</div>
+								<div class="mt-2 text-sm text-red-600" v-if="form.errors.stop_time">{{ form.errors.stop_time }}</div>
 								<div class="flex gap-2">
 									<input type="checkbox" id="all-day" name="all-day" class="transform translate-y-px">
 									<label for="all-day">All day</label>

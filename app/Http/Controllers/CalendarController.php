@@ -63,22 +63,23 @@ class CalendarController extends Controller
 
 	public function update(Request $request, $id)
 	{
-		$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
-
-		$data = [
-			'name' => $request->name,
-			'description' => $request->description,
+		$formattedData = [
 			'start_time' => $this->formatDateTime($request->start_time),
 			'stop_time' => $this->formatDateTime($request->stop_time),
 		];
 
-		$calendarItem->delete();
+		$validated = validator($formattedData, [
+			'start_time' => 'required|date|before:stop_time',
+			'stop_time' => 'required|date|after:start_time',
+		])->validate();
 
+		$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
+		$calendarItem->delete();
 		$timeBlock = TimeBlock::create([
-			'name' => $data['name'],
-			'description' => $data['description'],
-			'start_time' => $data['start_time'],
-			'stop_time' => $data['stop_time'],
+			'name' => $validated['name'],
+			'description' => $request->description,
+			'start_time' => $validated['start_time'],
+			'stop_time' => $validated['stop_time'],
 			'color_id' => 1,
 		]);
 
@@ -93,22 +94,6 @@ class CalendarController extends Controller
 		$week = $request->query('week');
 		return redirect()->route('calendar', ['week' => $week]);
 	}
-
-	//public function update(Request $request, $id)
-	//{
-	//	$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
-	//
-	//	$data = [
-	//		'name' => $request->name,
-	//		'start_time' => $this->formatDateTime($request->start_time),
-	//		'stop_time' => $this->formatDateTime($request->stop_time),
-	//	];
-	//	$calendarItem->timeblock->fill($data)->save();
-	//
-	//	$week = $request->query('week');
-	//	return redirect()->route('calendar', ['week' => $week]);
-	//}
-
 
 	public function destroy(CalendarItem $calendarItem, Request $request)
 	{
