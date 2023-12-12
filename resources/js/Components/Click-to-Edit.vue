@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<input type="text"
-			:class="['p-0 m-0 w-auto', fontSize]"
+			:class="['p-0 m-0 w-auto', inputStyle]"
 			v-if="edit"
 			v-model="localValue"
 			@input="updateParent"
@@ -9,8 +9,10 @@
 			@keyup.enter="onBlur"
 			v-focus
 		/>
-		<p v-else @click="edit = true;">
+
+		<p v-else @click="edit = true;" class="w-fit">
 			{{ localValue }}
+			<i class="fa-solid fa-pen-to-square"></i>
 		</p>
 
 	</div>
@@ -21,7 +23,7 @@ export default {
 	name: "Click-to-Edit",
 	props: {
 		value: String,
-		fontSize: String,
+		inputStyle: String,
 	},
 	data() {
 		return {

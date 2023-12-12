@@ -16,11 +16,11 @@
 
 						<DialogPanel class="w-full max-w-md transform  rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-al border-t-8 border-primary">
 							<DialogTitle as="h3" class="text-lg font-bold leading-6 text-gray-900">
-								<ClickToEdit :value="form.name" @input="$event && $event.target && (toUpdate.name = $event.target.value)" font-size="text-lg"></ClickToEdit>
+								<ClickToEdit :value="form.name" @input="$event && $event.target && (toUpdate.name = $event.target.value)" input-style="text-lg"></ClickToEdit>
 							</DialogTitle>
 							<div class="mt-2 text-gray-500">
 								<p class="text-sm text-gray-500 w-5/6">
-									<ClickToEdit :value="form.description" @input="$event && $event.target && (toUpdate.description = $event.target.value)" font-size="text-lg"></ClickToEdit>
+									<ClickToEdit :value="form.description" @input="$event && $event.target && (toUpdate.description = $event.target.value)" input-style="text-sm"></ClickToEdit>
 								</p>
 							</div>
 							<div class="mt-2 text-sm text-gray-600 flex flex-col gap-2">
@@ -138,6 +138,7 @@ export default {
 			if (this.toUpdate.name !== "") {
 				this.form.name = this.toUpdate.name
 			}
+
 			const weekData = window.location.pathname.split("/").pop();
 			if (weekData !== "calendar" || (weekData !== "availability")) {
 				this.form.patch(`/calendar/${this.timeBlock.id}?week=${weekData}`, {
@@ -156,6 +157,10 @@ export default {
 			}
 		},
 		closeModal() {
+			this.toUpdate = {
+				name: "",
+				description: "",
+			}
 			this.$emit("closeModal")
 		},
 		deleteTimeBlock() {
