@@ -13,6 +13,15 @@ class CalendarItem extends Model
 		'time_block_id',
 	];
 
+	public function startTime()
+	{
+		return $this->timeblock->time_start;
+	}
+	public function stopTime()
+	{
+		return $this->timeblock->time_stop;
+	}
+
 	public function user()
 	{
 		return $this->belongsTo(User::class);

@@ -1,7 +1,7 @@
 <template>
 	<MainLayout>
 		<template #main>
-			<CalendarGrid type="AvailabilityCalendar" :time-blocks="availabilityItems"></CalendarGrid>
+			<CalendarGrid type="AvailabilityCalendar" :time-blocks="availabilityItems" :week="week"></CalendarGrid>
 		</template>
 	</MainLayout>
 </template>
@@ -13,6 +13,7 @@ export default {
 	name: "AvailabilityCalendarPage",
 	props: {
 		availabilityItems: Array,
+		week: Object,
 	},
 	components: {
 		CalendarGrid,
