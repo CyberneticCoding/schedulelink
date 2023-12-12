@@ -3,11 +3,7 @@
 
 use App\Models\Company;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Testing\Assert;
-use Inertia\Testing\AssertableInertia;
 use Tests\TestCase;
 
 
@@ -20,16 +16,17 @@ class CompanyMembersTest extends TestCase
 		$members = User::factory()->count(10)->create();
 		$company->users()->attach($members);
 		Auth::guard()->setUser($owner);
-
+		// check if user exists in DB
+		$this->assertDatabaseHas('company_user', ['user_id' => $members[5]->id, 'company_id' => $company->id]);
 		// remove user as owner
 		$response = $this->post('/settings/company/members/remove', [
 			'userId'=> $members[5]->id,
 			'companyId'=> $company->id
 		]);
-		// check response = succes
-		$response->assertStatus(200);
+		// check response
+		$response->assertStatus(302);
 		// check if user is removed from DB
-		$this->assertDatabaseMissing('users', ['id' => $members[5]->id]);
+		$this->assertDatabaseMissing('company_user', ['user_id' => $members[5]->id, 'company_id' => $company->id]);
 
 	}
 
@@ -40,16 +37,17 @@ class CompanyMembersTest extends TestCase
 		$members = User::factory()->count(10)->create();
 		$company->users()->attach($members);
 		Auth::guard()->setUser($members[0]);
-
+		// check if user exists in DB
+		$this->assertDatabaseHas('company_user', ['user_id' => $members[6]->id, 'company_id' => $company->id]);
 		// remove user as a member
 		$response = $this->post('/settings/company/members/remove', [
 			'userId'=> $members[6]->id,
 			'companyId'=> $company->id
 		]);
-		// check response = error
-		$response->assertStatus(500);
+		// check response
+		$response->assertStatus(302);
 		// check if user is NOT removed from DB
-		$this->assertDatabaseHas('users', ['id' => $members[5]->id]);
+		$this->assertDatabaseHas('company_user', ['user_id' => $members[6]->id, 'company_id' => $company->id]);
 	}
 	public function setupTestcompany($user){
 		$company = Company::create([
