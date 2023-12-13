@@ -14,7 +14,7 @@
 								</div>
 								<div class="flex">
 									<span class="pr-4">Owner:</span>
-									<h1>{{ $page.props.auth.activeCompany.owner.first_name + "" + $page.props.auth.activeCompany.owner.last_name }}</h1>
+									<h1>{{ $page.props.auth.activeCompany.owner.name }}</h1>
 								</div>
 							</li>
 							<li v-if="$page.props.auth.activeCompany.description">
@@ -37,7 +37,7 @@
 											</ul>
 										</div>
 										<div>
-											<Link :id="'remove-'+member.id" @click="removeUser(member.id)" class="flex w-44 justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+											<Link v-if="isOwner" :id="'remove-'+member.id" @click="removeUser(member.id)" class="flex w-44 justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
 												{{ "Remove" }}
 											</Link>
 										</div>
@@ -47,7 +47,7 @@
 							</div>
 						</div>
 						<div >
-							<Link href="members/add" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+							<Link v-if="isOwner" href="members/add" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 								{{ $t('settings.company.members.add_members') }}
 							</Link>
 						</div>
@@ -80,5 +80,10 @@ export default {
 			});
 		},
 	},
+	computed: {
+		isOwner() {
+			return this.$page.props.auth.isOwner
+		}
+	}
 }
 </script>

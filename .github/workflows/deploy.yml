@@ -1,0 +1,47 @@
+name: Deploy Laravel Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    env:
+      DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_USERNAME: ${{ secrets.DEPLOY_DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DEPLOY_DB_PASSWORD }}
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+
+      - name: Install NPM Dependencies and Build Assets
+        run: |
+          npm install
+          npm run build
+
+      - name: Configure Laravel Environment
+        run: |
+          cp .env.example .env
+          sed -i "s/DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" .env
+          sed -i "s/DEPLOY_DB_USERNAME=.*/DB_USERNAME=${DEPLOY_DB_USERNAME}/" .env
+          sed -i "s/DEPLOY_DB_PASSWORD=.*/DB_PASSWORD=${DEPLOY_DB_PASSWORD}/" .env
+
+
+      - name: Run Laravel Migrations
+        run: php artisan migrate --force
+
+      - name: Optimize Laravel Application
+        run: php artisan optimize
