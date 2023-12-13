@@ -53,6 +53,9 @@ jobs:
       - name: Generate key
         run: php artisan key:generate
 
+      - name: Migrate
+        run: php artisan migrate --force
+        
       - name: Start the application (use your actual start command)
         run: npm run build
 
