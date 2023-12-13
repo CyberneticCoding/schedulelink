@@ -68,13 +68,16 @@ class CalendarController extends Controller
 			'stop_time' => $this->formatDateTime($request->stop_time),
 		];
 
-		$validated = validator($formattedData, [
+		$validated = validator($formattedData + $request->only('name', 'description'), [
 			'start_time' => 'required|date|before:stop_time',
 			'stop_time' => 'required|date|after:start_time',
+			'name' => 'required|string'
 		])->validate();
 
 		$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
+
 		$calendarItem->delete();
+
 		$timeBlock = TimeBlock::create([
 			'name' => $validated['name'],
 			'description' => $request->description,
@@ -90,6 +93,7 @@ class CalendarController extends Controller
 			'time_block_id' => $timeBlock->id,
 			'user_id' => $user,
 		]);
+
 
 		$week = $request->query('week');
 		return redirect()->route('calendar', ['week' => $week]);
