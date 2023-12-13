@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/settings/company', [SettingController::class, 'companyDetailsPage'])->name('settings.details');
 	Route::get('/settings/company/members', [SettingController::class, 'companyMembersPage'])->name('companies.members');
 
+	Route::get('/settings/company/add', [SettingController::class, 'companyAddPage'])->name('companies.add');
 	Route::post('/settings/company/add', [SettingController::class, 'addCompany']);
 	Route::group(['middleware' => ['checkCompanyOwnership']], function () {
 		Route::get('/settings/company/members/add', [SettingController::class, 'companyMembersAddPage'])->name('companies.members.add');
