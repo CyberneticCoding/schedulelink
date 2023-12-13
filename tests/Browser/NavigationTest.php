@@ -22,16 +22,17 @@ class NavigationTest extends DuskTestCase
 		]);
         $this->browse(function (Browser $browser) {
 			$browser->loginAs($this->user);
-			$this->visitUrl($browser, '/combined-calendar');
+			$browser->visit('/calendar');
+			$this->clickNav($browser, '/combined-calendar', 'Combined Calendar');
 			$this->checkDefaultNav($browser);
 
-			$this->visitUrl($browser, '/meetings');
+			$this->clickNav($browser, '/meetings', 'Meetings');
 			$this->checkDefaultNav($browser);
 
-			$this->visitUrl($browser, '/teams');
+			$this->clickNav($browser, '/teams', 'Teams');
 			$this->checkDefaultNav($browser);
 
-			$this->visitUrl($browser, '/calendar');
+			$this->clickNav($browser, '/calendar', 'Calendar');
 			$this->checkDefaultNav($browser);
 
 			$browser->click('#availability-button')
@@ -41,17 +42,19 @@ class NavigationTest extends DuskTestCase
 			$this->checkDefaultNav($browser);
 
 			//settings navigation
-			$this->visitUrl($browser, '/settings/account');
+			$browser->clickLink('Settings');
+
+			$this->clickNav($browser, '/settings/notifications', 'Notifications');
 			$this->checkSettingsNav($browser);
 
-			$this->visitUrl($browser, '/settings/notifications');
+			$this->clickNav($browser, '/settings/account', 'Account');
 			$this->checkSettingsNav($browser);
-
         });
     }
 
-	public function visitUrl($browser, $url) {
-		$browser->visit($url)
+	public function clickNav($browser, $url, $button) {
+		$browser->waitForText($button)
+			->clickLink($button)
 			->waitForLocation($url)
 			->assertPathIs($url);
 	}

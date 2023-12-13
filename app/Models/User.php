@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'active_company_id',
     ];
 
     /**
@@ -50,5 +51,17 @@ class User extends Authenticatable
 	public function availabilityItems()
 	{
 		return $this->hasMany(AvailabilityItem::class);
+	}
+	public function companies()
+	{
+		return $this->belongsToMany(Company::class, 'company_user');
+	}
+	public function ownedCompanies()
+	{
+		return $this->hasMany(Company::class, 'owner_id');
+	}
+	public function activeCompany()
+	{
+		return $this->belongsTo(Company::class, 'active_company_id');
 	}
 }

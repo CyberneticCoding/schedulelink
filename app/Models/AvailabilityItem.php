@@ -21,6 +21,5 @@ class AvailabilityItem extends Model
 	public function timeblock()
 	{
 		return $this->belongsTo(TimeBlock::class, 'time_block_id');
-
 	}
 }

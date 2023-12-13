@@ -21,6 +21,7 @@ class TimeBlock extends Model
 	{
 		return $this->belongsTo(Color::class, 'color_id');
 	}
+
 	public function calendarItems()
 	{
 		return $this->hasMany(CalendarItem::class);
