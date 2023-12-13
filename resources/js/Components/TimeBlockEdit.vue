@@ -18,7 +18,6 @@
 							<DialogTitle as="h3" class="text-lg font-bold leading-6 text-gray-900">
 								<ClickToEdit :value="form.name" @input="$event && $event.target && (toUpdate.name = $event.target.value)" input-style="text-lg"></ClickToEdit>
 								<div class="mt-2 text-sm text-red-600" v-if="form.errors.name">{{ form.errors.name }}</div>
-								{{form.errors}}
 							</DialogTitle>
 							<div class="mt-2 text-gray-500">
 								<p class="text-sm text-gray-500 w-5/6">
@@ -132,6 +131,7 @@ export default {
 					time: { hours: 0, minutes: 0 },
 				},
 			}),
+			type: String,
 		}
 	},
 	methods: {
@@ -144,15 +144,15 @@ export default {
 			}
 
 			const weekData = window.location.pathname.split("/").pop();
-			if (weekData !== "calendar" || (weekData !== "availability")) {
-				this.form.patch(`/calendar/${this.timeBlock.id}?week=${weekData}`, {
+			if (weekData !== "calendar" && (weekData !== "availability")) {
+				this.form.patch(`${this.route}${this.timeBlock.id}?week=${weekData}`, {
 					preserveScroll: true,
 					onSuccess: () => {
 						this.closeModal();
 					},
 				})
 			} else {
-				this.form.patch(`/calendar/${this.timeBlock.id}`, {
+				this.form.patch(`${this.route}${this.timeBlock.id}`, {
 					preserveScroll: true,
 					onSuccess: () => {
 						this.closeModal();
@@ -165,16 +165,17 @@ export default {
 				name: "",
 				description: "",
 			}
+			this.form.clearErrors()
 			this.$emit("closeModal")
 		},
 		deleteTimeBlock() {
 			const weekData = window.location.pathname.split("/").pop();
-			if (weekData !== "calendar" || (weekData !== "availability")) {
-				this.$inertia.delete(`/calendar/${this.timeBlock.id}?week=${weekData}`, {
+			if (weekData !== "calendar" && (weekData !== "availability")) {
+				this.$inertia.delete(`${this.route}${this.timeBlock.id}?week=${weekData}`, {
 					preserveScroll: true,
 				});
 			} else {
-				this.$inertia.delete(`/calendar/${this.timeBlock.id}`, {
+				this.$inertia.delete(`${this.route}${this.timeBlock.id}`, {
 					preserveScroll: true,
 				});
 			}

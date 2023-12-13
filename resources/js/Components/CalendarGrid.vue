@@ -229,10 +229,18 @@
 							></TimeBlock>
 						</ol>
 						<TimeBlockEdit
+							v-if="ifMainCalendar"
 							@closeModal="editPopupOpen = false"
 							:timeBlock="selectedTimeBlock"
 							:open="editPopupOpen"
 							route="/calendar/">
+						</TimeBlockEdit>
+						<TimeBlockEdit
+							v-if="ifAvailabilityCalendar"
+							@closeModal="editPopupOpen = false"
+							:timeBlock="selectedTimeBlock"
+							:open="editPopupOpen"
+							route="/availability/">
 						</TimeBlockEdit>
 					</div>
 				</div>

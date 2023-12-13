@@ -32,9 +32,12 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/calendar/{week?}', [CalendarController::class, 'store'])->name('calendar.store');
 	Route::patch('/calendar/{calendarItem}', [CalendarController::class, 'update'])->name('calendar.update');
 	Route::delete('/calendar/{calendarItem}', [CalendarController::class, 'destroy'])->name('calendar.destroy');
+
 	Route::get('/availability/{week?}', [CalendarController::class, 'availability'])->name('availability');
 	Route::post('/availability/{week?}', [CalendarController::class, 'storeAvailability'])->name('availability.store');
+	Route::patch('/availability/{availabilityItem}', [CalendarController::class, 'updateAvailability'])->name('availability.update');
 	Route::delete('/availability/{availabilityItem}', [CalendarController::class, 'destroyAvailability'])->name('availability.destroy');
+
 	Route::get('/combined-calendar', function () {
 		return Inertia::render('CombinedCalendarPage');
 	});

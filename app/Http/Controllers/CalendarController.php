@@ -38,6 +38,13 @@ class CalendarController extends Controller
 
 	public function availability($week = null)
 	{
+		//$validator = validator(['week' => $week], [ //todo implement week switching for availabilty
+		//	'week' => 'nullable|date',
+		//]);
+		//if (!$validator->passes()) {
+		//	return redirect()->route('availability');
+		//}
+
 		list($startDate, $currentDate, $endDate) = $this->calculateDates($week);
 
 		$availabilityItems = $this->getTimeBlocks(auth()->user()->availabilityItems(), $startDate, $endDate);
@@ -63,42 +70,13 @@ class CalendarController extends Controller
 
 	public function update(Request $request, $id)
 	{
-		$formattedData = [
-			'start_time' => $this->formatDateTime($request->start_time),
-			'stop_time' => $this->formatDateTime($request->stop_time),
-		];
-
-		$validated = validator($formattedData + $request->only('name', 'description'), [
-			'start_time' => 'required|date|before:stop_time',
-			'stop_time' => 'required|date|after:start_time',
-			'name' => 'required|string'
-		])->validate();
-
-		$calendarItem = CalendarItem::with('timeblock')->findOrFail($id);
-
-		$calendarItem->delete();
-
-		$timeBlock = TimeBlock::create([
-			'name' => $validated['name'],
-			'description' => $request->description,
-			'start_time' => $validated['start_time'],
-			'stop_time' => $validated['stop_time'],
-			'color_id' => 1,
-		]);
-
-		$user = auth()->user();
-
-		// Determine the relationship based on the method name
-		$user->calendarItems()->create([
-			'time_block_id' => $timeBlock->id,
-			'user_id' => $user,
-		]);
-
-
-		$week = $request->query('week');
-		return redirect()->route('calendar', ['week' => $week]);
+		return $this->updateTimeBlock($request, $id, 'calendarItems');
 	}
 
+	public function updateAvailability(Request $request, $id)
+	{
+		return $this->updateTimeBlock($request, $id, 'availabilityItems');
+	}
 	public function destroy(CalendarItem $calendarItem, Request $request)
 	{
 		$calendarItem->timeblock->forceDelete();
@@ -115,6 +93,46 @@ class CalendarController extends Controller
 		return redirect()->route('availability', ['week' => $week]);
 	}
 
+	public function updateTimeBlock(Request $request, $id, $relationship)
+	{
+		$formattedData = [
+			'start_time' => $this->formatDateTime($request->start_time),
+			'stop_time' => $this->formatDateTime($request->stop_time),
+		];
+
+		$validated = validator($formattedData + $request->only('name', 'description'), [
+			'start_time' => 'required|date|before:stop_time',
+			'stop_time' => 'required|date|after:start_time',
+			'name' => 'required|string'
+		])->validate();
+
+		if ($relationship === "calendarItems") {
+			$timeBlockItem = CalendarItem::with('timeblock')->findOrFail($id);
+		}
+		if ($relationship === "availabilityItems") {
+			$timeBlockItem = AvailabilityItem::with('timeblock')->findOrFail($id);
+		}
+		$timeBlockItem->delete();
+
+		$timeBlock = TimeBlock::create([
+			'name' => $validated['name'],
+			'description' => $request->description,
+			'start_time' => $validated['start_time'],
+			'stop_time' => $validated['stop_time'],
+			'color_id' => 1,
+		]);
+
+		$user = auth()->user();
+
+		$user->$relationship()->create([
+			'time_block_id' => $timeBlock->id,
+			'user_id' => $user,
+		]);
+
+		//$week = $request->query('week');
+		//return redirect()->route('calendar', ['week' => $week]);
+		return redirect()->route('availability');
+	}
 
 
 
