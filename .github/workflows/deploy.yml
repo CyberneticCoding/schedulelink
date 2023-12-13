@@ -11,8 +11,8 @@ jobs:
 
     env:
       DB_DATABASE: ${{ secrets.DB_DATABASE }}
-      DB_USERNAME: ${{ secrets.DB_USERNAME }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_USERNAME: ${{ secrets.DEPLOY_DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DEPLOY_DB_PASSWORD }}
       
     steps:
       - name: Checkout Repository
@@ -36,8 +36,8 @@ jobs:
         run: |
           cp .env.example .env
           sed -i "s/DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" .env
-          sed -i "s/DB_USERNAME=.*/DB_USERNAME=${DB_USERNAME}/" .env
-          sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/" .env
+          sed -i "s/DEPLOY_DB_USERNAME=.*/DB_USERNAME=${DEPLOY_DB_USERNAME}/" .env
+          sed -i "s/DEPLOY_DB_PASSWORD=.*/DB_PASSWORD=${DEPLOY_DB_PASSWORD}/" .env
 
 
       - name: Run Laravel Migrations
