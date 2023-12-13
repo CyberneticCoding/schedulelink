@@ -43,7 +43,6 @@ export default {
 		let dayOfWeek = new Date(props.timeBlock.timeblock.start_time).getDay();
 		if (dayOfWeek === 0) dayOfWeek = 7
 		const dayStyle = `col-start-${dayOfWeek}`;
-
 		return {
 			dayStyle,
 		}
