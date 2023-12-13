@@ -40,6 +40,13 @@ class SettingController extends Controller
 		$newcompany->owner_id = auth()->user()->id;
 		$newcompany->save();
 
+		if($request['default']||auth()->user()->active_company_id===null){
+			$user = auth()->user();
+			$user->active_company_id = $newcompany->id;
+			$user->save();
+		}
+
+
 		return redirect('/settings/company');
 	}
 	// Company members

@@ -37,7 +37,7 @@ class AddCompanyTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function test_user_can_add_company()
+	public function test_user_can_add_first_company()
 	{
 		$user = User::factory()->create();
 		Auth::guard()->setUser($user);
@@ -47,13 +47,14 @@ class AddCompanyTest extends TestCase
 		];
 		$response = $this->post('/settings/company/add', $data);
 
-		// Controleer 302 'omleiding'
+		// Check 302 'omleiding'
 		$response->assertStatus(302);
-
+		// Check redirect to company details
 		$response->assertRedirect('/settings/company');
 
-		// Controleer database.
+		// Check database. (company created, active company set to this company)
 		$this->assertDatabaseHas('companies', ['name' => $data['name']]);
+		$this->assertDatabaseHas('users', ['id' => $user->id, 'active_company_id' => Company::where('name', $data['name'])->first('id')->id]);
 	}
 
 	/**
@@ -105,5 +106,62 @@ class AddCompanyTest extends TestCase
 		$response->assertSessionHasErrors([
 			'description',
 		]);
+	}
+	public function test_user_can_create_company_and_set_as_active_company(){
+
+		$user = User::factory()->create();
+		Auth::guard()->setUser($user);
+		$company = $this->setupTestcompany($user);
+
+		// check if active company is set
+		$this->assertDatabaseHas('users', ['id' => $user->id, 'active_company_id' => $company->id]);
+		$data = [
+			'name' => fake()->unique()->domainName,
+			'description' => fake()->realTextBetween(maxNbChars: 255),
+			'default' => true,
+		];
+		$response = $this->post('/settings/company/add', $data);
+
+		// Check 302 'omleiding'
+		$response->assertStatus(302);
+		// Check redirect to company details
+		$response->assertRedirect('/settings/company');
+		// Check if company exists in DB
+		$this->assertDatabaseHas('companies', ['name' => $data['name']]);
+		// Check if user had active company set to created company
+		$this->assertDatabaseHas('users', ['id' => $user->id, 'active_company_id' => Company::where('name', $data['name'])->first('id')->id]);
+	}
+	public function test_user_can_create_company_without_setting_active_company(){
+
+	$user = User::factory()->create();
+	Auth::guard()->setUser($user);
+	$company = $this->setupTestcompany($user);
+
+	// check if active company is set
+	$this->assertDatabaseHas('users', ['id' => $user->id, 'active_company_id' => $company->id]);
+	$data = [
+		'name' => fake()->unique()->domainName,
+		'description' => fake()->realTextBetween(maxNbChars: 255),
+		'default' => false,
+	];
+	$response = $this->post('/settings/company/add', $data);
+
+	// Check 302 'omleiding'
+	$response->assertStatus(302);
+	// Check redirect to company details
+	$response->assertRedirect('/settings/company');
+	// Check if company exists in DB
+	$this->assertDatabaseHas('companies', ['name' => $data['name']]);
+	// Check if user had active company not set to created company
+	$this->assertDatabaseMissing('users', ['id' => $user->id, 'active_company_id' => Company::where('name', $data['name'])->first('id')->id]);
+}
+
+	public function setupTestcompany($user){
+		$company = Company::create([
+			'name' => 'TestCompany',
+			'owner_id' => $user->id,
+		]);
+		$user->update(['active_company_id' => $company->id]);
+		return $company;
 	}
 }

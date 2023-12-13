@@ -90,7 +90,8 @@
 		"title": "Create new company",
 		"name":"Company name *",
 		"description": "Company description",
-		"submit": "Create"
+		"submit": "Create",
+		"default": "Set as current company"
 	  },
 	  "members": {
 		"title": "Company Members",
