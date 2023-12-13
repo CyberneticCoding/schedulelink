@@ -18,6 +18,5 @@ class DatabaseSeeder extends Seeder
 			CalendarItemSeeder::class,
 			AvailabilityItemSeeder::class,
 		]);
-
     }
 }
