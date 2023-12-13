@@ -48,10 +48,7 @@ class HandleInertiaRequests extends Middleware
 						'name' => $request->user()->activeCompany->owner->first_name . ' ' . $request->user()->activeCompany->owner->last_name,
 					],
 				] : null,
-				'activeCompanyOwner' => $request->user() ? $request->user()->activeCompany : null,
-				'isOwner' => $request->user() ? ($request->user()->activeCompany ? $request->user()->id === $request->user()->activeCompany->owner_id : null) : null,
 			],
-			//'userOwnsActiveCompany' => $request->user() && $request->user()->activeCompany() && $request->user()->activeCompany()->owner && $request->user()->activeCompany()->owner->id === auth()->id(),
         ]);
     }
 }

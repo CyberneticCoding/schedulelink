@@ -12,13 +12,11 @@ use Tests\DuskTestCase;
 class CompanyMembersTest extends DuskTestCase
 {
 	use DatabaseMigrations;
-    /**
-     * A Dusk test example.
-     */
-    public function test_company_delete_member(): void
+
+    public function test_company_owner_can_remove_member(): void
     {
-		$user = $this->setupTestuser();
-		$company = $this->setupTestcompany($user);
+		$user = $this->setupTestUser();
+		$company = $this->setupTestCompany($user);
 
 		$users = User::factory()->count(10)->create();
 		$toRemoveUser = User::factory()->create([
@@ -40,8 +38,8 @@ class CompanyMembersTest extends DuskTestCase
 	}
 	public function test_company_owner_can_see_company_users(): void
 	{
-		$user = $this->setupTestuser();
-		$company = $this->setupTestcompany($user);
+		$user = $this->setupTestUser();
+		$company = $this->setupTestCompany($user);
 
 		$users = User::factory()->count(10)->create();
 		$company->users()->attach($users);
@@ -64,16 +62,15 @@ class CompanyMembersTest extends DuskTestCase
 			$browser->assertMissing($name);
 		});
 	}
-	public function setupTestuser(){
-		$user = User::factory()->create([
+	public function setupTestUser(){
+		return User::factory()->create([
 			'first_name' => 'Tester',
 			'last_name' => 'ScheduleLink',
 			'email' => 'Tester@schedulelink.com',
 			'password' => Hash::make('test'),
 		]);
-		return $user;
 	}
-	public function setupTestcompany($user){
+	public function setupTestCompany($user){
 		$company = Company::create([
 			'name' => 'TestCompany',
 			'owner_id' => $user->id,
