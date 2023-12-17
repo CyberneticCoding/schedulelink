@@ -95,10 +95,12 @@ class CalendarController extends Controller
 
 	private function storeTimeBlockAndRedirect(Request $request, $relationship)
 	{
-		if (!$request->stop_time) { // todo, right now always true. But change this when able to rescale during adding a new timeblock
+		$start_time = Carbon::parse($request->start_time);
+		if (!$request->stop_time) {
 			// If 'stop_time' is not provided, calculate it as needed
-			$start_time = Carbon::parse($request->start_time);
 			$stop_time = $start_time->copy()->addHour(); // Add 1 default hour
+		} else {
+			$stop_time = $request->stop_time;
 		}
 
 		$formattedData = [
