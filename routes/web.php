@@ -38,9 +38,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::patch('/availability/{availabilityItem}', [CalendarController::class, 'updateAvailability'])->name('availability.update');
 	Route::delete('/availability/{availabilityItem}', [CalendarController::class, 'destroyAvailability'])->name('availability.destroy');
 
-	Route::get('/combined-calendar', function () {
-		return Inertia::render('CombinedCalendarPage');
-	});
+	Route::get('/combined-calendar/{week?}', [CalendarController::class, 'combined'])->name('combined');
+
 	Route::get('/meetings', function () {
 		return Inertia::render('MeetingsPage');
 	});

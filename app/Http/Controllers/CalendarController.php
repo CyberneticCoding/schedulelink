@@ -59,6 +59,28 @@ class CalendarController extends Controller
 		]);
 	}
 
+	public function combined($week = null) {
+		$validator = validator(['week' => $week], [
+			'week' => 'nullable|date',
+		]);
+		if (!$validator->passes()) {
+			return redirect()->route('combined');
+		}
+
+		list($startDate, $currentDate, $endDate) = $this->calculateDates($week);
+
+		$calendarItems = $this->getTimeBlocks(auth()->user()->calendarItems(), $startDate, $endDate);
+
+		return Inertia::render('CombinedCalendarPage', [
+			'combinedItems' => $calendarItems,
+			'week' => [
+				'first_day' => $startDate,
+				'current_day' => $currentDate,
+				'last_day' => $endDate,
+			],
+		]);
+	}
+
 	public function store(StoreTimeBlock $request)
 	{
 		return $this->storeTimeBlockAndRedirect($request, 'calendarItems');
@@ -129,12 +151,13 @@ class CalendarController extends Controller
 			'user_id' => $user,
 		]);
 
-		//$week = $request->query('week');
-		//return redirect()->route('calendar', ['week' => $week]);
-		return redirect()->route('availability');
+
+		if ($relationship === "availabilityItems") {
+			return redirect()->route('availability');
+		}
+		$week = $request->query('week');
+		return redirect()->route('calendar', ['week' => $week]);
 	}
-
-
 
 
 	protected function calculateDates($week)
@@ -170,6 +193,7 @@ class CalendarController extends Controller
 			$data['stop_time'] = $start_time->copy()->addHour(); // Add 1 default hour
 		}
 
+
 		$timeBlock = TimeBlock::create([
 			'name' => $data['name'],
 			'start_time' => $data['start_time'],
@@ -178,12 +202,12 @@ class CalendarController extends Controller
 		]);
 
 		$user = auth()->user();
-
 		// Determine the relationship based on the method name
 		$user->$relationship()->create([
 			'time_block_id' => $timeBlock->id,
 			'user_id' => $user,
 		]);
+
 
 		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
 	}
