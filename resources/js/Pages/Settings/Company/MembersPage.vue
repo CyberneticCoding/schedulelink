@@ -3,7 +3,7 @@
 		<template #main>
 			<div class="mx-auto ml-10" >
 				<!--	Member settings	-->
-				<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{"Company info"}}</h3>
+				<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ "Company info" }}</h3>
 				<div>
 					<div>
 						<ul role="list" class="space-y-1">
@@ -20,7 +20,7 @@
 							<li v-if="$page.props.auth.activeCompany.description">
 								<div class="flex">
 									<span class="pr-4">Description:</span>
-									<h1>{{$page.props.auth.activeCompany.description}}</h1>
+									<h1>{{ $page.props.auth.activeCompany.description }}</h1>
 								</div>
 							</li>
 						</ul>
@@ -28,7 +28,6 @@
 						<div>
 							<div>
 								<ul role="list" class="space-y-2 user-list">
-
 									<li v-for="member in companyMembers" :key="member.id" class="flex justify-between w-3/4">
 										<div>
 											<ul>
@@ -41,12 +40,11 @@
 												{{ "Remove" }}
 											</Link>
 										</div>
-
 									</li>
 								</ul>
 							</div>
 						</div>
-						<div >
+						<div>
 							<Link v-if="isOwner" href="members/add" class="flex w-44 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 								{{ $t('settings.company.members.add_members') }}
 							</Link>
@@ -82,7 +80,7 @@ export default {
 	},
 	computed: {
 		isOwner() {
-			return this.$page.props.auth.isOwner
+			return this.$page.props.auth.activeCompany.isOwner
 		}
 	}
 }

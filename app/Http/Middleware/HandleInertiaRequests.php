@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
 					'id' => $request->user()->activeCompany->id,
 					'name' => $request->user()->activeCompany->name,
 					'description' => $request->user()->activeCompany->description,
+					'isOwner' => $request->user()->activeCompany->owner->id === $request->user()->id,
 					'owner' => [
 						'id' => $request->user()->activeCompany->owner->id,
 						'name' => $request->user()->activeCompany->owner->first_name . ' ' . $request->user()->activeCompany->owner->last_name,
