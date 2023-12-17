@@ -25,7 +25,6 @@ class CalendarController extends Controller
 		list($startDate, $currentDate, $endDate) = $this->calculateDates($week);
 
 		$calendarItems = $this->getTimeBlocks(auth()->user()->calendarItems(), $startDate, $endDate);
-
 		return Inertia::render('MainCalendarPage', [
 			'calendarItems' => $calendarItems,
 			'week' => [
@@ -93,6 +92,46 @@ class CalendarController extends Controller
 		return redirect()->route('availability', ['week' => $week]);
 	}
 
+
+	private function storeTimeBlockAndRedirect(Request $request, $relationship)
+	{
+		if (!$request->stop_time) { // todo, right now always true. But change this when able to rescale during adding a new timeblock
+			// If 'stop_time' is not provided, calculate it as needed
+			$start_time = Carbon::parse($request->start_time);
+			$stop_time = $start_time->copy()->addHour(); // Add 1 default hour
+		}
+
+		$formattedData = [
+			"start_time" => $start_time,
+			"stop_time" => $stop_time,
+			"name" => $request->name,
+		];
+
+		$validated = validator($formattedData, [
+			'start_time' => 'required|date|before:stop_time',
+			'stop_time' => 'required|date|after:start_time',
+			'name' => 'required|string'
+		])->validate();
+
+		$timeBlock = TimeBlock::create([
+			'name' => $validated['name'],
+			'description' => $request->description ? $request->description : 'null',
+			'start_time' => $validated['start_time'],
+			'stop_time' => $validated['stop_time'],
+			'color_id' => 1,
+		]);
+
+		$user = auth()->user();
+
+		$user->$relationship()->create([
+			'time_block_id' => $timeBlock->id,
+			'user_id' => $user->id,
+		]);
+
+		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
+	}
+
+
 	public function updateTimeBlock(Request $request, $id, $relationship)
 	{
 		$formattedData = [
@@ -159,33 +198,6 @@ class CalendarController extends Controller
 				$query->whereBetween('start_time', [$startDate, $endDate]);
 			})
 			->get();
-	}
-
-	private function storeTimeBlockAndRedirect(Request $request, $relationship)
-	{
-		$data = $request->validated();
-		if (!$data['stop_time']) {
-			// If 'stop_time' is not provided, calculate it as needed
-			$start_time = Carbon::parse($data['start_time']);
-			$data['stop_time'] = $start_time->copy()->addHour(); // Add 1 default hour
-		}
-
-		$timeBlock = TimeBlock::create([
-			'name' => $data['name'],
-			'start_time' => $data['start_time'],
-			'stop_time' => $data['stop_time'],
-			'color_id' => 1,
-		]);
-
-		$user = auth()->user();
-
-		// Determine the relationship based on the method name
-		$user->$relationship()->create([
-			'time_block_id' => $timeBlock->id,
-			'user_id' => $user,
-		]);
-
-		return redirect()->route(request()->segment(1), ['week' => request()->segment(2)]);
 	}
 	protected function formatDateTime($dateTime)
 	{

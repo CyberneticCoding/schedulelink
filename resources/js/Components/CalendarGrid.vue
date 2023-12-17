@@ -318,17 +318,18 @@ export default {
 			const dayIndex = Math.floor(clickPositionX / dayColumnWidth) + 1; //the clicked day
 
 			const currentDate = new Date(this.week.current_day);
-			const currentDayOfWeek = currentDate.getDay(); //current week day, 0 - 6
+			let currentDayOfWeek = currentDate.getDay(); //current week day, 0 - 6
+			currentDayOfWeek = (currentDayOfWeek === 0) ? 7 : currentDayOfWeek; //catch sunday being 0 instead of 6 (for starting day of the week is monday)
 
 			const dayDifference = dayIndex - currentDayOfWeek;
-
 			// Calculate the date for the desired day by adding the day difference
+
 			currentDate.setDate(currentDate.getDate() + dayDifference);
 
 			const { hours, minutes } = calculateTime(timeSlot);
 			currentDate.setHours(hours + 1);
-			currentDate.setMinutes(minutes);
 
+			currentDate.setMinutes(minutes);
 			this.$inertia.post(window.location.pathname, {
 				name: this.type === "Combined" ? "Combined Event" : this.type === "AvailabilityCalendar" ? "Available" : "New Event",
 				start_time: currentDate.toISOString(),
