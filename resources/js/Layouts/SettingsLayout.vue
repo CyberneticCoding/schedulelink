@@ -18,11 +18,14 @@
 							</div>
 						</TransitionChild>
 						<div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-tint px-6 pb-4">
-							<picture class="flex h-20 shrink-0 items-center">
-								<source media="(max-width: 600px)" srcset="../../img/schedulelink-logo.png">
-								<source media="(max-width: 601px)" srcset="../../img/schedulelink-logo.png">
-								<img class="h-12 w-auto" loading="eager" decoding="async" src="../../img/schedulelink-logo.png" alt="Logo schedulelink" width="280" height="380">
-							</picture>
+							<Link href="/">
+								<picture class="flex h-20 shrink-0 items-center">
+									<source media="(max-width: 600px)" srcset="../../img/schedulelink-logo.png">
+									<source media="(max-width: 601px)" srcset="../../img/schedulelink-logo.png">
+									<img class="h-12 w-auto" loading="eager" decoding="async" src="../../img/schedulelink-logo.png"
+										alt="Logo schedulelink" width="280" height="380">
+								</picture>
+							</Link>
 							<nav class="flex flex-1 flex-col">
 								<ul role="list" class="flex flex-1 flex-col gap-y-7">
 									<li>
@@ -91,11 +94,14 @@
 	<!-- Static sidebar for desktop -->
 	<div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 xl:w-72 lg:flex-col">
 		<div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-tint px-6 pb-4">
-			<picture class="flex h-20 shrink-0 items-center">
-				<source media="(max-width: 600px)" srcset="../../img/schedulelink-logo.png">
-				<source media="(max-width: 601px)" srcset="../../img/schedulelink-logo.png">
-				<img class="h-12 w-auto" loading="eager" decoding="async" src="../../img/schedulelink-logo.png" alt="Logo schedulelink" width="280" height="380">
-			</picture>
+			<Link href="/">
+				<picture class="flex h-20 shrink-0 items-center">
+					<source media="(max-width: 600px)" srcset="../../img/schedulelink-logo.png">
+					<source media="(max-width: 601px)" srcset="../../img/schedulelink-logo.png">
+					<img class="h-12 w-auto" loading="eager" decoding="async" src="../../img/schedulelink-logo.png"
+						alt="Logo schedulelink" width="280" height="380">
+				</picture>
+			</Link>
 			<nav class="flex flex-1 flex-col">
 				<ul role="list" class="flex flex-1 flex-col gap-y-7">
 					<li>
