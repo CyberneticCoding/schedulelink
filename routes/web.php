@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
 	//Route::get('/settings/calendar-import', [SettingController::class, 'importPage'])->name('settings.import');
 	Route::get('/settings/company', [SettingController::class, 'companyDetailsPage'])->name('settings.details');
 	Route::get('/settings/company/members', [SettingController::class, 'companyMembersPage'])->name('companies.members');
+	Route::post('/settings/selectcompany', [SettingController::class, 'selectCompany']);
 
 	Route::group(['middleware' => ['checkCompanyOwnership']], function () {
 		Route::get('/settings/company/members/add', [SettingController::class, 'companyMembersAddPage'])->name('companies.members.add');

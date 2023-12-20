@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\CompanyUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -49,6 +50,11 @@ class SettingController extends Controller
 		$company->users()->detach($user);
 		return redirect()->route('companies.members');
 	}
-
+	public function selectCompany(Request $request){
+		$companyId = $request->companyId;
+		auth()->user()->update(['active_company_id' => $companyId]);
+		//auth()->user()->active_company->set($companyId);]
+		return redirect()->back();
+	}
 
 }

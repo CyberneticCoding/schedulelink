@@ -26,6 +26,10 @@
 		  },
 		  "back": "Back"
 		}
+	},
+	"select_company": {
+	  "no_company": "No company set",
+	  "open_menu": "Open company menu"
 	}
   },
   "login": {

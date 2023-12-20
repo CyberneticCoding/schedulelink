@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\CompanyUser;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -39,6 +40,7 @@ class HandleInertiaRequests extends Middleware
 		return array_merge(parent::share($request), [
 			'auth' => [
 				'user' => $request->user(),
+				'companies' => $request->user() ? $request->user()->companies : [] ,
 				'activeCompany' => ($request->user() && $request->user()->activeCompany) ? [
 					'id' => $request->user()->activeCompany->id,
 					'name' => $request->user()->activeCompany->name,
