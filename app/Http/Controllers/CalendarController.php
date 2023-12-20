@@ -70,6 +70,17 @@ class CalendarController extends Controller
 
 		$calendarItems = $this->getTimeBlocks(auth()->user()->calendarItems(), $startDate, $endDate);
 
+		$activeCompany = auth()->user()->activeCompany;
+		$companyMembers = [];
+
+		if ($activeCompany) {
+			$companyMembers = $activeCompany->users->map(function ($user) {
+				return [
+					'value' => $user->first_name . ' ' . $user->last_name,
+					'email' => $user->email,
+				];
+			});
+		}
 		return Inertia::render('CombinedCalendarPage', [
 			'combinedItems' => $calendarItems,
 			'week' => [
@@ -77,6 +88,7 @@ class CalendarController extends Controller
 				'current_day' => $currentDate,
 				'last_day' => $endDate,
 			],
+			'companyMembers' => $companyMembers
 		]);
 	}
 

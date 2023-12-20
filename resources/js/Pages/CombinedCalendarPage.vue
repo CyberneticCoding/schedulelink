@@ -2,7 +2,7 @@
 	<MainLayout>
 		<template #main>
 			<CalendarGrid type="CombinedCalendar" :week="week"></CalendarGrid>
-			<SelectUsersModal></SelectUsersModal>
+			<SelectUsersModal :company-members="companyMembers"></SelectUsersModal>
 		</template>
 	</MainLayout>
 </template>
@@ -18,6 +18,7 @@ export default {
 	props: {
 		calendarItems: Array,
 		week: Object,
+		companyMembers: Array,
 	},
 	components: {
 		CalendarGrid,
