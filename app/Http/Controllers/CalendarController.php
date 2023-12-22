@@ -58,6 +58,40 @@ class CalendarController extends Controller
 		]);
 	}
 
+	public function combined($week = null) {
+		$validator = validator(['week' => $week], [
+			'week' => 'nullable|date',
+		]);
+		if (!$validator->passes()) {
+			return redirect()->route('combined');
+		}
+
+		list($startDate, $currentDate, $endDate) = $this->calculateDates($week);
+
+		$calendarItems = $this->getTimeBlocks(auth()->user()->calendarItems(), $startDate, $endDate);
+
+		$activeCompany = auth()->user()->activeCompany;
+		$companyMembers = [];
+
+		if ($activeCompany) {
+			$companyMembers = $activeCompany->users->map(function ($user) {
+				return [
+					'value' => $user->first_name . ' ' . $user->last_name,
+					'email' => $user->email,
+				];
+			});
+		}
+		return Inertia::render('CombinedCalendarPage', [
+			'combinedItems' => $calendarItems,
+			'week' => [
+				'first_day' => $startDate,
+				'current_day' => $currentDate,
+				'last_day' => $endDate,
+			],
+			'companyMembers' => $companyMembers
+		]);
+	}
+
 	public function store(StoreTimeBlock $request)
 	{
 		return $this->storeTimeBlockAndRedirect($request, 'calendarItems');
@@ -170,12 +204,13 @@ class CalendarController extends Controller
 			'user_id' => $user,
 		]);
 
-		//$week = $request->query('week');
-		//return redirect()->route('calendar', ['week' => $week]);
-		return redirect()->route('availability');
+
+		if ($relationship === "availabilityItems") {
+			return redirect()->route('availability');
+		}
+		$week = $request->query('week');
+		return redirect()->route('calendar', ['week' => $week]);
 	}
-
-
 
 
 	protected function calculateDates($week)

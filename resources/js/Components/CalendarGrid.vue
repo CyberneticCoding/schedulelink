@@ -362,6 +362,9 @@ export default {
 		ifAvailabilityCalendar() {
 			return this.type === "AvailabilityCalendar"
 		},
+		ifCombinedCalendar() {
+			return this.type === "CombinedCalendar"
+		},
 		daysOfWeek() {
 			/*  returns something like [ "30 Mon", "31 Tue", "01 Wed", "02 Thu", "03 Fri", "04 Sat", "05 Sun" ] */
 			const currentDate = new Date(this.week.current_day);

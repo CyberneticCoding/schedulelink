@@ -25,6 +25,7 @@
         "@inertiajs/inertia-vue3": "^0.6.0",
         "@vitejs/plugin-vue": "^4.4.0",
         "@vuepic/vue-datepicker": "^7.3.0",
+        "@yaireo/tagify": "^4.17.9",
         "vue": "^3.2.36",
         "vue-i18n": "^9.5.0",
         "vue-loader": "^17.3.0"
