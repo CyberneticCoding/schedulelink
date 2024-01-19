@@ -20,7 +20,7 @@
 
 
 							<div>
-								<label for="firstname" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.firstn') }}</label>
+								<label for="firstname" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.first_name') }}</label>
 								<div class="mt-2">
 									<input v-model="form.firstname" id="firstname" name="firstname" type="text" required autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
@@ -28,7 +28,7 @@
 							</div>
 
 							<div>
-								<label for="lastname" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.lastn') }}</label>
+								<label for="lastname" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.last_name') }}</label>
 								<div class="mt-2">
 									<input v-model="form.lastname" id="lastname" name="lastname" type="text" required autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>
@@ -51,7 +51,7 @@
 								<div v-if="form.errors.password" style="color: red">{{form.errors.password}} </div>
 							</div>
 							<div>
-								<label for="password2" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.password2') }}</label>
+								<label for="password2" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('register.password_repeat') }}</label>
 								<div class="mt-2">
 									<input v-model="form.password_confirmation" id="password2" name="password2" required type="password" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
 								</div>

@@ -9,7 +9,7 @@
 					<img class="h-16 w-auto" src="../../img/schedulelink-logo.png" alt="Logo Schedulelink" />
 					<h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('login.log_in') }}</h2>
 					<p class="mt-2 text-sm leading-6 text-gray-500">
-						{{ $t('login.no_a_member') }}
+						{{ $t('login.not_a_member') }}
 
 						<a href="/register" class="font-semibold text-indigo-600 hover:text-indigo-500">{{ $t('login.registration') }}</a>
 					</p>

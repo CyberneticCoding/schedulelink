@@ -68,8 +68,8 @@ class NavigationTest extends DuskTestCase
 	public function checkSettingsNav($browser) {
 		$browser->assertSee('Account');
 		$browser->assertSee('Notifications');
-		$browser->assertSee('User Settings');
-		$browser->assertSee('Company Settings');
+		$browser->assertSee('Calendar Preferences');
+		$browser->assertSee('Import');
 		$browser->assertSee('Back');
 	}
 }

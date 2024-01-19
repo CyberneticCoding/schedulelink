@@ -3,7 +3,7 @@
 		<template #main>
 			<div v-if="$page.props.auth.activeCompany" class="mx-auto ml-10" >
 				<!--	Current company info	-->
-				<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{$t('settings.company.details.title')}}</h3>
+				<h3 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{$t('settings.company.details.title') }}</h3>
 				<div>
 					<div>
 						<ul role="list" class="space-y-1">

@@ -151,7 +151,7 @@ class CalendarController extends Controller
 
 		$timeBlock = TimeBlock::create([
 			'name' => $validated['name'],
-			'description' => $request->description ? $request->description : 'null',
+			'description' => $request->description ? $request->description : null,
 			'start_time' => $validated['start_time'],
 			'stop_time' => $validated['stop_time'],
 			'color_id' => 1,

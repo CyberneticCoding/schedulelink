@@ -5,27 +5,18 @@
 	"search": "Search",
 	"view_notifications": "View notifications",
 	"nav": {
-		"main_calendar": "Calendar",
-		"combined_calendar": "Combined Calendar",
-		"meetings": "Meetings",
-		"teams": "Teams",
-		"settings": "Settings",
-	  	"logout": "Log out",
-	  	"settingsmenu":{
-		  "usersettings": "User Settings",
-		  "companysettings": "Company Settings",
-		  "user": {
-			"account": "Account",
-			"notifications": "Notifications",
-			"preferences": "Calendar Preferences",
-			"import": "Import"
-		  },
-		  "company": {
-			"details": "Details",
-			"members": "Members"
-		  },
-		  "back": "Back"
-		}
+	  "main_calendar": "Calendar",
+	  "combined_calendar": "Combined Calendar",
+	  "meetings": "Meetings",
+	  "teams": "Teams",
+	  "settings": "Settings",
+	  "logout": "Log out",
+	  "company": "Company",
+	  "back": "Back",
+	  "account": "Account",
+	  "notifications": "Notifications",
+	  "preferences": "Calendar Preferences",
+	  "import": "Import"
 	}
   },
   "login": {
@@ -36,15 +27,15 @@
 	"forgot_password": "Forgot password?",
 	"sign_in": "Sign in",
     "registration": "Register new account",
-	"no_a_member": "Not a member?"
+	"not_a_member": "Not a member?"
   },
   "register": {
-	"firstn": "First name *",
-	"lastn": "Last name *",
+	"first_name": "First name *",
+	"last_name": "Last name *",
 	"register": "Create your account",
 	"email": "Email adress *",
 	"password": "Password *",
-	"password2": "Repeat password *",
+	"password_repeat": "Repeat password *",
 	"submit": "Register",
 	"login": "Log in"
   },
@@ -82,7 +73,7 @@
 	},
   	"company": {
 	  "details": {
-		"title": "Company info",
+		"title": "Company Info",
 		"add_title": "New company",
 		"add_company": "Add new company"
 	  },

@@ -157,7 +157,7 @@
 		</div>
 
 		<main class="py-4">
-			<div class="mx-auto max-w-7xl bg-white">
+			<div class="w-full sm:w-auto mx-2 sm:mx-16 bg-white">
 				<slot name="main"/>
 			</div>
 		</main>
