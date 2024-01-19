@@ -22,7 +22,7 @@ class SettingController extends Controller
 	}
 	// Company settings
 	public function companyDetailsPage(){
-		return Inertia::render('Settings/Company/DetailsPage');
+		return Inertia::render('Settings/CompanyPage');
 	}
 	// Company add
 	public function companyAddPage(){

@@ -81,11 +81,9 @@ export default {
 
 		tagify.on("add", (e) => {
 			this.form.people.push(e.detail.data.value);
-			alert(JSON.stringify(this.form))
 		});
 
 		tagify.on("remove", (e) => {
-			alert(e.detail.data.value)
 			const removedIndex = this.form.people.findIndex(
 				(person) => person === e.detail.data.value
 			);

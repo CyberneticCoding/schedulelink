@@ -31,45 +31,33 @@
 									<li>
 										<ul role="list" class="-mx-2 space-y-1">
 											<li>
-												<h2> {{ $t("layout.nav.settingsmenu.usersettings") }}</h2>
-											</li>
-											<li>
-												<Link href="/settings/account" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/AccountSettingsPage'	? 'bg-gray-50 text-indigo-600' : '']">
-													<i :class="['fa-solid fa-user h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/AccountSettingsPage' ? 'text-primary' : '']" aria-hidden="true"/>
-													{{ $t("layout.nav.settingsmenu.user.account") }}
+												<Link href="/settings/account" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/AccountPage'	? 'bg-gray-50 text-indigo-600' : '']">
+													<i :class="['fa-solid fa-user h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/AccountPage' ? 'text-primary' : '']" aria-hidden="true"/>
+													{{ $t("layout.nav.user.account") }}
 												</Link>
 											</li>
 											<li>
 												<Link href="/settings/notifications" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/NotificationsPage'	? 'bg-gray-50 text-indigo-600' : '']">
 													<i :class="['fa-solid fa-bell h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/NotificationsPage' ? 'text-primary' : '']" aria-hidden="true"/>
-													{{ $t("layout.nav.settingsmenu.user.notifications") }}
+													{{ $t("layout.nav.user.notifications") }}
 												</Link>
 											</li>
 											<li>
 												<Link href="/settings/preferences" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/PreferencesPage' ? 'bg-gray-50 text-indigo-600' : '']">
 													<i :class="['fa-solid fa-calendar-check h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/PreferencesPage' ? 'text-primary' : '']" aria-hidden="true"/>
-													{{ $t("layout.nav.settingsmenu.user.preferences") }}
+													{{ $t("layout.nav.user.preferences") }}
 												</Link>
 											</li>
 											<li>
 												<Link href="/settings/calendar-import" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/ImportPage' ? 'bg-gray-50 text-indigo-600' : '']">
 													<i :class="['fa-solid fa-cloud-arrow-up h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/ImportPage' ? 'text-primary' : '']" aria-hidden="true"/>
-													{{ $t("layout.nav.settingsmenu.user.import") }}
-												</Link>
-											</li>
-											<li>
-												<h2> {{ $t("layout.nav.settingsmenu.companysettings") }}</h2>
-											</li>
-											<li v-if="hasActiveCompany">
-												<Link href="/settings/company" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/Company/DetailsPage' ? 'bg-gray-50 text-indigo-600' : '']">
-													<i :class="['fa-solid fa-building h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/Company/DetailsPage' ? 'text-primary' : '']" aria-hidden="true"/>
-													{{ $t("layout.nav.settingsmenu.company.details") }}
+													{{ $t("layout.nav.user.import") }}
 												</Link>
 											</li>
 											<li v-if="hasActiveCompany">
-												<Link href="/settings/company/members" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/Company/MembersPage'	? 'bg-gray-50 text-indigo-600' : '']">
-													<i :class="['fa-solid fa-users h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/Company/MembersPage' ? 'text-primary' : '']" aria-hidden="true"/>
-													{{ $t("layout.nav.settingsmenu.company.members") }}
+												<Link href="/settings/company" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/CompanyPage' ? 'bg-gray-50 text-indigo-600' : '']">
+													<i :class="['fa-solid fa-building h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/CompanyPage' ? 'text-primary' : '']" aria-hidden="true"/>
+													{{ $t("layout.nav.company") }}
 												</Link>
 											</li>
 										</ul>
@@ -77,7 +65,7 @@
 									<li class="mt-auto">
 										<Link href="/calendar" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
 											<i class="fa-solid fa-circle-left text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
-											{{ $t('layout.nav.settingsmenu.back') }}
+											{{ $t('layout.nav.back') }}
 										</Link>
 									</li>
 								</ul>
@@ -107,45 +95,33 @@
 					<li>
 						<ul role="list" class="-mx-2 space-y-1">
 							<li>
-								<h2> {{ $t("layout.nav.settingsmenu.usersettings") }}</h2>
-							</li>
-							<li>
-								<Link href="/settings/account" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/AccountSettingsPage'	? 'bg-gray-50 text-indigo-600' : '']">
-									<i :class="['fa-solid fa-user h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/AccountSettingsPage' ? 'text-primary' : '']" aria-hidden="true"/>
-									{{ $t("layout.nav.settingsmenu.user.account") }}
+								<Link href="/settings/account" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/AccountPage'	? 'bg-gray-50 text-indigo-600' : '']">
+									<i :class="['fa-solid fa-user h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/AccountPage' ? 'text-primary' : '']" aria-hidden="true"/>
+									{{ $t("layout.nav.account") }}
 								</Link>
 							</li>
 							<li>
 								<Link href="/settings/notifications" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/NotificationsPage'	? 'bg-gray-50 text-indigo-600' : '']">
 									<i :class="['fa-solid fa-bell h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/NotificationsPage' ? 'text-primary' : '']" aria-hidden="true"/>
-									{{ $t("layout.nav.settingsmenu.user.notifications") }}
+									{{ $t("layout.nav.notifications") }}
 								</Link>
 							</li>
 							<li>
 								<Link href="/settings/preferences" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/PreferencesPage' ? 'bg-gray-50 text-indigo-600' : '']">
 									<i :class="['fa-solid fa-calendar-check h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/PreferencesPage' ? 'text-primary' : '']" aria-hidden="true"/>
-									{{ $t("layout.nav.settingsmenu.user.preferences") }}
+									{{ $t("layout.nav.preferences") }}
 								</Link>
 							</li>
 							<li>
 								<Link href="/settings/calendar-import" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/ImportPage' ? 'bg-gray-50 text-indigo-600' : '']">
 									<i :class="['fa-solid fa-cloud-arrow-up h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/ImportPage' ? 'text-primary' : '']" aria-hidden="true"/>
-									{{ $t("layout.nav.settingsmenu.user.import") }}
-								</Link>
-							</li>
-							<li>
-								<h2> {{ $t("layout.nav.settingsmenu.companysettings") }}</h2>
-							</li>
-							<li v-if="hasActiveCompany">
-								<Link href="/settings/company" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/Company/DetailsPage' ? 'bg-gray-50 text-indigo-600' : '']">
-									<i :class="['fa-solid fa-building h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/Company/DetailsPage' ? 'text-primary' : '']" aria-hidden="true"/>
-									{{ $t("layout.nav.settingsmenu.company.details") }}
+									{{ $t("layout.nav.import") }}
 								</Link>
 							</li>
 							<li v-if="hasActiveCompany">
-								<Link href="/settings/company/members" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/Company/MembersPage'	? 'bg-gray-50 text-indigo-600' : '']">
-									<i :class="['fa-solid fa-users h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/Company/MembersPage' ? 'text-primary' : '']" aria-hidden="true"/>
-									{{ $t("layout.nav.settingsmenu.company.members") }}
+								<Link href="/settings/company" :class="['group flex gap-x-6 rounded-md p-2 text-sm leading-6 text-gray-700 hover:text-primary hover:bg-gray-50 font-semibold', $page.component === 'Settings/CompanyPage' ? 'bg-gray-50 text-indigo-600' : '']">
+									<i :class="['fa-solid fa-building h-6 w-6 shrink-0 fa-xl translate-y-2.5 text-gray-400 group-hover:text-primary', $page.component === 'Settings/CompanyPage' ? 'text-primary' : '']" aria-hidden="true"/>
+									{{ $t("layout.nav.company") }}
 								</Link>
 							</li>
 						</ul>
@@ -153,7 +129,7 @@
 					<li class="mt-auto">
 						<Link href="/calendar" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
 							<i class="fa-solid fa-circle-left text-gray-400 group-hover:text-primary h-6 w-6 shrink-0 fa-xl translate-y-2.5" aria-hidden="true" />
-							{{ $t('layout.nav.settingsmenu.back') }}
+							{{ $t('layout.nav.back') }}
 						</Link>
 					</li>
 				</ul>
@@ -215,7 +191,7 @@
 		</div>
 
 		<main class="py-4">
-			<div class="mx-auto max-w-7xl bg-white">
+			<div class="bg-white">
 				<slot name="main"/>
 			</div>
 		</main>
@@ -238,7 +214,7 @@ import {
 import {Link} from "@inertiajs/inertia-vue3";
 
 export default {
-	name: "MainLayout",
+	name: "SettingsLayout",
 	components: {
 		Dialog,
 		DialogPanel,
